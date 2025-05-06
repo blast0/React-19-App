@@ -60,7 +60,7 @@ const Navbar = ({
       }}
     >
       <div className="hidden md:flex md:items-center mx-2 md:space-x-8">
-        <NavLink to="/" className="hover:text-green-300 text-white">
+        <NavLink to="/home" className="hover:text-green-300 text-white">
           Home
         </NavLink>
         <NavLink to="/about" className="hover:text-green-300 text-white">
@@ -69,9 +69,9 @@ const Navbar = ({
         <NavLink to="/services" className="hover:text-green-300 text-white">
           Services
         </NavLink>
-        {/* <NavLink to="/imageEditor" className="hover:text-green-300 text-white">
+        <NavLink to="/" className="hover:text-green-300 text-white">
           Editor
-        </NavLink> */}
+        </NavLink>
         <NavLink to="/dashboard" className="hover:text-green-300 text-white">
           Dashboard
         </NavLink>
@@ -92,9 +92,6 @@ const Navbar = ({
       </div>
 
       <div className="flex mr-5 gap-5 justify-center items-center">
-        <NavLink to="/imageEditor" className="hover:text-green-300 text-white">
-          .
-        </NavLink>
         <div
           className="cursor-pointer ml-5"
           onClick={() => {

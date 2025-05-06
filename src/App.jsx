@@ -36,13 +36,14 @@ function App() {
             }}
           />
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Service />} />
             <Route
-              path="/imageEditor"
+              index
+              path="/"
               element={<FabricEditorPage theme={theme} />}
             />
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Service />} />
             <Route path="/dashboard" element={<Dashboard />}>
               {/* Nested routes under /dashboard */}
               <Route path="profile" element={<Profile />} />
