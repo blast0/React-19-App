@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"); */
+
+body {
+  font-family: "Poppins", sans-serif;
+  /* height: 100vh; */
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+@theme inline {
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+.loading {
+  border: 2px solid #fff;
+  width: 58px;
+  height: 58px;
+  background: #ff3d00;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+}
+.loading::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 24px solid;
+  border-color: transparent #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.Spinner-loader {
+  border: 2px solid #fff;
+  width: 48px;
+  height: 48px;
+  background: #ff3d00;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+}
+.Spinner-loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 24px solid;
+  border-color: transparent #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.login-loader {
+  width: 96px;
+  box-sizing: content-box;
+  height: 48px;
+  background: #fff;
+  border-color: #de3500;
+  border-style: solid;
+  border-width: 2px 2px 50px 2px;
+  border-radius: 100%;
+  position: relative;
+  animation: 3s yinYang linear infinite;
+}
+.login-loader:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  background: #fff;
+  border: 18px solid #de3500;
+  border-radius: 100%;
+  width: 12px;
+  height: 12px;
+  box-sizing: content-box;
+}
+.login-loader:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: #de3500;
+  border: 18px solid #fff;
+  border-radius: 100%;
+  width: 12px;
+  height: 12px;
+  box-sizing: content-box;
+}
+@keyframes yinYang {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.slim-scroll {
+  scrollbar-color: #babac0 #f0f0f0;
+  scrollbar-width: thin;
+}
+
+.slim-scroll.v-white {
+  scrollbar-color: #babac0 #fff;
+  scrollbar-width: thin;
+}
+
+/* total width */
+.slim-scroll::-webkit-scrollbar {
+  background-color: #fff;
+  width: 6px;
+}
+
+/* background of the scrollbar except button or resizer */
+.slim-scroll::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+}
+
+.slim-scroll.v-white::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+
+.slim-scroll::-webkit-scrollbar-track:hover {
+  background-color: #f4f4f4;
+}
+
+.slim-scroll.v-white::-webkit-scrollbar-track:hover {
+  background-color: #fff;
+}
+
+/* scrollbar itself */
+.slim-scroll::-webkit-scrollbar-thumb {
+  background-color: #babac0;
+  width: 16px;
+}
+
+.slim-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #a0a0a5;
+}
+
+/* set button(top and bottom of the scrollbar) */
+.slim-scroll::-webkit-scrollbar-button {
+  display: none;
+}
