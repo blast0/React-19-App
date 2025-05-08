@@ -269,7 +269,6 @@ class ActiveElementControls extends Component {
             : activeElement?.type + " Fit:"}
         </Label>
         <Dropdown
-          className={"bg-white"}
           placeHolder={
             activeElementProps?.patternActive
               ? activeElementProps.patternFit
@@ -739,7 +738,8 @@ class ActiveElementControls extends Component {
               <Title key={item.bId} title={item.title}>
                 <div
                   key={item.bId}
-                  className="cursor-pointer rounded-[4px] gap-2 flex border-slate-200 dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300 justify-center items-center m-0 p-0 w-[42px] h-[40px]"
+                  className="dark:border-slate-800 
+                   cursor-pointer rounded-[4px] gap-2 flex border border-slate-200 dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300 justify-center items-center m-0 p-0 w-[42px] h-[40px]"
                   onClick={() => {
                     if (item.bId === "Top-Left") {
                       onChange(ACTIONS.ALIGN_ELEMENT_VERTICALLY, "top");

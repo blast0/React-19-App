@@ -60,9 +60,9 @@ const BorderRadius = ({
   return (
     <div className="Slider-With-Input-Controls">
       {showLockButton ? (
-        <div className="Toggle-icon-container">
+        <div className="Toggle-icon-container border">
           <span
-            className={`toggle-lock-icon ${!locked ? "off" : ""}`}
+            className={`toggle-lock-icon m-auto ${!locked ? "off" : ""}`}
             onClick={() => {
               toggleLock();
             }}

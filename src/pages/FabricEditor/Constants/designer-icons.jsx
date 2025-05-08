@@ -322,47 +322,47 @@ export const ADD_SHAPE_OPTIONS = [
 export const ELEMENT_POSITION_OPTIONS = [
   {
     title: "Align Top Left",
-    icon: <SquareArrowUpLeft size={30} />,
+    icon: <SquareArrowUpLeft size={25} />,
     bId: "Top-Left",
   },
   {
     title: "Align Top Center",
-    icon: <SquareArrowUp size={30} />,
+    icon: <SquareArrowUp size={25} />,
     bId: "Top-Center",
   },
   {
     title: "Align Top Right",
-    icon: <SquareArrowUpRight size={30} />,
+    icon: <SquareArrowUpRight size={25} />,
     bId: "Top-Right",
   },
   {
     title: "Align Center Left",
-    icon: <SquareArrowLeft size={30} />,
+    icon: <SquareArrowLeft size={25} />,
     bId: "Center-Left",
   },
   {
     title: "Align Center Middle",
-    icon: <SquareSquare size={30} />,
+    icon: <SquareSquare size={25} />,
     bId: "Center",
   },
   {
     title: "Align Center Right",
-    icon: <SquareArrowRight size={30} />,
+    icon: <SquareArrowRight size={25} />,
     bId: "Center-Right",
   },
   {
     title: "Align Bottom Left",
-    icon: <SquareArrowDownLeft size={30} />,
+    icon: <SquareArrowDownLeft size={25} />,
     bId: "Bottom-Left",
   },
   {
     title: "Align Bottom Center",
-    icon: <SquareArrowDown size={30} />,
+    icon: <SquareArrowDown size={25} />,
     bId: "Bottom-Center",
   },
   {
     title: "Align Bottom Right",
-    icon: <SquareArrowDownRight size={30} />,
+    icon: <SquareArrowDownRight size={25} />,
     bId: "Bottom-Right",
   },
 ];
