@@ -4,6 +4,7 @@ import { Slider } from "@/components/ui/slider";
 
 import "./borderRadius.css";
 import { Link2, Unlink } from "lucide-react";
+import { useTheme } from "../../../../context/themeProvider";
 
 const BorderRadius = ({
   onChange = () => {},
@@ -14,9 +15,11 @@ const BorderRadius = ({
     { label: "BorderX", min: 0, max: 100, value: 5 },
     { label: "BorderY", min: 0, max: 100, value: 5 },
   ],
-  theme = "dark",
+  // theme = "dark",
   valueVisible = false,
 }) => {
+  const { darkMode } = useTheme();
+  const theme = darkMode ? "dark" : "light";
   const initialValues = [];
   const showLockButton = showLockBtn && defaultValues.length === 2;
   const isLocked = lock && defaultValues.length === 2;
@@ -59,9 +62,7 @@ const BorderRadius = ({
       {showLockButton ? (
         <div className="Toggle-icon-container">
           <span
-            className={`toggle-lock-icon ${!locked ? "off" : ""} ${
-              theme === "dark" ? "bg-white" : ""
-            }`}
+            className={`toggle-lock-icon ${!locked ? "off" : ""}`}
             onClick={() => {
               toggleLock();
             }}
@@ -85,7 +86,6 @@ const BorderRadius = ({
               {showInputBoxes ? (
                 <div className="TextInput">
                   <input
-                    className="bg-white"
                     type="number"
                     min={item?.min}
                     max={item?.max ? item.max : 100}

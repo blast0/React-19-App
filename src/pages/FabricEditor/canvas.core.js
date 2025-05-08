@@ -287,6 +287,8 @@ class CanvasCore {
           strokeUniform: true,
           URL: url,
         });
+        console.log(url);
+        console.log(containerElem);
       }
       canvas.add(containerElem);
       canvas.setActiveObject(containerElem);

@@ -20,7 +20,6 @@ const ColumnsLayout = () => {
           </div>
         ))}
       </div>
-
       {/* <div className="columns-2 gap-4">
           {items.map((item) => (
             <div
@@ -31,7 +30,6 @@ const ColumnsLayout = () => {
             </div>
           ))}
         </div> */}
-
       {/* <div className="columns-6 gap-4">
           {items.map((item) => (
             <div

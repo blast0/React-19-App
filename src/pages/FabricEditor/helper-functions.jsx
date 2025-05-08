@@ -546,33 +546,10 @@ export const initializeApp = async (self) => {
   // if template is not defined in query parameter, use default template
   const tmpl = PAGE_TEMPLATES[1];
   // get svg image properties from query params
-  const svgURL = self.queryParams.url;
-  const svgSizes = {
-    height: self.queryParams.SVGHeight,
-    width: self.queryParams.SVGwidth,
-  };
   // if template found
   if (tmpl) {
-    // if svg url is defined in URL query param, determine page size from incoming SVG size
-    if (svgURL) {
-      const templatePageSize = {
-        width: tmpl?.pageStyles?.width,
-        height: tmpl?.pageStyles?.height,
-      };
-      // determine page height and width
-      const [pageWidth, pageHeight] = determinePageSize(
-        svgSizes,
-        templatePageSize
-      );
-      // override template props
-      tmpl.pageStyles.width = pageWidth;
-      tmpl.pageStyles.height = pageHeight;
-    }
     // finally add the page
     await addPage(tmpl, self);
-    if (svgURL) {
-      addSVGToPage(svgURL, svgSizes.height, svgSizes.width, self);
-    }
     // generate canvas element names dropdown data
     createCanvasElementsDropdownData(self);
   }

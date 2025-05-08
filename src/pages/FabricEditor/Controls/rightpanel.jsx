@@ -50,7 +50,6 @@ class Rightpanel extends Component {
 
     const activeElement = canvas?.getActiveObject();
     const activeElementType = activeElement?.type;
-    console.log(showStyleEditor);
     return (
       <div
         className="DesignerConfigPanel w-[310px]"
@@ -166,7 +165,7 @@ class Rightpanel extends Component {
               Selected Object:
             </Label>
             <Dropdown
-              className={"bg-white"}
+              // className={"bg-white"}
               placeholder={
                 selectedElementName ? (
                   <div className="flex gap-2 items-center">

@@ -83,7 +83,7 @@ export class ChromeFields extends React.Component {
             <EditableInput
               style={{ input: styles.input, label: styles.label }}
               // label="hex"
-              value={this.props.hex}
+              value={this.props?.hex}
               onChange={this.handleChange}
             />
           </div>

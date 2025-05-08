@@ -6,6 +6,7 @@ import { Input } from "../../input";
 import { Label } from "../../label";
 
 import "./boxshadow.css";
+import { useTheme } from "../../../../context/themeProvider";
 
 const BoxShadowWithInput = ({
   label,
@@ -13,13 +14,14 @@ const BoxShadowWithInput = ({
   description,
   containerClass,
   configKey,
-  theme,
+  // theme,
   value = "",
   onChange = () => {},
   ...restProps
 }) => {
   const [inputShadow, setInputShadow] = useState(value);
-
+  const { darkMode } = useTheme();
+  const theme = darkMode ? "dark" : "light";
   const boxShadowChangeHandler = (value) => {
     try {
       setInputShadow(value);
@@ -40,7 +42,7 @@ const BoxShadowWithInput = ({
         </Label>
       ) : null}
       {description ? <label className="Title">{description}</label> : null}
-      <div className="rounded-sm flex items-center justify-between border shadow-sm focus: bg-white w-[100%]">
+      <div className="rounded-sm border-slate-200 dark:border-slate-800 dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300  flex items-center justify-between border shadow-sm w-[100%]">
         <Input
           className="border-none shadow-none"
           value={inputShadow}

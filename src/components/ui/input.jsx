@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 import { Label } from "./label";
+import { useTheme } from "../../context/themeProvider";
 
 const Input = React.forwardRef(
   (
@@ -13,11 +14,12 @@ const Input = React.forwardRef(
       type,
       icon,
       iconPosition = "left",
-      theme = "light",
       ...props
     },
     ref
   ) => {
+    const { darkMode } = useTheme();
+    const theme = darkMode ? "dark" : "light";
     return (
       <div className={cn("relative", containerClassName)}>
         {label && (
@@ -29,7 +31,7 @@ const Input = React.forwardRef(
           <input
             type={type}
             className={cn(
-              "flex h-9 w-full rounded-md border border-slate-200  bg-white px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-[15px] file:font-medium file:text-slate-950 file:pt-1 file:rounded-sm file:transition-all file:cursor-pointer placeholder:text-slate-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:border-slate-800 dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300",
+              "flex h-9 w-full rounded-md border border-slate-200 px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-[15px] file:font-medium file:text-slate-950 file:pt-1 file:rounded-sm file:transition-all file:cursor-pointer placeholder:text-slate-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:border-slate-800 dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300",
               icon ? (iconPosition === "right" ? "pr-9" : "pl-9") : "",
               type === "file" ? "cursor-pointer hover:bg-slate-50" : "",
               className

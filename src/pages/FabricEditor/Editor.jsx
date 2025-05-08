@@ -33,13 +33,6 @@ class FabricEditorPage extends Component {
         colors: [],
         ...Object.assign({}, FONT_PROPS_DEFAULT),
       },
-      error: {
-        height: false,
-        width: false,
-      },
-      defaultFileType: "webp",
-      defaultFileName: "file",
-      showDownloadBtn: true,
       pageHeight: 0,
       pageWidth: 0,
       showStyleEditor: false,
@@ -52,20 +45,14 @@ class FabricEditorPage extends Component {
       selectedElementName: "",
       isTemplateLoaded: false,
       isCanvasActive: true,
-      shouldSave: false,
-      fileDimensions: null,
-      blob: null,
       modalActive: false,
-      loadingImage: false,
     };
-    this.patternSourceCanvas = null;
     this.designer = React.createRef();
     this.jsonRef = React.createRef();
     this.imagetoLibInputRef = React.createRef();
     this.imagetoCanvasRef = React.createRef();
     this.svgInputRef = React.createRef();
     this.dropzoneRef = React.createRef();
-    this.queryParams = {};
   }
 
   componentDidMount() {
@@ -73,10 +60,6 @@ class FabricEditorPage extends Component {
       handleOutsideClick(e, this)
     );
     initializeApp(this);
-  }
-
-  componentDidUpdate() {
-    if (this.state.shouldSave) this.setState({ shouldSave: false });
   }
 
   componentWillUnmount() {
@@ -103,7 +86,6 @@ class FabricEditorPage extends Component {
       elementsDropDownData,
     } = this.state;
     const { theme } = this.props;
-    console.log(theme);
     const _canvas = Object.values(this.state.canvases)[0];
     return (
       <div
@@ -176,27 +158,33 @@ class FabricEditorPage extends Component {
                                   activeElementProps,
                                   __canvas
                                 ) => {
-                                  let canva = null;
                                   if (
                                     activeElementProps.id !== selectedElementId
                                   ) {
-                                    canva = __canvas ? __canvas : _canvas;
-                                    canva.getObjects().forEach(function (item) {
-                                      if (item.id === activeElementProps.id) {
-                                        canva.setActiveObject(item);
-                                        canva.renderAll();
-                                      }
-                                    });
-                                    const canvasElementNames =
-                                      getCanvasElementNames(canva);
-                                    this.setState({
-                                      showStyleEditor,
-                                      activeElementProps,
-                                      selectedElementName:
-                                        activeElementProps.name,
-                                      selectedElementId: activeElementProps.id,
-                                      elementsDropDownData: canvasElementNames,
-                                    });
+                                    if (__canvas) {
+                                      __canvas
+                                        .getObjects()
+                                        .forEach(function (item) {
+                                          if (
+                                            item.id === activeElementProps.id
+                                          ) {
+                                            __canvas.setActiveObject(item);
+                                            __canvas.renderAll();
+                                          }
+                                        });
+                                      const canvasElementNames =
+                                        getCanvasElementNames(__canvas);
+                                      this.setState({
+                                        showStyleEditor,
+                                        activeElementProps,
+                                        selectedElementName:
+                                          activeElementProps.name,
+                                        selectedElementId:
+                                          activeElementProps.id,
+                                        elementsDropDownData:
+                                          canvasElementNames,
+                                      });
+                                    }
                                   } else {
                                     this.setState({
                                       showStyleEditor,
@@ -264,7 +252,7 @@ class FabricEditorPage extends Component {
               onChange={(e) => onSelectFile(e, this)}
             />
             <RightPanel
-              theme={theme}
+              // theme={theme}
               canvas={_canvas}
               elementsDropDownData={elementsDropDownData}
               onCanvasActive={(isActive) => {

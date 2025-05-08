@@ -928,8 +928,11 @@ class Page extends Component {
             : colors[0],
           rx,
           ry,
-          URL,
+          // URL,
         });
+        if (URL) {
+          activeObject.set({ URL });
+        }
       } else if (activeObject instanceof fabric.Triangle) {
         activeObject.set({
           backgroundColor,

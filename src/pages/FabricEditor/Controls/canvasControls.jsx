@@ -119,8 +119,8 @@ const CanvasControls = ({
       >
         <Button
           size="icon-xs"
-          variant="outline"
-          className="flex items-center gap-0 bg-amber-50"
+          // variant="outline"
+          className="flex items-center gap-0"
         >
           <Image />
           <ChevronDown />
@@ -142,7 +142,7 @@ const CanvasControls = ({
       >
         <Button
           size="icon-xs"
-          variant="outline"
+          // variant="outline"
           className="flex items-center gap-0"
         >
           <Save />
@@ -156,7 +156,7 @@ const CanvasControls = ({
       >
         <Button
           size="icon-xs"
-          variant="outline"
+          // variant="outline"
           className="flex items-center gap-0"
         >
           <Shapes />
@@ -168,7 +168,7 @@ const CanvasControls = ({
         <Button
           className="cursor-pointer"
           size="icon-xs"
-          variant="outline"
+          // variant="outline"
           onClick={() => onChange(ACTIONS.UNDO_ACTION)}
         >
           <Undo />
@@ -179,7 +179,7 @@ const CanvasControls = ({
         <Button
           className="cursor-pointer"
           size="icon-xs"
-          variant="outline"
+          // variant="outline"
           onClick={() => onChange(ACTIONS.REDO_ACTION)}
         >
           <Redo />
@@ -193,7 +193,7 @@ const CanvasControls = ({
       >
         <Button
           size="icon-xs"
-          variant="outline"
+          // variant="outline"
           className="flex items-center gap-0"
         >
           <Trash />

@@ -76,7 +76,7 @@ class ActiveElementControls extends Component {
       theme,
     } = this.props;
     const activeElement = canvas.getActiveObject();
-
+    console.log(activeElementProps);
     const commonColors = [];
     const _commonColors = [];
     activeElementProps.colors?.forEach((item) => {
@@ -508,8 +508,9 @@ class ActiveElementControls extends Component {
         <ColorInput
           color={activeElement?.stroke}
           onChange={(color) => {
-            activeElement.set("stroke", color);
-            updateActiveElement({ stroke: color }, this);
+            console.log(color);
+            // activeElement.set("stroke", color);
+            // updateActiveElement({ stroke: color }, this);
           }}
         />
       </div>
@@ -737,7 +738,8 @@ class ActiveElementControls extends Component {
             <div className="mb-1 flex-1 basis-[30%]" key={item.title}>
               <Title key={item.bId} title={item.title}>
                 <div
-                  className="cursor-pointer rounded-[4px] gap-2 flex bg-white justify-center items-center m-0 p-0 w-[42px] h-[40px]"
+                  key={item.bId}
+                  className="cursor-pointer rounded-[4px] gap-2 flex border-slate-200 dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300 justify-center items-center m-0 p-0 w-[42px] h-[40px]"
                   onClick={() => {
                     if (item.bId === "Top-Left") {
                       onChange(ACTIONS.ALIGN_ELEMENT_VERTICALLY, "top");
@@ -830,6 +832,7 @@ class ActiveElementControls extends Component {
           {SPACE_EVENLY_OPTIONS.map((item) => (
             <Title key={item.bId} title={item.title}>
               <Button
+                key={item.bId}
                 type="button"
                 variant="outline"
                 size="icon-xs"
@@ -837,7 +840,7 @@ class ActiveElementControls extends Component {
                   onChange(ACTIONS.SPACE_WITHIN_GROUP_EVENLY, item.bId);
                 }}
               >
-                <i className={item.icon} />
+                <i className={item.icon} key={item.bId} />
               </Button>
             </Title>
           ))}
@@ -854,6 +857,7 @@ class ActiveElementControls extends Component {
           {FONT_STYLES.map((item) => (
             <Title key={item.value} title={item.title}>
               <Button
+                key={item.bId}
                 type="button"
                 variant="outline"
                 size="icon-xs"
@@ -878,6 +882,7 @@ class ActiveElementControls extends Component {
           {FLIP_OPTIONS.map((item) => (
             <Title key={item.value} title={item.title}>
               <Button
+                key={item.bId}
                 type="button"
                 variant="outline"
                 size="icon-xs"
@@ -905,6 +910,7 @@ class ActiveElementControls extends Component {
           {TEXT_ALIGNMENT.map((item) => (
             <Title key={item.bId} title={item.title}>
               <Button
+                key={item.bId}
                 type="button"
                 variant="outline"
                 size="icon-xs"
@@ -933,6 +939,7 @@ class ActiveElementControls extends Component {
             {ALIGNMENT_OPTIONS.map((item) => (
               <Title key={item.bId} title={item.title}>
                 <Button
+                  key={item.bId}
                   type="button"
                   variant="outline"
                   size="icon-xs"
@@ -1149,6 +1156,7 @@ class ActiveElementControls extends Component {
                 {SPEECH_TEXT_ALIGNMENT_OPTIONS.map((item) => (
                   <Title key={item.bId} title={item.title}>
                     <Button
+                      key={item.bId}
                       type="button"
                       variant="outline"
                       size="icon-xs"
@@ -1262,7 +1270,7 @@ class ActiveElementControls extends Component {
       : null;
 
     return (
-      <>
+      <div className="mt-2">
         {elementsDropDownData.length > 0 ? (
           <>
             {/* {AlignElement} */}
@@ -1279,7 +1287,7 @@ class ActiveElementControls extends Component {
         {RectangleControls}
         {AnnotationControls}
         {QuadraticArrowControls}
-      </>
+      </div>
     );
   }
 }

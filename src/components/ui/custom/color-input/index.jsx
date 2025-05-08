@@ -33,7 +33,9 @@ const ColorInput = ({
     <div className={containerClassName}>
       <Label className="mb-1">{label}</Label>
       {description ? <p className="Title" ref={descriptionRef}></p> : null}
-      <div className={`relative rounded-sm shadow-sm ${className}`}>
+      <div
+        className={`relative border border-slate-200 dark:border-slate-800 dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300  rounded-sm shadow-sm ${className}`}
+      >
         <Input
           value={restProps.color}
           className="border-none shadow-none"

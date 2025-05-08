@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 // import * as serviceWorker from "./serviceWorker";
 import { Auth0Provider } from "@auth0/auth0-react";
+import { ThemeProvider } from "./context/themeProvider";
 import history from "./utils/history";
 import { getConfig } from "./config";
 import { BrowserRouter } from "react-router-dom";
@@ -31,9 +32,11 @@ const providerConfig = {
 const root = createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <Auth0Provider {...providerConfig}>
-      <App />
-    </Auth0Provider>
+    <ThemeProvider>
+      <Auth0Provider {...providerConfig}>
+        <App />
+      </Auth0Provider>
+    </ThemeProvider>
   </BrowserRouter>
 );
 

@@ -143,6 +143,7 @@ class SubPopup extends React.Component {
 // create a custom picker
 const CustomColorPicker = CustomPicker(SubPopup);
 const ColorSelector = ({ onChange, ...restProps }) => {
+  console.log(restProps);
   const { color } = restProps;
   const handleChange = (color) => {
     const _color = createColorText(color);
