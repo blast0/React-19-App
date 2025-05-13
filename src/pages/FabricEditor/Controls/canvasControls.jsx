@@ -120,7 +120,7 @@ const CanvasControls = ({
         <Button
           size="icon-xs"
           // variant="outline"
-          className="flex items-center gap-0"
+          className="flex items-center gap-0 dark:bg-black dark:text-amber-50 dark:border-white"
         >
           <Image />
           <ChevronDown />

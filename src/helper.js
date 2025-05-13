@@ -10,6 +10,7 @@ export const isImageUrlValid = (url) => {
 };
 
 export function createColorText(color) {
+  if (!color) return "#000000";
   let _color;
   const isStr = typeof color === "string" ? true : false;
   if (isStr) {

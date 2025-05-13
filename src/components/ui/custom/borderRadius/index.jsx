@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { Slider } from "@/components/ui/slider";
-
+import { Input } from "@/components/ui/input";
 import "./borderRadius.css";
 import { Link2, Unlink } from "lucide-react";
 import { useTheme } from "../../../../context/themeProvider";
@@ -84,35 +84,34 @@ const BorderRadius = ({
             </label>
             <div className="inputAndSlider">
               {showInputBoxes ? (
-                <div className="TextInput">
-                  <input
-                    type="number"
-                    min={item?.min}
-                    max={item?.max ? item.max : 100}
-                    value={item?.value}
-                    onChange={(e) => {
-                      let value = parseInt(e.target.value);
-                      let newValues = [];
-                      if (locked) {
-                        if (controlIndex === 0 || controlIndex === 1) {
-                          newValues.push(value);
-                          newValues.push(value);
-                          values.forEach((val, valueIndex) => {
-                            if (valueIndex > 1) {
-                              newValues.push(val);
-                            }
-                          });
-                        } else {
-                          updateUnlockedValues(newValues, controlIndex, value);
-                        }
+                <Input
+                  className="mr-2"
+                  type="number"
+                  min={item?.min}
+                  max={item?.max ? item.max : 100}
+                  value={item?.value}
+                  onChange={(e) => {
+                    let value = parseInt(e.target.value);
+                    let newValues = [];
+                    if (locked) {
+                      if (controlIndex === 0 || controlIndex === 1) {
+                        newValues.push(value);
+                        newValues.push(value);
+                        values.forEach((val, valueIndex) => {
+                          if (valueIndex > 1) {
+                            newValues.push(val);
+                          }
+                        });
                       } else {
                         updateUnlockedValues(newValues, controlIndex, value);
                       }
-                      setValues(newValues);
-                      onChange(...newValues, locked);
-                    }}
-                  />
-                </div>
+                    } else {
+                      updateUnlockedValues(newValues, controlIndex, value);
+                    }
+                    setValues(newValues);
+                    onChange(...newValues, locked);
+                  }}
+                />
               ) : null}
               <Slider
                 valueVisible={valueVisible}

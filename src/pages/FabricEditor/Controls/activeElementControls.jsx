@@ -248,7 +248,6 @@ class ActiveElementControls extends Component {
           Font Family:
         </Label>
         <Dropdown
-          className={"bg-white"}
           placeHolder={activeElement?.fontFamily}
           value={activeElement?.fontFamily}
           options={getFrontDropdownData()}
@@ -322,7 +321,6 @@ class ActiveElementControls extends Component {
           Arrow Head:
         </Label>
         <Dropdown
-          className={"bg-white"}
           options={getArrowHeadData()}
           onValueChange={(value) => {
             setArrowHead(value, this);
@@ -884,7 +882,7 @@ class ActiveElementControls extends Component {
               <Button
                 key={item.bId}
                 type="button"
-                variant="outline"
+                // variant="outline"
                 size="icon-xs"
                 onClick={() => {
                   if (item.value === "x")
@@ -1103,7 +1101,6 @@ class ActiveElementControls extends Component {
                 Speech Arrow:
               </Label>
               <Dropdown
-                className={"bg-white"}
                 placeHolder={activeElement?.arrow}
                 value={activeElement?.arrow}
                 options={ARROW_DIRECTION}
@@ -1178,7 +1175,6 @@ class ActiveElementControls extends Component {
                 Font Family:
               </Label>
               <Dropdown
-                className={"bg-white"}
                 placeHolder={activeElement?._objects[1]?.fontFamily}
                 value={activeElement?._objects[1]?.fontFamily}
                 options={getFrontDropdownData().sort()}

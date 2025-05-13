@@ -54,7 +54,7 @@ class GradientMaker extends Component {
 
     return (
       <div
-        className={`control-wrapper GradientMaker bg-white border-2 p-2 border-grey-100 canvas-parent ${
+        className={`control-wrapper GradientMaker border-2 p-2 border-grey-100 canvas-parent ${
           containerClass ?? ""
         }`}
         style={{ ...containerStyles }}

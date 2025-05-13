@@ -19,7 +19,7 @@ function App() {
     <div id="popmenu-container">
       <Spin id="root" overlayProps={{ position: "fixed" }} />
       {isLoading ? (
-        <div className="w-full h-full bg-red-100 flex flex-col justify-center gap-2 items-center">
+        <div className="w-[100vw] h-[100vh] bg-red-100 flex flex-col justify-center gap-2 items-center">
           <span className="login-loader"></span>
           <p className="text-4xl">Loading...</p>
         </div>
@@ -47,14 +47,8 @@ function App() {
               path="/dashboard"
               element={<Layout children={<Dashboard theme={theme} />} />}
             >
-              <Route
-                path="profile"
-                element={<Layout children={<Profile theme={theme} />} />}
-              />
-              <Route
-                path="settings"
-                element={<Layout children={<Settings theme={theme} />} />}
-              />
+              <Route path="profile" element={<Profile theme={theme} />} />
+              <Route path="settings" element={<Settings theme={theme} />} />
             </Route>
           </Routes>
         </>

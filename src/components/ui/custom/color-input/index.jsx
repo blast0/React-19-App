@@ -28,7 +28,7 @@ const ColorInput = ({
       console.log(error);
     }
   };
-
+  console.log(restProps);
   return (
     <div className={containerClassName}>
       <Label className="mb-1">{label}</Label>
