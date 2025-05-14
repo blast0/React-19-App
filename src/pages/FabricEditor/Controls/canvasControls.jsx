@@ -40,7 +40,6 @@ const CanvasControls = ({
       modalJsx: (
         <DialogBox
           title="Download Image"
-          theme={theme}
           trigger={
             <div className="flex items-center cursor-pointer gap-2">
               <ImageDown />
@@ -52,7 +51,6 @@ const CanvasControls = ({
               self={this}
               thumbnailUrl={null}
               canvas={canvas}
-              theme={theme}
               defaultFileName={"canvas"}
               defaultFileType={"jpeg"}
               imageWidth={canvas?.width}

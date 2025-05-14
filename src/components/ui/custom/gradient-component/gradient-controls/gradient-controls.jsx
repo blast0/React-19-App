@@ -312,7 +312,7 @@ class GradientControls extends Component {
                   <>
                     <div className="form-label">Angle</div>
                     <div className="linear">
-                      <label className="offset">{config.angle}°</label>
+                      <Label className="offset">{config.angle}°</Label>
                       <Slider
                         valueVisible={false}
                         min={0}
@@ -332,7 +332,7 @@ class GradientControls extends Component {
                   ? config.colorStops.map((stop, index) => {
                       return (
                         <div className="colorStops" key={index}>
-                          <label className="offset">{stop.offset}%</label>
+                          <Label className="offset">{stop.offset}%</Label>
                           <Popover>
                             <PopoverTrigger asChild>
                               <div

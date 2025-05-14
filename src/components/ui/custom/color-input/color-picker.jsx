@@ -120,7 +120,7 @@ class SubPopup extends React.Component {
         ref={elemRef?.current}
       >
         <div style={{ ...controlStyles }}>
-          {label ? <label className="InputLabel">{label}</label> : null}
+          {label ? <Label className="InputLabel">{label}</Label> : null}
           <div style={styles.saturation}>
             <Saturation
               style={styles.saturation}

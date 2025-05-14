@@ -170,7 +170,7 @@ body {
 }
 
 [data-theme="dark"] {
-  --bg-color: rgb(31, 30, 30);
+  --bg-color: #333232;
   --text-color: white;
 }
 
@@ -180,7 +180,7 @@ body {
 }
 
 div[data-radix-popper-content-wrapper] {
-  background-color: var(--bg-color) !important;
+  background-color: rgba(255, 0, 0, 0) !important;
   color: var(--text-color);
 }
 

@@ -32,7 +32,7 @@ export function Title({ children, title, side, sideOffset, canCopy = false }) {
         <TooltipContent
           side={side}
           sideOffset={sideOffset}
-          className={"z-50 flex gap-2 items-start"}
+          className={"z-50 flex gap-1 border items-start"}
         >
           <div className="text-wrap text-justify max-w-96 ">
             <p className="text-xs p-1">{title}</p>

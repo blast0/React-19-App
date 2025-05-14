@@ -165,9 +165,7 @@ class ActiveElementControls extends Component {
 
     const patternImgController = (
       <div className="image-url-control w-[100%]">
-        <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-          Fill Image:
-        </Label>
+        <Label>Fill Image:</Label>
         <FileInput
           containerClassName="w-full"
           value={activeElementProps?.URL}
@@ -185,9 +183,7 @@ class ActiveElementControls extends Component {
 
     const boxShadow = (
       <div className="shadow-control">
-        <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-          Box Shadow:
-        </Label>
+        <Label>Box Shadow:</Label>
         <BoxShadowWithInput
           showPreview={false}
           value={
@@ -244,9 +240,7 @@ class ActiveElementControls extends Component {
 
     const activeFontFamily = (
       <div className="font-family-control">
-        <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-          Font Family:
-        </Label>
+        <Label>Font Family:</Label>
         <Dropdown
           placeHolder={activeElement?.fontFamily}
           value={activeElement?.fontFamily}
@@ -260,7 +254,7 @@ class ActiveElementControls extends Component {
 
     const imageFit = (
       <div className="image-fit-control">
-        <Label className={`${theme === "dark" ? "text-white" : ""}`}>
+        <Label>
           {activeElementProps?.patternActive
             ? "Background Pattern Fit:"
             : activeElement?.type === "group"
@@ -317,9 +311,7 @@ class ActiveElementControls extends Component {
 
     const activeArrowHead = (
       <>
-        <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-          Arrow Head:
-        </Label>
+        <Label>Arrow Head:</Label>
         <Dropdown
           options={getArrowHeadData()}
           onValueChange={(value) => {
@@ -331,13 +323,17 @@ class ActiveElementControls extends Component {
 
     const activeBgColor = (
       <div>
-        <Label className={`${theme === "dark" ? "text-white" : ""}`}>
+        <Label>
           {activeElement instanceof fabric.IText
             ? "Text Background:"
             : "Background Color:"}
         </Label>
         <ColorInput
-          color={activeElementProps?.backgroundColor}
+          color={
+            activeElementProps?.backgroundColor
+              ? activeElementProps.backgroundColor
+              : "#000"
+          }
           onChange={(color) => {
             updateActiveElement({ backgroundColor: color }, this);
           }}
@@ -349,9 +345,7 @@ class ActiveElementControls extends Component {
       <>
         <div className="pattern-controls w-[100%] flex flex-wrap gap-2">
           <div className="w-[48%]">
-            <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-              Image Width:
-            </Label>
+            <Label>Image Width:</Label>
             <Input
               type={"number"}
               value={
@@ -365,9 +359,7 @@ class ActiveElementControls extends Component {
             />
           </div>
           <div className="w-[48%]">
-            <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-              Image Height:
-            </Label>
+            <Label>Image Height:</Label>
             <Input
               type={"number"}
               value={
@@ -381,9 +373,7 @@ class ActiveElementControls extends Component {
             />
           </div>
           <div className="w-[48%]">
-            <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-              Image Left:
-            </Label>
+            <Label>Image Left:</Label>
             <Input
               type={"number"}
               value={activeElementProps?.patternLeft}
@@ -398,9 +388,7 @@ class ActiveElementControls extends Component {
             />
           </div>
           <div className="w-[48%]">
-            <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-              Image Top:
-            </Label>
+            <Label>Image Top:</Label>
             <Input
               type={"number"}
               value={activeElementProps?.patternTop}
@@ -416,9 +404,7 @@ class ActiveElementControls extends Component {
           </div>
         </div>
         <div className="w-full space-y-2">
-          <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-            Angle:
-          </Label>
+          <Label>Angle:</Label>
           <Slider
             min={0}
             max={360}
@@ -436,7 +422,7 @@ class ActiveElementControls extends Component {
 
     const activeElementColor = (
       <div>
-        <Label className={`${theme === "dark" ? "text-white" : ""}`}>
+        <Label>
           {activeElement instanceof fabric.IText
             ? "Text Color:"
             : "Fill Color:"}
@@ -495,7 +481,7 @@ class ActiveElementControls extends Component {
 
     const activeBorderColor = (
       <div className="">
-        <Label className={`${theme === "dark" ? "text-white" : ""}`}>
+        <Label>
           {activeElement instanceof fabric.IText
             ? "Text Border:"
             : activeElement instanceof fabric.Line
@@ -503,11 +489,10 @@ class ActiveElementControls extends Component {
             : "Border Color:"}
         </Label>
         <ColorInput
-          color={activeElement?.stroke}
+          color={activeElement?.stroke ? activeElement.stroke : "#000"}
           onChange={(color) => {
-            console.log(color);
-            // activeElement.set("stroke", color);
-            // updateActiveElement({ stroke: color }, this);
+            activeElement.set("stroke", color);
+            updateActiveElement({ stroke: color }, this);
           }}
         />
       </div>
@@ -515,9 +500,7 @@ class ActiveElementControls extends Component {
 
     const activeBorderThickness = (
       <div className="">
-        <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-          Border Thickness:
-        </Label>
+        <Label>Border Thickness:</Label>
         <Input
           type={"number"}
           value={activeElementProps?.strokeWidth}
@@ -537,9 +520,7 @@ class ActiveElementControls extends Component {
 
     const activeRadius = (
       <div className="radius-control">
-        <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-          Radius:
-        </Label>
+        <Label>Radius:</Label>
         <Input
           type={"number"}
           value={activeElementProps?.radius}
@@ -727,17 +708,15 @@ class ActiveElementControls extends Component {
 
     const AlignElement = (
       <div>
-        <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-          Alignment:
-        </Label>
-        <div className="flex flex-wrap align-start">
+        <Label>Alignment:</Label>
+        <div className="flex flex-wrap w-[120px] align-start">
           {ELEMENT_POSITION_OPTIONS.map((item) => (
             <div className="mb-1 flex-1 basis-[30%]" key={item.title}>
               <Title key={item.bId} title={item.title}>
                 <div
                   key={item.bId}
-                  className="dark:border-slate-800 
-                   cursor-pointer rounded-[4px] gap-2 flex border border-slate-200 dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300 justify-center items-center m-0 p-0 w-[42px] h-[40px]"
+                  className="-slate-800 
+                   cursor-pointer rounded-[4px] gap-2 flex border border-slate-200 dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300 justify-center items-center m-0 p-0 w-[35px] h-[35px]"
                   onClick={() => {
                     if (item.bId === "Top-Left") {
                       onChange(ACTIONS.ALIGN_ELEMENT_VERTICALLY, "top");
@@ -823,9 +802,7 @@ class ActiveElementControls extends Component {
     const SpaceElementsEvenly = activeElement instanceof
       fabric.ActiveSelection && (
       <div className="space-evenly mt-2">
-        <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-          Space Objects Evenly
-        </Label>
+        <Label>Space Objects Evenly</Label>
         <div className="flex gap-0.5">
           {SPACE_EVENLY_OPTIONS.map((item) => (
             <Title key={item.bId} title={item.title}>
@@ -901,9 +878,7 @@ class ActiveElementControls extends Component {
 
     const AlignText = (
       <div className="text-alignment">
-        <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-          Text Alignment:
-        </Label>
+        <Label>Text Alignment:</Label>
         <div className="flex gap-0.5">
           {TEXT_ALIGNMENT.map((item) => (
             <Title key={item.bId} title={item.title}>
@@ -930,9 +905,7 @@ class ActiveElementControls extends Component {
     const AlignWithinElement =
       activeElement instanceof fabric.ActiveSelection ? (
         <div className="align-within-Group-Vertically">
-          <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-            Object Horizontal Alignment
-          </Label>
+          <Label>Object Horizontal Alignment</Label>
           <div className="flex gap-0.5">
             {ALIGNMENT_OPTIONS.map((item) => (
               <Title key={item.bId} title={item.title}>
@@ -960,7 +933,7 @@ class ActiveElementControls extends Component {
       activeElement?.type === "text" || activeElement?.type === "i-text" ? (
         <div className="font-controls flex flex-wrap gap-2">
           <div className="w-[48%] flex flex-col gap-3">{AlignElement}</div>
-          <div className="w-[48%] flex flex-col gap-[28px]">
+          <div className="w-[48%] flex flex-col gap-[14px]">
             {!activeElement?.patternActive
               ? activeElementColor
               : activeBorderColor}
@@ -986,7 +959,7 @@ class ActiveElementControls extends Component {
       activeElement?.type === "circle" ? (
         <div className="cirlce-controls flex-wrap flex gap-2">
           <div className="w-[48%] flex flex-col gap-3">{AlignElement}</div>
-          <div className="w-[48%] flex flex-col gap-[28px]">
+          <div className="w-[48%] flex flex-col gap-[14px]">
             {!activeElement?.patternActive
               ? activeElementColor
               : activeBorderThickness}
@@ -1097,9 +1070,7 @@ class ActiveElementControls extends Component {
               />
             </div>
             <div className="speech-arrow-dropdown half">
-              <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-                Speech Arrow:
-              </Label>
+              <Label>Speech Arrow:</Label>
               <Dropdown
                 placeHolder={activeElement?.arrow}
                 value={activeElement?.arrow}
@@ -1146,9 +1117,7 @@ class ActiveElementControls extends Component {
               />
             </div>
             <div className="speech-alignment">
-              <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-                Text Alignment:
-              </Label>
+              <Label>Text Alignment:</Label>
               <div className="flex gap-0.5">
                 {SPEECH_TEXT_ALIGNMENT_OPTIONS.map((item) => (
                   <Title key={item.bId} title={item.title}>
@@ -1171,9 +1140,7 @@ class ActiveElementControls extends Component {
               </div>
             </div>
             <div className="border-control">
-              <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-                Font Family:
-              </Label>
+              <Label>Font Family:</Label>
               <Dropdown
                 placeHolder={activeElement?._objects[1]?.fontFamily}
                 value={activeElement?._objects[1]?.fontFamily}
@@ -1192,7 +1159,7 @@ class ActiveElementControls extends Component {
       activeElement?.type === "rect" ? (
         <div className="rect-controls flex-wrap flex gap-2">
           <div className="w-[48%] flex flex-col gap-3">{AlignElement}</div>
-          <div className="w-[48%] flex flex-col gap-[28px]">
+          <div className="w-[48%] flex flex-col gap-[14px]">
             {!activeElement?.patternActive
               ? activeElementColor
               : activeBorderThickness}
@@ -1211,7 +1178,7 @@ class ActiveElementControls extends Component {
       activeElement?.type === "triangle" ? (
         <div className="triangle-controls flex-wrap flex gap-2">
           <div className="w-[48%] flex flex-col gap-3">{AlignElement}</div>
-          <div className="w-[48%] flex flex-col gap-[28px]">
+          <div className="w-[48%] flex flex-col gap-[14px]">
             {!activeElement?.patternActive ? activeElementColor : null}
             {activeBgColor}
           </div>

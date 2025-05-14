@@ -47,9 +47,9 @@ const ColorSelectorWithInput = ({
       title={tooltip ? tooltip : label}
     >
       {label ? (
-        <label title={label} className="InputLabel">
+        <Label title={label} className="InputLabel">
           {label}
-        </label>
+        </Label>
       ) : null}
       {description ? <p className="Title" ref={descriptionRef}></p> : null}
       <div

@@ -64,7 +64,7 @@ const GradientMakerWithInput = ({
         ) : null}
         {description ? <p className="Title" ref={descriptionRef}></p> : null}
         <div
-          className="flex border border-slate-200 dark:border-slate-800 dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300  GradientWithInput justify-center items-center rounded-sm shadow-sm"
+          className="flex border border-slate-200 dark:border-slate-200 dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300  GradientWithInput justify-center items-center rounded-sm shadow-sm"
           style={{ ...controlStyles }}
         >
           <Input

@@ -73,9 +73,7 @@ class Rightpanel extends Component {
           <div className="page-controls mt-2">
             <div className="page-dimensions-control gap-2 flex flex-wrap">
               <div className="w-[48%]">
-                <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-                  Canvas Width:
-                </Label>
+                <Label>Canvas Width:</Label>
                 <Input
                   type={"number"}
                   value={pageWidth}
@@ -92,9 +90,7 @@ class Rightpanel extends Component {
                 />
               </div>
               <div className="w-[48%]">
-                <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-                  Canvas Height:
-                </Label>
+                <Label>Canvas Height:</Label>
                 <Input
                   type={"number"}
                   value={pageHeight}
@@ -112,9 +108,7 @@ class Rightpanel extends Component {
               </div>
             </div>
             <div className="w-[48%]">
-              <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-                Canvas Background:
-              </Label>
+              <Label>Canvas Background:</Label>
               <GradientContainer
                 showSiteColorBtn={false}
                 canChooseGradientType={true}
@@ -143,9 +137,7 @@ class Rightpanel extends Component {
           activeElementType !== "textbox" &&
           activeElement ? (
             <div className="elementName">
-              <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-                Element Name:
-              </Label>
+              <Label>Element Name:</Label>
               <Input
                 placeholder="Element Name"
                 value={selectedElementName ? selectedElementName : ""}
@@ -161,9 +153,7 @@ class Rightpanel extends Component {
             </div>
           ) : null}
           <div className="element-selector">
-            <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-              Selected Object:
-            </Label>
+            <Label>Selected Object:</Label>
             <Dropdown
               // className={"bg-white"}
               placeholder={

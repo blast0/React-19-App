@@ -54,7 +54,7 @@ const Navbar = ({
       style={{
         width: "100%",
         height: "50px",
-        backgroundColor: theme === "light" ? "#0078d4" : "#212121",
+        backgroundColor: theme === "light" ? "#0078d4" : "#181717",
         display: "flex",
         gap: "30px",
         justifyContent: "space-between",

@@ -44,7 +44,6 @@ const SaveModalJsx = ({
     <>
       <div className="SaveDownloadModal p-2 modal-body">
         <Input
-          theme={theme}
           autoFocus={true}
           value={fileName}
           onChange={(e) => {
@@ -53,11 +52,7 @@ const SaveModalJsx = ({
           label="File Name:"
         />
         <div className="flex justify-between flex-col mt-[10px]">
-          <span
-            className={`fileName ${
-              theme !== "dark" ? "text-black" : "text-white"
-            }`}
-          >
+          <span className={`fileName `}>
             {fileName}.{chosenFileType}
           </span>
           <div className="flex gap-[10px]">
@@ -79,13 +74,7 @@ const SaveModalJsx = ({
                 }}
               >
                 <input type="radio" checked={selection === "page"} />
-                <Label
-                  className={`cursor-pointer ${
-                    theme === "dark" ? "text-white" : ""
-                  }`}
-                >
-                  Full Page
-                </Label>
+                <Label className={`cursor-pointer`}>Full Page</Label>
               </div>
               <div
                 className="flex items-center gap-2 cursor-pointer"
@@ -94,21 +83,13 @@ const SaveModalJsx = ({
                 }}
               >
                 <input type="radio" checked={selection === "selected"} />
-                <Label
-                  className={`cursor-pointer ${
-                    theme === "dark" ? "text-white" : ""
-                  }`}
-                >
-                  Selected Element
-                </Label>
+                <Label className={`cursor-pointer`}>Selected Element</Label>
               </div>
             </div>
           </div>
 
           <div className="text-alignment">
-            <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-              Type:
-            </Label>
+            <Label>Type:</Label>
             <div className="flex gap-0.5 mb-2">
               {btns.map((item) => (
                 <Title key={item.value} title={item.value}>
@@ -134,9 +115,7 @@ const SaveModalJsx = ({
                 marginTop: "10px",
               }}
             >
-              <Label className={`${theme === "dark" ? "text-white" : ""}`}>
-                Quality:
-              </Label>
+              <Label>Quality:</Label>
               <Slider
                 min={0}
                 max={100}
@@ -146,7 +125,6 @@ const SaveModalJsx = ({
                 onValueChange={(value) => {
                   set_jpegQuality(value[0]);
                 }}
-                theme={theme}
                 label={"Image Quality:"}
               />
             </div>
@@ -160,7 +138,6 @@ const SaveModalJsx = ({
           >
             <div className="w-[48%]">
               <Input
-                theme={theme}
                 autoFocus={true}
                 type="number"
                 value={ImageWidth}
@@ -173,7 +150,6 @@ const SaveModalJsx = ({
             </div>
             <div className="w-[48%]">
               <Input
-                theme={theme}
                 autoFocus={true}
                 type="number"
                 value={ImageHeight}

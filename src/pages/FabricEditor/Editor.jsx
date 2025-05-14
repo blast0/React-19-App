@@ -216,7 +216,7 @@ class FabricEditorPage extends Component {
 
         <div
           className={`sidepanel border absolute right-0 h-full ${
-            theme === "light" ? "bg-white" : "bg-black"
+            theme === "light" ? "bg-white" : "bg-[#181717]"
           } border-[#989898]`}
         >
           <>

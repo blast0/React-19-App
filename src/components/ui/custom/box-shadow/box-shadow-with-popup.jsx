@@ -34,7 +34,7 @@ const BoxShadowWithPopUp = (props) => {
   return (
     <>
       <div className="control-wrapper" style={{ ...containerStyles }}>
-        {label ? <label className="InputLabel">{label}</label> : null}
+        {label ? <Label className="InputLabel">{label}</Label> : null}
         <div className="flex" style={{ gap: "3px" }}>
           <div
             className="Box-shadow-Icon icon tooltip tooltip-top"

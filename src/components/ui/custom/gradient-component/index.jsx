@@ -1,7 +1,6 @@
 import { Component } from "react";
 import { noop } from "lodash";
-// import PropTypes from "prop-types";
-
+import { Label } from "@/components/ui/label";
 import GradientPreview from "./gradient-preview/gradient-preview";
 import GradientContext, { GradientProvider } from "./gradient-context";
 import GradientControls from "./gradient-controls/gradient-controls";
@@ -59,7 +58,7 @@ class GradientMaker extends Component {
         }`}
         style={{ ...containerStyles }}
       >
-        {label ? <label className="InputLabel">{label}</label> : null}
+        {label ? <Label className="InputLabel">{label}</Label> : null}
         <div style={{ ...controlStyles }}>
           {!isGradientAllowed || this.state.switchToColor ? (
             <ColorSelector
