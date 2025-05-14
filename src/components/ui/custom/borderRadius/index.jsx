@@ -89,7 +89,7 @@ const BorderRadius = ({
                   type="number"
                   min={item?.min}
                   max={item?.max ? item.max : 100}
-                  value={item?.value}
+                  value={item?.value ? item.value : 0}
                   onChange={(e) => {
                     let value = parseInt(e.target.value);
                     let newValues = [];
@@ -118,7 +118,7 @@ const BorderRadius = ({
                 min={item?.min}
                 max={item?.max ? item.max : 100}
                 step={1}
-                value={[item?.value]}
+                value={[item?.value ? item.value : 0]}
                 onValueChange={(value) => {
                   let val = parseInt(value);
                   let newValues = [];

@@ -37,7 +37,7 @@ function ColorSelectorWithPopup(props) {
   };
   return (
     <div
-      className={`control-wrapper ${containerClass ?? ""} popup`}
+      className={`control-wrapper ${containerClass ?? ""} popup cursor-pointer`}
       style={{
         backgroundImage: `url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHUlEQVQ4jWNgYGAQIYAJglEDhoUBg9+FowbQ2gAARjwKARjtnN8AAAAASUVORK5CYII")`,
         ...containerStyles,

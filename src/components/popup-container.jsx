@@ -25,7 +25,7 @@ class PopupContainer extends Component {
     this._init();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     // if popup-container is used from singleton components, then we have to re-calculate placement offsets if native element ref changes
     if (this.props.nativeElement !== prevProps.nativeElement) {
       this._init();
@@ -146,7 +146,7 @@ class PopupContainer extends Component {
                 "px) ",
             });
           } catch (error) {
-            resolve();
+            reject(error);
           }
         });
       } catch (error) {

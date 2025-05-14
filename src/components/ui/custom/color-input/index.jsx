@@ -11,6 +11,7 @@ const ColorInput = ({
   containerClassName = "",
   className = "",
   onChange,
+  color = "#fff",
   ...restProps
 }) => {
   const descriptionRef = useRef(null);
@@ -37,15 +38,16 @@ const ColorInput = ({
         className={`relative border border-slate-200 dark:border-slate-800 dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300  rounded-sm shadow-sm ${className}`}
       >
         <Input
-          value={restProps.color}
+          value={color}
           className="border-none shadow-none"
           onChange={(e) => {
             colorChangeHandler(e.target.value);
           }}
         />
-        <div className="absolute right-2 top-1.5 bg-white ">
+        <div className="absolute right-2 top-1.25 ">
           <ColorSelector
             {...restProps}
+            color={color}
             optData={opt}
             onChange={(color) => colorChangeHandler(color)}
           />

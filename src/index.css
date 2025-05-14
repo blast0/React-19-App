@@ -170,11 +170,26 @@ body {
 }
 
 [data-theme="dark"] {
-  --bg-color: black;
+  --bg-color: rgb(31, 30, 30);
   --text-color: white;
 }
 
 body {
   background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+div[data-radix-popper-content-wrapper] {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color);
+}
+
+div[data-radix-popper-content-wrapper] > div {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color);
+}
+
+.SubPopup {
+  background-color: var(--bg-color) !important;
   color: var(--text-color);
 }

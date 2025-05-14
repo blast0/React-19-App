@@ -56,15 +56,18 @@ function GradientMakerWithPopup({
   };
 
   return (
-    <div className="control-wrapper  popup" style={{ ...containerStyles }}>
+    <div
+      className="control-wrapper  popup cursor-pointer"
+      style={{ ...containerStyles }}
+    >
       {label ? <label className="InputLabel">{label}</label> : null}
       <div
-        className="GradientMakerWithPopUp  control-icon tooltip tooltip-top"
+        className="GradientMakerWithPopUp  border border-slate-900 dark:border-slate-500 h-[26px] w-[26px] mr-2 rounded-2xl control-icon tooltip tooltip-top"
         data-tooltip={tooltip ? tooltip : label}
         ref={elemRef}
         style={{
           background: value,
-          ...controlStyle,
+          // ...controlStyle,
         }}
         onClick={() => {
           setShowSubPopup((prevShowSubPopup) => !prevShowSubPopup);

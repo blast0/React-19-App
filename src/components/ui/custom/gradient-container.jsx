@@ -16,11 +16,6 @@ const GradientContainer = ({ showInPopup, configKey, ...restProps }) => {
       {showInPopup ? (
         <GradientMakerWithPopup
           {...restProps}
-          controlStyle={{
-            width: "24px",
-            height: "24px",
-            borderRadius: "3px",
-          }}
           onValueChange={(val) =>
             restProps.onValueChange(val.gradient, configKey, val.config)
           }

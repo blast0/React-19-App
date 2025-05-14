@@ -14,6 +14,7 @@ function ColorSelectorWithPopup(props) {
     controlStyle = {},
     containerClass = "",
     tooltip = "",
+    color = "#000",
     handleRemove = noop,
     opt,
     showRemoveButton = false,
@@ -35,19 +36,19 @@ function ColorSelectorWithPopup(props) {
   };
   return (
     <div
-      className={`control-wrapper ${containerClass ?? ""} popup`}
+      className={`control-wrapper ${containerClass ?? ""} popup cursor-pointer`}
       style={{ ...containerStyles }}
     >
       <Popover>
         <PopoverTrigger asChild>
           <div
-            className={`ColorSelectorWithPopup w-[24px] h-[24px] border-1 cursor-pointer ${
+            className={`ColorSelectorWithPopup w-[26px] h-[26px] rounded-2xl border border-slate-900 dark:border-slate-500 cursor-pointer ${
               tooltip ? "tooltip" : ""
             } tooltip-top `}
             id={`${id || ""}`}
             data-tooltip={tooltip ?? restProps.label}
             style={{
-              backgroundColor: restProps.color,
+              backgroundColor: color,
               ...controlStyle,
             }}
             ref={elemRef}
@@ -70,6 +71,7 @@ function ColorSelectorWithPopup(props) {
         </PopoverTrigger>
         <PopoverContent className="w-max z-[55]">
           <ColorPicker
+            color={color}
             {...restProps}
             nativeElement={elemRef?.current}
             onOpenSiteSettings={openSiteSettings}

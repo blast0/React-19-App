@@ -22,7 +22,7 @@ export function MenuButton({
         <Title title={title}>
           <DropdownMenuTrigger
             asChild
-            className={`cursor-pointer ${className}`}
+            className={`cursor-pointer bg ${className}`}
           >
             {children && children}
           </DropdownMenuTrigger>

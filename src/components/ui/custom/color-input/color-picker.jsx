@@ -9,7 +9,7 @@ import ChromePointerCircle from "./chrome-pointer-circle";
 import ChromePointer from "./chrome-pointer";
 import ChromeFields from "./chrome-fields";
 import { SketchPresetColors } from "./sketch-preset-colors.jsx";
-import { createColorText } from "@/helper";
+// import { createColorText } from "@/helper";
 
 const PRESET_COLORS = [
   "#ffadad",
@@ -29,6 +29,27 @@ const PRESET_COLORS = [
   "#f5f3f4",
   "#FFFFFF",
 ];
+
+const createColorText = (color) => {
+  if (!color) return "#000000";
+  let _color;
+  const isStr = typeof color === "string" ? true : false;
+  if (isStr) {
+    _color = color;
+  } else if (typeof color === "object") {
+    // we will use rgb from color object only if, alpha is used
+    if (color.rgb.a === 1) {
+      //  no alpha used, used hex value instead
+      console.log(color.hex);
+      _color = color.hex;
+    } else {
+      // alpha is present
+      // create rgba text
+      _color = "rgba(" + Object.values(color.rgb).join(",") + ")";
+    }
+  }
+  return _color;
+};
 
 class SubPopup extends React.Component {
   constructor(props) {
@@ -50,26 +71,24 @@ class SubPopup extends React.Component {
       opt,
       elemRef,
     } = this.props;
-    // component styles
+    console.log(hex);
     const styles = {
       saturation: {
         width: "100%",
         paddingBottom: "55%",
         position: "relative",
-        borderRadius: "2px 2px 0 0",
-        overflow: "hidden",
+        border: "1px solid #bababa",
       },
       hue: {
-        height: "10px",
+        height: "12px",
         position: "relative",
-        marginBottom: "8px",
-        width: "100%",
+        border: "1px solid #bababa",
       },
       alpha: {
         position: "relative",
         margin: "10px 0px",
-        height: "10px",
-        overflow: "hidden",
+        height: "12px",
+        border: "1px solid #bababa",
       },
       Alpha: {
         height: "10px",
@@ -91,6 +110,7 @@ class SubPopup extends React.Component {
     const controlStyles = {
       width: opt?.controlWidth ? opt?.controlWidth : "200px",
     };
+    console.log(hex);
     return (
       <div
         className="control-wrapper"
@@ -143,16 +163,14 @@ class SubPopup extends React.Component {
 // create a custom picker
 const CustomColorPicker = CustomPicker(SubPopup);
 const ColorSelector = ({ onChange, ...restProps }) => {
-  console.log(restProps);
-  const { color } = restProps;
   const handleChange = (color) => {
     const _color = createColorText(color);
     onChange(_color);
   };
 
-  useEffect(() => {
-    handleChange(color);
-  }, []);
+  // useEffect(() => {
+  //   handleChange(color);
+  // }, []);
 
   return <CustomColorPicker onChange={handleChange} {...restProps} />;
 };

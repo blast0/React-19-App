@@ -56,7 +56,7 @@ export class ChromeFields extends React.Component {
       },
       input: {
         fontSize: "11px",
-        color: "#333",
+        // color: "#333",
         width: "100%",
         borderRadius: "2px",
         border: "none",
@@ -74,7 +74,7 @@ export class ChromeFields extends React.Component {
         marginTop: "12px",
       },
     };
-
+    console.log(this.props?.hex);
     let fields;
     if (this.state.view === "hex") {
       fields = (

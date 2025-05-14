@@ -832,7 +832,7 @@ class ActiveElementControls extends Component {
               <Button
                 key={item.bId}
                 type="button"
-                variant="outline"
+                // variant="outline"
                 size="icon-xs"
                 onClick={() => {
                   onChange(ACTIONS.SPACE_WITHIN_GROUP_EVENLY, item.bId);
@@ -857,7 +857,7 @@ class ActiveElementControls extends Component {
               <Button
                 key={item.bId}
                 type="button"
-                variant="outline"
+                // variant="outline"
                 size="icon-xs"
                 onClick={() => {
                   handleFontStyle(item.value, activeElement, canvas);
@@ -910,7 +910,7 @@ class ActiveElementControls extends Component {
               <Button
                 key={item.bId}
                 type="button"
-                variant="outline"
+                // variant="outline"
                 size="icon-xs"
                 onClick={() => {
                   activeElement.set({
@@ -939,7 +939,7 @@ class ActiveElementControls extends Component {
                 <Button
                   key={item.bId}
                   type="button"
-                  variant="outline"
+                  // variant="outline"
                   size="icon-xs"
                   onClick={() => {
                     onChange(
@@ -960,7 +960,7 @@ class ActiveElementControls extends Component {
       activeElement?.type === "text" || activeElement?.type === "i-text" ? (
         <div className="font-controls flex flex-wrap gap-2">
           <div className="w-[48%] flex flex-col gap-3">{AlignElement}</div>
-          <div className="w-[48%] flex flex-col gap-8">
+          <div className="w-[48%] flex flex-col gap-[28px]">
             {!activeElement?.patternActive
               ? activeElementColor
               : activeBorderColor}
@@ -986,7 +986,7 @@ class ActiveElementControls extends Component {
       activeElement?.type === "circle" ? (
         <div className="cirlce-controls flex-wrap flex gap-2">
           <div className="w-[48%] flex flex-col gap-3">{AlignElement}</div>
-          <div className="w-[48%] flex flex-col gap-8">
+          <div className="w-[48%] flex flex-col gap-[28px]">
             {!activeElement?.patternActive
               ? activeElementColor
               : activeBorderThickness}
@@ -1155,7 +1155,7 @@ class ActiveElementControls extends Component {
                     <Button
                       key={item.bId}
                       type="button"
-                      variant="outline"
+                      // variant="outline"
                       size="icon-xs"
                       onClick={() => {
                         activeElement._objects[1].set({
@@ -1192,7 +1192,7 @@ class ActiveElementControls extends Component {
       activeElement?.type === "rect" ? (
         <div className="rect-controls flex-wrap flex gap-2">
           <div className="w-[48%] flex flex-col gap-3">{AlignElement}</div>
-          <div className="w-[48%] flex flex-col gap-8">
+          <div className="w-[48%] flex flex-col gap-[28px]">
             {!activeElement?.patternActive
               ? activeElementColor
               : activeBorderThickness}
@@ -1211,7 +1211,7 @@ class ActiveElementControls extends Component {
       activeElement?.type === "triangle" ? (
         <div className="triangle-controls flex-wrap flex gap-2">
           <div className="w-[48%] flex flex-col gap-3">{AlignElement}</div>
-          <div className="w-[48%] flex flex-col gap-8">
+          <div className="w-[48%] flex flex-col gap-[28px]">
             {!activeElement?.patternActive ? activeElementColor : null}
             {activeBgColor}
           </div>

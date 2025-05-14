@@ -47,7 +47,7 @@ class FabricEditorPage extends Component {
       isCanvasActive: true,
       modalActive: false,
     };
-    this.designer = React.createRef();
+    this.canvasEditor = React.createRef();
     this.jsonRef = React.createRef();
     this.imagetoLibInputRef = React.createRef();
     this.imagetoCanvasRef = React.createRef();
@@ -56,14 +56,14 @@ class FabricEditorPage extends Component {
   }
 
   componentDidMount() {
-    this.designer.current.addEventListener("click", (e) =>
+    this.canvasEditor.current.addEventListener("click", (e) =>
       handleOutsideClick(e, this)
     );
     initializeApp(this);
   }
 
   componentWillUnmount() {
-    this.designer.current.removeEventListener("click", (e) =>
+    this.canvasEditor.current.removeEventListener("click", (e) =>
       handleOutsideClick(e, this)
     );
   }
@@ -90,12 +90,12 @@ class FabricEditorPage extends Component {
     return (
       <div
         className={`flex relative justify-between w-full h-[calc(100vh-50px)] ${
-          theme === "dark" ? "bg-[#333232]" : "bg-[#ffffff]"
+          theme === "dark" ? "bg-[#333232]" : "bg-[#e7f5ff]"
         }`}
       >
         <div
           className={`designer relative flex slim-scroll overflow-auto`}
-          ref={this.designer}
+          ref={this.canvasEditor}
         >
           <Dropzone
             ref={this.dropzoneRef}
@@ -219,7 +219,7 @@ class FabricEditorPage extends Component {
             theme === "light" ? "bg-white" : "bg-black"
           } border-[#989898]`}
         >
-          <div>
+          <>
             <input
               ref={this.imagetoLibInputRef}
               className="hidden"
@@ -252,7 +252,6 @@ class FabricEditorPage extends Component {
               onChange={(e) => onSelectFile(e, this)}
             />
             <RightPanel
-              // theme={theme}
               canvas={_canvas}
               elementsDropDownData={elementsDropDownData}
               onCanvasActive={(isActive) => {
@@ -282,7 +281,7 @@ class FabricEditorPage extends Component {
               jsonRef={this.jsonRef}
               siteColorsSettings={this.props.siteColorsSettings}
             />
-          </div>
+          </>
         </div>
       </div>
     );

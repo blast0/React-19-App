@@ -1979,7 +1979,7 @@ export const onAddImageFromFile = (e, self, pageHeight, pageWidth) => {
         canvasRef.clear();
         canvasRef.backgroundColor = "#ffffff";
         canvasRef.renderAll();
-        const styles = window.getComputedStyle(self.designer?.current);
+        const styles = window.getComputedStyle(self.canvasEditor?.current);
         const widthLimit = parseInt(styles?.width) - 20;
         const heightLimit = parseInt(styles?.height) - 20;
         const imgRatio = img.width / img.height;

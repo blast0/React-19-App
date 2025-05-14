@@ -24,7 +24,7 @@ function withPopup(WrappedComponent) {
             onOutsideClick={onOutsideClick}
             outsideClickExcludeSelectors={outsideClickExcludeSelectors}
           >
-            <div className="SubPopup z-50 bg-black">
+            <div className="SubPopup z-50 border rounded-[4px]">
               <p className="heading">{restProps.label}</p>
               <WrappedComponent
                 {...restProps}
