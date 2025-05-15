@@ -47,11 +47,4 @@ GradientPreview.defaultProps = {
   onCanvasInit: noop,
 };
 
-// GradientPreview.propTypes = {
-//   canvasId: PropTypes.string,
-//   height: PropTypes.number,
-//   width: PropTypes.number,
-//   config: PropTypes.object,
-// };
-
 export default GradientPreview;

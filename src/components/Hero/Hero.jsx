@@ -10,6 +10,16 @@ const ColumnsLayout = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-4">
+      <div className="columns-6 gap-4">
+        {items.map((item) => (
+          <div
+            key={item.id}
+            className={`${item.color} text-white p-4 rounded-lg mb-4 aspect-[3/2]`}
+          >
+            {item.text}
+          </div>
+        ))}
+      </div>
       <div className="columns-3 gap-4">
         {items.map((item) => (
           <div
@@ -20,26 +30,6 @@ const ColumnsLayout = () => {
           </div>
         ))}
       </div>
-      {/* <div className="columns-2 gap-4">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className={`${item.color} text-white p-4 rounded-lg mb-4 aspect-[3/2]`}
-            >
-              {item.text}
-            </div>
-          ))}
-        </div> */}
-      {/* <div className="columns-6 gap-4">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className={`${item.color} text-white p-4 rounded-lg mb-4 aspect-[3/2]`}
-            >
-              {item.text}
-            </div>
-          ))}
-        </div> */}
     </div>
   );
 };

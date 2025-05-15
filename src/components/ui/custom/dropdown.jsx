@@ -25,7 +25,7 @@ export default function Dropdown({
       value={value}
       disabled={disabled}
     >
-      <SelectTrigger className={`${className} focus: none`}>
+      <SelectTrigger className={`${className} cursor-pointer focus: none`}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent
@@ -34,7 +34,11 @@ export default function Dropdown({
         className={dropdownHeight ? `h-[${dropdownHeight}]` : ""}
       >
         {options.map((option, index) => (
-          <SelectItem key={index} value={option.value}>
+          <SelectItem
+            className="cursor-pointer"
+            key={index}
+            value={option.value}
+          >
             {option.name}
           </SelectItem>
         ))}

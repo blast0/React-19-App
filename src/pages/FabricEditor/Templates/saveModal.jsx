@@ -13,7 +13,6 @@ const SaveModalJsx = ({
   imageWidth,
   ratio,
   canvas,
-  theme,
   onSave,
 }) => {
   const [fileName, set_fileName] = useState(defaultFileName);
@@ -51,8 +50,8 @@ const SaveModalJsx = ({
           }}
           label="File Name:"
         />
-        <div className="flex justify-between flex-col mt-[10px]">
-          <span className={`fileName `}>
+        <div className="flex justify-between flex-col">
+          <span className={`fileName ml-3 mb-2`}>
             {fileName}.{chosenFileType}
           </span>
           <div className="flex gap-[10px]">
@@ -73,7 +72,11 @@ const SaveModalJsx = ({
                   setSelection("page");
                 }}
               >
-                <input type="radio" checked={selection === "page"} />
+                <input
+                  type="radio"
+                  className={`cursor-pointer`}
+                  checked={selection === "page"}
+                />
                 <Label className={`cursor-pointer`}>Full Page</Label>
               </div>
               <div
@@ -82,7 +85,11 @@ const SaveModalJsx = ({
                   setSelection("selected");
                 }}
               >
-                <input type="radio" checked={selection === "selected"} />
+                <input
+                  type="radio"
+                  className={`cursor-pointer`}
+                  checked={selection === "selected"}
+                />
                 <Label className={`cursor-pointer`}>Selected Element</Label>
               </div>
             </div>
@@ -95,9 +102,10 @@ const SaveModalJsx = ({
                 <Title key={item.value} title={item.value}>
                   <Button
                     type="button"
-                    variant="outline"
-                    className={`cursor-pointer ${
-                      chosenFileType === item.value ? "border-emerald-600" : ""
+                    className={`cursor-pointer border ${
+                      chosenFileType === item.value
+                        ? "text-emerald-50 bg-emerald-600"
+                        : ""
                     }`}
                     onClick={() => {
                       set_chosenFileType(item.value);
@@ -164,8 +172,7 @@ const SaveModalJsx = ({
         </div>
       </div>
       <Button
-        variant="outline"
-        className="w-[100px]"
+        className="w-[100px] cursor-pointer"
         onClick={() => {
           // onSave();
           if (selection === "page") {

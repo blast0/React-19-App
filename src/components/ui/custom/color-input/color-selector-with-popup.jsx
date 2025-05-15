@@ -1,10 +1,6 @@
 import React, { useRef, useState } from "react";
 import { noop } from "lodash";
 import ColorSelector from "./color-picker";
-import withPopup from "@/components/hoc/withPopup";
-
-const ColorSelectorPopup = withPopup(ColorSelector);
-
 function ColorSelectorWithPopup(props) {
   const {
     id,
@@ -13,13 +9,10 @@ function ColorSelectorWithPopup(props) {
     containerClass,
     tooltip,
     handleRemove,
-    nativeElement,
-    onOutsideClick,
     opt,
     showRemoveButton,
     ...restProps
   } = props;
-  const [showPicker, setShowPicker] = useState(false);
   const [showSiteColor, setShowSiteColor] = useState(false);
   const elemRef = useRef(null);
 
@@ -32,7 +25,6 @@ function ColorSelectorWithPopup(props) {
     ...containerStyle,
   };
   const openSiteSettings = () => {
-    setShowPicker(false);
     setShowSiteColor(true);
   };
   return (
@@ -43,48 +35,46 @@ function ColorSelectorWithPopup(props) {
         ...containerStyles,
       }}
     >
-      <div
-        className={`ColorSelectorWithPopup ${
-          tooltip ? "tooltip" : ""
-        } tooltip-top `}
-        id={`${id || ""}`}
-        data-tooltip={tooltip ?? restProps.label}
-        style={{
-          backgroundColor: restProps.color,
-          ...controlStyle,
-        }}
-        ref={elemRef}
-        onClick={(e, index) => {
-          e.stopPropagation();
-          if (showSiteColor) {
-            setShowSiteColor(false);
-            setShowPicker(false);
-          } else {
-            setShowPicker((prevState) => !prevState);
-          }
-        }}
-      >
-        {showRemoveButton ? (
-          <span
-            className="close-button"
-            onClick={(event) => {
-              handleRemove(restProps.index);
+      <Popover>
+        <PopoverTrigger>
+          <div
+            className={`ColorSelectorWithPopup ${
+              tooltip ? "tooltip" : ""
+            } tooltip-top `}
+            id={`${id || ""}`}
+            data-tooltip={tooltip ?? restProps.label}
+            style={{
+              backgroundColor: restProps.color,
+              ...controlStyle,
             }}
-          ></span>
-        ) : null}
-      </div>
-
-      {showPicker ? (
-        <ColorSelectorPopup
-          {...restProps}
-          nativeElement={elemRef?.current}
-          onOutsideClick={(e) => {
-            setShowPicker(false);
-          }}
-          onOpenSiteSettings={openSiteSettings}
-          onChange={(color) => restProps.onChange(color)}
-        />
-      ) : null}
+            ref={elemRef}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (showSiteColor) {
+                setShowSiteColor(false);
+              }
+            }}
+          >
+            {showRemoveButton ? (
+              <span
+                className="close-button"
+                onClick={() => {
+                  handleRemove(restProps.index);
+                }}
+              ></span>
+            ) : null}
+          </div>
+        </PopoverTrigger>
+        <PopoverContent className="w-[235px]">
+          <ColorSelector
+            {...restProps}
+            nativeElement={elemRef?.current}
+            y
+            onOpenSiteSettings={openSiteSettings}
+            onChange={(color) => restProps.onChange(color)}
+          />
+        </PopoverContent>
+      </Popover>
     </div>
   );
 }
@@ -97,4 +87,3 @@ ColorSelectorWithPopup.defaultProps = {
 };
 
 export default ColorSelectorWithPopup;
-export { ColorSelectorPopup };

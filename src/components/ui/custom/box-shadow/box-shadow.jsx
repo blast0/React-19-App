@@ -9,9 +9,10 @@ import "./boxshadow.css";
 import { Input } from "../../input";
 
 const convertToConfig = (val) => {
-  let names = val.split(" ");
-  const result = names.filter((word) => {
+  let names = val?.split(" ");
+  const result = names?.filter((word) => {
     if (word !== "") return word;
+    else return "";
   });
   let _type = "";
   let _shadowColor = "";
@@ -19,18 +20,18 @@ const convertToConfig = (val) => {
   let _yoffset = "";
   let _blur = "";
   let _spread = "";
-  if (result.length === 4) {
+  if (result?.length === 4) {
     (_shadowColor = result[0]),
       (_xoffset = parseInt(result[1])),
       (_yoffset = parseInt(result[2])),
       (_blur = parseInt(result[3]));
-  } else if (result.length === 5) {
+  } else if (result?.length === 5) {
     (_shadowColor = result[0]),
       (_xoffset = parseInt(result[1])),
       (_yoffset = parseInt(result[2])),
       (_blur = parseInt(result[3])),
       (_spread = parseInt(result[4]));
-  } else if (result.length === 6) {
+  } else if (result?.length === 6) {
     (_type = result[0]),
       (_shadowColor = result[1]),
       (_xoffset = parseInt(result[2])),

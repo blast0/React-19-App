@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { CustomPicker } from "react-color";
 import { noop } from "lodash";
 import Hue from "react-color/lib/components/common/Hue";
@@ -78,17 +78,20 @@ class SubPopup extends React.Component {
         paddingBottom: "55%",
         position: "relative",
         border: "1px solid #bababa",
+        cursor: "pointer",
       },
       hue: {
         height: "12px",
         position: "relative",
         border: "1px solid #bababa",
+        cursor: "pointer",
       },
       alpha: {
         position: "relative",
         margin: "10px 0px",
         height: "12px",
         border: "1px solid #bababa",
+        cursor: "pointer",
       },
       Alpha: {
         height: "10px",

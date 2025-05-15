@@ -1,7 +1,10 @@
 import { useRef, useState } from "react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import BoxShadow from "./box-shadow";
-import withPopup from "@/components/hoc/withPopup";
-const BoxShadowPopup = withPopup(BoxShadow);
 const BoxShadowWithPopUp = (props) => {
   const {
     label,
@@ -32,33 +35,34 @@ const BoxShadowWithPopUp = (props) => {
     onChange("");
   };
   return (
-    <>
-      <div className="control-wrapper" style={{ ...containerStyles }}>
-        {label ? <Label className="InputLabel">{label}</Label> : null}
-        <div className="flex" style={{ gap: "3px" }}>
-          <div
-            className="Box-shadow-Icon icon tooltip tooltip-top"
-            style={{
-              ...controlStyle,
-            }}
-            data-tooltip={tooltip ? tooltip : label}
-            ref={elemRef}
-            onClick={() => {
-              setShowSubPopup((prevShowSubPopup) => !prevShowSubPopup);
-            }}
-          ></div>
-          <div
-            className="shadow-cross-icon"
-            title="Clear"
-            onClick={() => {
-              handleCrossClick();
-            }}
-          >
-            <i className="icon-close p-1 text-[10px]"></i>
+    <div className="control-wrapper" style={{ ...containerStyles }}>
+      <Popover>
+        <PopoverTrigger>
+          <div className="flex" style={{ gap: "3px" }}>
+            <div
+              className="Box-shadow-Icon icon tooltip tooltip-top"
+              style={{
+                ...controlStyle,
+              }}
+              data-tooltip={tooltip ? tooltip : label}
+              ref={elemRef}
+              onClick={() => {
+                setShowSubPopup((prevShowSubPopup) => !prevShowSubPopup);
+              }}
+            ></div>
+            <div
+              className="shadow-cross-icon"
+              title="Clear"
+              onClick={() => {
+                handleCrossClick();
+              }}
+            >
+              <i className="icon-close p-1 text-[10px]"></i>
+            </div>
           </div>
-        </div>
-        {showSubPopup ? (
-          <BoxShadowPopup
+        </PopoverTrigger>
+        <PopoverContent className="w-[235px]">
+          <BoxShadow
             nativeElement={elemRef?.current}
             outsideClickExcludeSelectors={[
               ".ddList",
@@ -72,9 +76,9 @@ const BoxShadowWithPopUp = (props) => {
             {...restProps}
             onChange={(e) => onChange(e)}
           />
-        ) : null}
-      </div>
-    </>
+        </PopoverContent>
+      </Popover>
+    </div>
   );
 };
 

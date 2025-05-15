@@ -21,11 +21,8 @@ class GradientMaker extends Component {
       previewHeight,
       previewWidth,
       onGradientChange,
-      opt,
       label,
       containerClass,
-      containerStyle,
-      controlStyle,
       canChooseGradientType,
       isGradientAllowed,
       siteColorData,
@@ -34,32 +31,15 @@ class GradientMaker extends Component {
       showSiteColorBtn,
       value,
     } = this.props;
-    const containerStyles = {
-      width: opt?.fullWidth
-        ? "100%"
-        : opt?.containerWidth
-        ? opt?.containerWidth
-        : "100%",
-      ...containerStyle,
-    };
-
-    const controlStyles = {
-      width: opt?.controlWidth ? opt?.controlWidth : "100%",
-      ...controlStyle,
-      display: "flex",
-      flexWrap: "wrap",
-      flexDirection: "column",
-    };
 
     return (
       <div
         className={`control-wrapper GradientMaker rounded-[4px] p-2 border-grey-100 canvas-parent ${
           containerClass ?? ""
         }`}
-        style={{ ...containerStyles }}
       >
         {label ? <Label className="InputLabel">{label}</Label> : null}
-        <div style={{ ...controlStyles }}>
+        <div>
           {!isGradientAllowed || this.state.switchToColor ? (
             <ColorSelector
               color={config.colorStops[0].color}
@@ -144,15 +124,5 @@ GradientMaker.defaultProps = {
   isGradientAllowed: true,
   showSiteColorBtn: false,
 };
-
-// GradientMaker.propTypes = {
-//   previewHeight: PropTypes.number,
-//   previewWidth: PropTypes.number,
-//   onGradientChange: PropTypes.func,
-//   opt: PropTypes.object,
-//   containerStyle: PropTypes.object,
-//   controlStyle: PropTypes.object,
-//   canChooseGradientType: PropTypes.bool,
-// };
 
 export default GradientMaker;

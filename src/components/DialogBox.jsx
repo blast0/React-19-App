@@ -39,7 +39,6 @@ export function DialogBox({
         </DialogHeader>
         {modalJsx}
         <Button
-          variant="outline"
           className="w-[100px] cursor-pointer h-[32px] hover:bg-red-400 hover:text-white  "
           onClick={() => {
             setIsopen(false);

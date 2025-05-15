@@ -24,8 +24,8 @@ import {
 } from "./helper-functions";
 import "./fabric-history";
 import CanvasCore from "./canvas.core";
-import PopMenuPortal from "@/components/popup-menu-portal";
-import PopupContainer from "@/components/popup-container";
+// import PopMenuPortal from "@/components/popup-menu-portal";
+// import PopupContainer from "@/components/popup-container";
 
 class Page extends Component {
   constructor(props) {
@@ -2124,35 +2124,36 @@ class Page extends Component {
           style={{ ...this.state.contextMenuProps }}
         ></div>
         {showContextmenu ? (
-          <PopMenuPortal>
-            <PopupContainer
-              nativeElement={this.contextMenuRef.current}
-              onOutsideClick={() => {
-                this.setState({
-                  showContextmenu: false,
-                });
-              }}
-              outsideClickExcludeSelectors={["menu"]}
-            >
-              <ul className="menu">
-                {CANVAS_CONTEXT_MENU_ITEMS.map((item) => {
-                  return (
-                    <li className="menu-item" key={item.value}>
-                      <a
-                        href="/#"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          this.handleContextMenuItemClick(item.value);
-                        }}
-                      >
-                        {item.label}
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-            </PopupContainer>
-          </PopMenuPortal>
+          // <PopMenuPortal>
+          //   <PopupContainer
+          //     nativeElement={this.contextMenuRef.current}
+          //     onOutsideClick={() => {
+          //       this.setState({
+          //         showContextmenu: false,
+          //       });
+          //     }}
+          //     outsideClickExcludeSelectors={["menu"]}
+          //   >
+          //     <ul className="menu">
+          //       {CANVAS_CONTEXT_MENU_ITEMS.map((item) => {
+          //         return (
+          //           <li className="menu-item" key={item.value}>
+          //             <a
+          //               href="/#"
+          //               onClick={(e) => {
+          //                 e.preventDefault();
+          //                 this.handleContextMenuItemClick(item.value);
+          //               }}
+          //             >
+          //               {item.label}
+          //             </a>
+          //           </li>
+          //         );
+          //       })}
+          //     </ul>
+          //   </PopupContainer>
+          // </PopMenuPortal>
+          <>sad</>
         ) : null}
       </div>
     );

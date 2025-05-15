@@ -1,11 +1,12 @@
 import { noop, orderBy } from "lodash";
 import { useRef, useState } from "react";
-
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { convertGradientToConfig } from "./utilities";
-import withPopup from "@/components/hoc/withPopup";
 import GradientMaker from "./gradient-component/index";
-
-const GradientPopup = withPopup(GradientMaker);
 
 function convertToText(config) {
   const { colorStops, type, angle } = config;
@@ -31,7 +32,6 @@ function convertToText(config) {
 function GradientMakerWithPopup({
   label = "",
   tooltip = "",
-  containerStyle = {},
   opt = {},
   onValueChange = noop,
   value = "",
@@ -46,35 +46,21 @@ function GradientMakerWithPopup({
   const [showSubPopup, setShowSubPopup] = useState(false);
   const elemRef = useRef(null);
 
-  const containerStyles = {
-    width: opt?.fullWidth
-      ? "100%"
-      : opt?.containerWidth
-      ? opt?.containerWidth
-      : null,
-    ...containerStyle,
-  };
-
   return (
-    <div
-      className="control-wrapper  popup cursor-pointer"
-      style={{ ...containerStyles }}
-    >
-      {label ? <Label className="InputLabel">{label}</Label> : null}
-      <div
-        className="GradientMakerWithPopUp  border border-slate-900 dark:border-slate-500 h-[26px] w-[26px] mr-2 rounded-2xl control-icon tooltip tooltip-top"
-        data-tooltip={tooltip ? tooltip : label}
-        ref={elemRef}
-        style={{
-          background: value,
-          // ...controlStyle,
-        }}
-        onClick={() => {
-          setShowSubPopup((prevShowSubPopup) => !prevShowSubPopup);
-        }}
-      ></div>
-      {showSubPopup ? (
-        <GradientPopup
+    <Popover>
+      <PopoverTrigger>
+        <div
+          className="GradientMakerWithPopUp  border border-slate-900 dark:border-slate-500 h-[26px] w-[26px] mr-2 rounded-2xl control-icon tooltip tooltip-top"
+          data-tooltip={tooltip ? tooltip : label}
+          ref={elemRef}
+          style={{
+            background: value,
+            ...controlStyle,
+          }}
+        ></div>
+      </PopoverTrigger>
+      <PopoverContent className="w-[235px]">
+        <GradientMaker
           {...restProps}
           switchToColor={switchToColor}
           nativeElement={elemRef?.current}
@@ -95,8 +81,8 @@ function GradientMakerWithPopup({
             setUserGradient(val.gradient);
           }}
         />
-      ) : null}
-    </div>
+      </PopoverContent>
+    </Popover>
   );
 }
 

@@ -70,7 +70,7 @@ class Rightpanel extends Component {
           handleJsonData={this.handleJsonData}
         />
         <div className="designer-style-container slim-scroll h-[calc(100vh-102px)] pb-[30px] overflow-y-auto p-[10px]">
-          <div className="page-controls mt-2">
+          <div className="page-controls">
             <div className="page-dimensions-control gap-2 flex flex-wrap">
               <div className="w-[48%]">
                 <Label>Canvas Width:</Label>
@@ -107,7 +107,7 @@ class Rightpanel extends Component {
                 />
               </div>
             </div>
-            <div className="w-[48%]">
+            <div className="w-[48%] mt-1">
               <Label>Canvas Background:</Label>
               <GradientContainer
                 showSiteColorBtn={false}
@@ -124,7 +124,6 @@ class Rightpanel extends Component {
                     let grad = makeGradient(rawConfig, gradientText, canvas);
                     const cangradient = new fabric.Gradient(grad);
                     console.log(cangradient);
-                    // canvas.set("backgroundColor", new fabric.Gradient(grad));
                   } else {
                     onChange(ACTIONS.CHANGE_PAGE_BACKGROUND, gradientText);
                   }
@@ -136,7 +135,7 @@ class Rightpanel extends Component {
           activeElementType !== "polygon" &&
           activeElementType !== "textbox" &&
           activeElement ? (
-            <div className="elementName">
+            <div className="elementName mt-1">
               <Label>Element Name:</Label>
               <Input
                 placeholder="Element Name"
@@ -152,10 +151,9 @@ class Rightpanel extends Component {
               />
             </div>
           ) : null}
-          <div className="element-selector">
-            <Label>Selected Object:</Label>
+          <div className="element-selector mt-1">
+            <Label>Selected Element:</Label>
             <Dropdown
-              // className={"bg-white"}
               placeholder={
                 selectedElementName ? (
                   <div className="flex gap-2 items-center">
@@ -191,9 +189,7 @@ class Rightpanel extends Component {
               activeElementProps={activeElementProps}
               selectedElementName={selectedElementName}
               elementsDropDownData={elementsDropDownData}
-              onActiveElementPropsChange={(props) => {
-                onChange(ACTIONS.CHANGE_ACTIVE_ELEMENT_PROPS, props);
-              }}
+              onActiveElementPropsChange={() => {}}
               onChange={(action, data) => {
                 onChange(action, data);
               }}

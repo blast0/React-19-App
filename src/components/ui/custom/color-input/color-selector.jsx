@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import { noop } from "lodash";
-
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import ColorPicker from "./color-picker";
-import withPopup from "../../../hoc/withPopup";
-import { Popover, PopoverContent, PopoverTrigger } from "../../popover";
-
-const ColorSelectorPopup = withPopup(ColorPicker);
 
 function ColorSelectorWithPopup(props) {
   const {
@@ -84,4 +84,4 @@ function ColorSelectorWithPopup(props) {
 }
 
 export default ColorSelectorWithPopup;
-export { ColorSelectorPopup };
+// export { ColorSelectorPopup };
