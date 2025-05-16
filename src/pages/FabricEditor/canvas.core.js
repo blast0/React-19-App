@@ -1,5 +1,4 @@
 import { fabric } from "fabric";
-// import { INITIAL_PATH, svg } from "./Constants/designer-constants";
 import {
   getNewID,
   addPattern,
@@ -72,52 +71,6 @@ class CanvasCore {
     return triangleElement;
   }
 
-  // addTriangle(options) {
-  //   if (!this.canvas) return;
-  //   const triangleElement = new fabric.Triangle({
-  //     ...options,
-  //     strokeUniform: true,
-  //     id: getNewID(),
-  //   });
-  //   this.canvas.add(triangleElement);
-  //   return triangleElement;
-  // }
-
-  // makeQuadGroup(ObjectsArray) {
-  //   if (!this.canvas) return;
-  //   const group = new fabric.Group(ObjectsArray);
-  //   group.name = "QuadraticArrow";
-  //   group.setControlsVisibility({
-  //     tl: false,
-  //     tr: false,
-  //     br: false,
-  //     bl: false,
-  //     ml: false,
-  //     mt: false,
-  //     mr: false,
-  //     mb: false,
-  //     mtr: false,
-  //   });
-  //   group.name = "QuadraticArrow";
-  //   return group;
-  // }
-
-  // makeEndTriangle(options, left, top, line1, line2, line3) {
-  //   if (!this.canvas) return;
-  //   const triangle = new fabric.Triangle({
-  //     id: getNewID(),
-  //     left: left,
-  //     top: top,
-  //     strokeUniform: true,
-  //     ...options,
-  //   });
-  //   triangle.line1 = line1;
-  //   triangle.line2 = line2;
-  //   triangle.line3 = line3;
-  //   triangle.angle = this.getAngle(line1, line3);
-  //   return triangle;
-  // }
-
   getCircle(options) {
     if (!this.canvas) {
       console.error("Canvas not initailized");
@@ -131,38 +84,6 @@ class CanvasCore {
     return circleElement;
   }
 
-  // addCircle(options) {
-  //   if (!this.canvas) return;
-  //   const circleElement = new fabric.Circle({
-  //     ...options,
-  //     strokeUniform: true,
-  //     id: getNewID(),
-  //   });
-  //   this.canvas.add(circleElement);
-  //   return circleElement;
-  // }
-
-  // drawQuadratic(options) {
-  //   if (!this.canvas) return;
-  //   const curve = new fabric.Path(
-  //     `M ${INITIAL_PATH.p0}, Q ${INITIAL_PATH.p1} ${INITIAL_PATH.p2}`,
-  //     {
-  //       ...options,
-  //     }
-  //   );
-  //   return curve;
-  // }
-
-  // makeControlPoint(options, left, top) {
-  //   if (!this.canvas) return;
-  //   const points = new fabric.Path(svg, {
-  //     left: left,
-  //     top: top,
-  //     ...options,
-  //   });
-  //   return points;
-  // }
-
   getLine(options) {
     if (!this.canvas) {
       console.error("Canvas not initailized");
@@ -174,16 +95,6 @@ class CanvasCore {
     });
     return lineElement;
   }
-
-  // addLine(options) {
-  //   if (!this.canvas) return;
-  //   const lineElement = new fabric.Line(options.points, {
-  //     ...options,
-  //     id: getNewID(),
-  //   });
-  //   this.canvas.add(lineElement);
-  //   return lineElement;
-  // }
 
   addImgFromURL(url, options) {
     return new Promise((resolve) => {
@@ -287,8 +198,6 @@ class CanvasCore {
           strokeUniform: true,
           URL: url,
         });
-        console.log(url);
-        console.log(containerElem);
       }
       canvas.add(containerElem);
       canvas.setActiveObject(containerElem);
@@ -318,61 +227,6 @@ class CanvasCore {
       id: getNewID(),
     });
     return _rect;
-  }
-
-  // addRect(options, position) {
-  //   if (!this.canvas) return;
-  //   const _rect = new fabric.Rect({
-  //     ...options,
-  //     strokeUniform: true,
-  //     id: getNewID(),
-  //   });
-  //   if (position) {
-  //     _rect.top = position.top / 2 + 70;
-  //     _rect.left = position.left / 2 - 70;
-  //   }
-  //   this.canvas.add(_rect);
-  //   this.canvas.bringToFront(_rect);
-  //   return _rect;
-  // }
-
-  // async addTextBox(text, options) {
-  //   if (!this.canvas) return;
-  //   if (options?.fontFamily) {
-  //     await loadGoogleFont(options?.fontFamily);
-  //   }
-  //   const textbox = new fabric.Textbox(text, {
-  //     ...options,
-  //     strokeUniform: true,
-  //     id: getNewID(),
-  //   });
-  //   return textbox;
-  // }
-
-  // addPolygon(points, options) {
-  //   if (!this.canvas) return;
-  //   const polyElement = new fabric.Polygon(points, {
-  //     ...options,
-  //     strokeUniform: true,
-  //     id: getNewID(),
-  //   });
-  //   return polyElement;
-  // }
-
-  async getSVGFromURL(url, options) {
-    const promise = new Promise((resolve, reject) => {
-      if (!this.canvas) reject();
-      fabric.loadSVGFromURL(url, (objects) => {
-        const svg = fabric.util.groupSVGElements(objects, {
-          id: getNewID(),
-          ...options,
-          type: "group",
-        });
-        this.canvas.add(svg);
-        resolve(svg);
-      });
-    });
-    return promise;
   }
 }
 

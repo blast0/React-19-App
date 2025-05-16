@@ -76,7 +76,6 @@ class ActiveElementControls extends Component {
       theme,
     } = this.props;
     const activeElement = canvas.getActiveObject();
-    console.log(activeElementProps);
     const commonColors = [];
     const _commonColors = [];
     activeElementProps.colors?.forEach((item) => {
