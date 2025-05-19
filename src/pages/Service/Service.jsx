@@ -17,7 +17,7 @@ function Service() {
   return (
     <div className="flex p-5">
       <div className="flex flex-col gap-2">
-        <div className="shadow resize-x overflow-auto h-[150px] w-[300px] min-w-[120px]">
+        <div className="shadow resize-x overflow-auto h-[150px] w-[230px] min-w-[120px]">
           <p className="text-2xl mx-2">Gradient Container:</p>
           <div className="p-2 box-border">
             <GradientContainer
@@ -25,7 +25,7 @@ function Service() {
               canChooseGradientType={true}
               value={color}
               previewWidth={200}
-              label="Component Label"
+              label="GradientContainer Label"
               onFocus={() => {
                 addLog(`onFocus: ()`);
               }}
@@ -51,15 +51,15 @@ function Service() {
             />
           </div>
         </div>
-        <div className="shadow resize-x overflow-auto h-[150px] w-[300px] min-w-[120px]">
+        <div className="shadow resize-x overflow-auto h-[150px] w-[230px] min-w-[120px]">
           <p className="text-2xl mx-2">Color Input:</p>
           <div className="p-2 box-border">
             <ColorInput
+              label="ColorInput Label"
               value={color}
               onChange={(color) => {
-                console.log(color);
                 addLog(`onChange: (${color})`);
-                // setColor(color);
+                setColor(color);
               }}
             />
           </div>
