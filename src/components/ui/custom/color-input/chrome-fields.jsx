@@ -12,9 +12,8 @@ const isValidHex = (hex) => {
 };
 
 export class ChromeFields extends React.Component {
-  constructor(props) {
+  constructor() {
     super();
-
     this.state = {
       view: "hex",
     };
@@ -74,7 +73,6 @@ export class ChromeFields extends React.Component {
         marginTop: "12px",
       },
     };
-    console.log(this.props?.hex);
     let fields;
     if (this.state.view === "hex") {
       fields = (

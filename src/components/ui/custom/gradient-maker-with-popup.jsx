@@ -50,7 +50,7 @@ function GradientMakerWithPopup({
     <Popover>
       <PopoverTrigger>
         <div
-          className="GradientMakerWithPopUp  border border-slate-900 dark:border-slate-500 h-[26px] w-[26px] mr-2 rounded-2xl control-icon tooltip tooltip-top"
+          className="GradientMakerWithPopUp cursor-pointer border border-slate-900 dark:border-slate-500 h-[26px] w-[26px] mr-2 rounded-2xl control-icon tooltip tooltip-top"
           data-tooltip={tooltip ? tooltip : label}
           ref={elemRef}
           style={{

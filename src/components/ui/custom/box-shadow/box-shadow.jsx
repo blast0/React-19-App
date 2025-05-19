@@ -56,7 +56,6 @@ const convertToConfig = (val) => {
 const BoxShadow = ({
   onChange = () => {},
   showPreview = true,
-  configKey,
   showCopyClipboard,
   showSpread,
   showTypeButton,
@@ -79,7 +78,7 @@ const BoxShadow = ({
     }
     shadow = shadowItems.join(" ");
     setBoxShadow(shadow);
-    onChange(shadow, configKey);
+    onChange(shadow);
   }, [config]);
 
   return (

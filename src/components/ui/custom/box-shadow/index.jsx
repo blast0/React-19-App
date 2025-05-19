@@ -13,7 +13,7 @@ const BoxShadowWithInput = ({
   tooltip,
   description,
   containerClass,
-  configKey,
+
   // theme,
   value = "",
   onChange = () => {},
@@ -25,7 +25,7 @@ const BoxShadowWithInput = ({
   const boxShadowChangeHandler = (value) => {
     try {
       setInputShadow(value);
-      onChange(value, configKey);
+      onChange(value);
     } catch (error) {
       console.log(error);
     }

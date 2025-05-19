@@ -119,7 +119,7 @@ class Rightpanel extends Component {
                 opt={{ showInput: true }}
                 isGradientAllowed={false}
                 containerClass={"gradient"}
-                onValueChange={(gradientText, configKey, rawConfig) => {
+                onValueChange={(gradientText, rawConfig) => {
                   if (rawConfig?.colorStops?.length > 1) {
                     let grad = makeGradient(rawConfig, gradientText, canvas);
                     const cangradient = new fabric.Gradient(grad);

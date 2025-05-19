@@ -440,7 +440,7 @@ class ActiveElementControls extends Component {
           opt={{ showInput: true }}
           isGradientAllowed={true}
           containerClass={"gradient"}
-          onValueChange={(gradientText, configKey, rawConfig) => {
+          onValueChange={(gradientText, rawConfig) => {
             if (rawConfig) {
               let grad = makeGradient(rawConfig, gradientText, activeElement);
               if (rawConfig.colorStops.length < 2) {

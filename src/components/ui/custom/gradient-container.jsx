@@ -1,12 +1,11 @@
 import { memo } from "react";
 import { isEqual } from "lodash";
-
 import GradientMakerWithInput from "./gradient-maker-with-input";
 import GradientMakerWithPopup from "./gradient-maker-with-popup";
 import GradientMaker from "./gradient-component/index";
 import { convertGradientToConfig } from "./utilities";
 
-const GradientContainer = ({ showInPopup, configKey, ...restProps }) => {
+const GradientContainer = ({ showInPopup, ...restProps }) => {
   const config =
     typeof restProps.value === "object"
       ? convertGradientToConfig(restProps.value)
@@ -17,15 +16,19 @@ const GradientContainer = ({ showInPopup, configKey, ...restProps }) => {
         <GradientMakerWithPopup
           {...restProps}
           onValueChange={(val) =>
-            restProps.onValueChange(val.gradient, configKey, val.config)
+            restProps.onValueChange(val.gradient, val.config)
           }
         />
       ) : restProps?.opt?.showInput ? (
         <GradientMakerWithInput
           {...restProps}
-          onValueChange={(val) =>
-            restProps.onValueChange(val.gradient, configKey, val.config)
-          }
+          onValueChange={(val) => {
+            if (val?.config?.colorStops > 1) {
+              restProps.onValueChange(val.gradient, val.config);
+            } else {
+              restProps.onValueChange(val.gradient);
+            }
+          }}
         />
       ) : (
         <GradientMaker
@@ -39,7 +42,7 @@ const GradientContainer = ({ showInPopup, configKey, ...restProps }) => {
           controlStyle={{ ...restProps.controlStyle, gap: "20px" }}
           config={config}
           onGradientChange={(val) =>
-            restProps.onValueChange(val.gradient, configKey, val.config)
+            restProps.onValueChange(val.gradient, val.config)
           }
         />
       )}

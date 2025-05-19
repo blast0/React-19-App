@@ -22,14 +22,6 @@ const ColorInput = ({
     }
   }, [description]);
 
-  const colorChangeHandler = (color) => {
-    try {
-      onChange(color);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  console.log(restProps);
   return (
     <div className={containerClassName}>
       <Label className="mb-1">{label}</Label>
@@ -41,7 +33,7 @@ const ColorInput = ({
           value={color}
           className="border-none shadow-none"
           onChange={(e) => {
-            colorChangeHandler(e.target.value);
+            onChange(e.target.value);
           }}
         />
         <div className="absolute right-2 top-1.25 ">
@@ -49,7 +41,9 @@ const ColorInput = ({
             {...restProps}
             color={color}
             optData={opt}
-            onChange={(color) => colorChangeHandler(color)}
+            onChange={(color) => {
+              onChange(color);
+            }}
           />
         </div>
       </div>

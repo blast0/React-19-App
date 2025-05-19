@@ -9,7 +9,7 @@ import ChromePointerCircle from "./chrome-pointer-circle";
 import ChromePointer from "./chrome-pointer";
 import ChromeFields from "./chrome-fields";
 import { SketchPresetColors } from "./sketch-preset-colors.jsx";
-// import { createColorText } from "@/helper";
+import { Label } from "@radix-ui/react-label";
 
 const PRESET_COLORS = [
   "#ffadad",
@@ -40,7 +40,6 @@ const createColorText = (color) => {
     // we will use rgb from color object only if, alpha is used
     if (color.rgb.a === 1) {
       //  no alpha used, used hex value instead
-      console.log(color.hex);
       _color = color.hex;
     } else {
       // alpha is present
@@ -71,7 +70,6 @@ class SubPopup extends React.Component {
       opt,
       elemRef,
     } = this.props;
-    console.log(hex);
     const styles = {
       saturation: {
         width: "100%",
@@ -113,7 +111,6 @@ class SubPopup extends React.Component {
     const controlStyles = {
       width: opt?.controlWidth ? opt?.controlWidth : "200px",
     };
-    console.log(hex);
     return (
       <div
         className="control-wrapper"
