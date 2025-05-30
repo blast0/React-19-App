@@ -20,11 +20,10 @@ import { ACTIONS } from "./Constants/actions";
 import { FONT_PROPS_DEFAULT } from "./Constants/font";
 // LOCAL COMPONENTS / METHODS
 import { Spinner } from "@/components/ui/custom/spinner";
-import { Button } from "@/components/ui/button";
 import FontFaceObserver from "fontfaceobserver";
 import { toast } from "react-toastify";
 import { getCanvasElementNames } from "./Constants/designer-icons";
-import { EXTRA_ELEMENT_PROPS } from "./Constants/historyProps";
+import { EXTRA_ELEMENT_PROPS } from "../NewEditor/Constants/historyProps";
 // import axios from "axios";
 
 export const handleDrop = (images, self) => {
@@ -594,7 +593,7 @@ export const addPage = (template, self) => {
       elem.name = elem.value;
     }
   });
-  const promise = new Promise((resolve, reject) => {
+  const promise = new Promise((resolve) => {
     const newPage = produce(PAGE_CONFIG, (draftState) => {
       /**
        * if template is passed, it has highest priority, height,width will be determined from it
@@ -990,35 +989,6 @@ export const addImage = (url, self) => {
   const _pagesNext = produce(pages, (draftState) => {
     const activePage = draftState.find((p) => p.id === activePageID);
     activePage.elements.push(imgElementSchema);
-  });
-  self.setState({ pages: _pagesNext });
-};
-
-//add blob from blobmaker as a pattern image
-export const addRandomShape = (self, svg) => {
-  const { pages, activePageID } = self.state;
-  if (!activePageID) return;
-  const canvasRef = Object.values(self.state.canvases)[0];
-  let count = 1;
-  canvasRef.getObjects().forEach((item) => {
-    if (item.subType === "svg") {
-      count++;
-    }
-  });
-  const randomShapeSchema = {
-    id: getNewID(),
-    type: "svg",
-    subType: "svg",
-    name: "RandomShape " + count,
-    preselected: true,
-    sendtoback: false,
-    selectedTool: BLOB_TYPES.LAYERED_BLOB,
-    selectable: true,
-    svgStr: svg,
-  };
-  const _pagesNext = produce(pages, (draftState) => {
-    const activePage = draftState.find((p) => p.id === activePageID);
-    activePage.elements.push(randomShapeSchema);
   });
   self.setState({ pages: _pagesNext });
 };
@@ -1436,50 +1406,7 @@ export const isGroupPresent = (canvas) => {
   return false;
 };
 
-export const downloadJSON = (self) => {
-  const modalConfig = cloneDeep(MODAL_INTERFACE);
-  modalConfig.resData = "";
-  modalConfig.title = ["Cover Image name", "center"];
-  modalConfig.btns = [];
-  let fileName = "";
-  modalConfig.config = ["550px", "230px"];
-  modalConfig.withJsx = (
-    <>
-      {/* <SaveTemplateModal
-        JsonNodes={{}}
-        imgNodes={{}}
-        allNames={[]}
-        fileName={fileName}
-        currImgDataUrl={null}
-        onFileNameChange={(name) => {
-          fileName = name;
-        }}
-        onCancel={() => {
-          Modal.hide();
-          self.setState({ modalActive: false });
-        }}
-        onSave={async () => {
-          const temp = createJSON(self);
-          const hash = await sha256(JSON.stringify(temp));
-          temp.hash = hash;
-          const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
-            JSON.stringify(temp)
-          )}`;
-          const link = document.createElement("a");
-          link.href = jsonString;
-          if (fileName === "") link.download = "sample.json";
-          else link.download = fileName + ".json";
-          link.click();
-          Modal.hide();
-          self.setState({ modalActive: false });
-        }}
-        onOverWrite={() => {}}
-      /> */}
-    </>
-  );
-  Modal.show(modalConfig, true);
-  self.setState({ modalActive: true });
-};
+export const downloadJSON = () => {};
 
 export const createJSON = (self, _canvas) => {
   const groupPresent = isGroupPresent(_canvas);
@@ -1525,203 +1452,7 @@ const initializeObject = (val) => {
   });
 };
 
-export const showGlobalTemplates = async (self) => {
-  const { toast } = self.props;
-  const data = [];
-  try {
-    Spinner.showSpinner();
-    const files = await self.props.getDesignerCovers();
-    files.resources.forEach((item) => {
-      data.push({
-        name: item.name,
-        url: item.latestVersion.url + "/image.jpeg",
-        JsonUrl: item.latestVersion.url + "/canvas.json",
-      });
-    });
-  } catch (error) {
-    Spinner.hideSpinner();
-    console.log(error);
-  } finally {
-    Spinner.hideSpinner();
-    const modalConfig = Object.assign(MODAL_INTERFACE);
-    modalConfig.resData = "";
-    modalConfig.title = ["Select Design", "center"];
-    modalConfig.btns = [
-      { text: "OK", type: "contained" },
-      { text: "Cancel", className: "dangerBtn" },
-    ];
-    modalConfig.config = ["90vw", "auto"];
-    modalConfig.withJsx = (
-      // <TemplatesModal
-      //   data={data}
-      //   toast={toast}
-      //   applyJsonToCanvas={(val) => {
-      //     Modal.hide();
-      //     initializeObject(val);
-      //     applyJsonToCanvas(val, self);
-      //   }}
-      //   getJSON={async (url, cb) => {
-      //     Spinner.showSpinner();
-      //     const json = await self.props.getCoverJson(
-      //       url + "?mimetype=application/json&cd=inline"
-      //     );
-      //     cb(null, json);
-      //   }}
-      //   deleteDesign={(imgId, jsonId) => {
-      //     // confirmDeletion(imgId, jsonId, self);
-      //   }}
-      //   hideDeleteBtn={true}
-      // />
-      <></>
-    );
-    modalConfig.dynamicModalResponseFun = ({ btnType }) => {
-      // show the modal
-    };
-    Modal.show(modalConfig, true);
-    self.setState({ modalActive: true });
-  }
-};
-
-export const showSavedTemplates = async (self) => {
-  const { asset, toast } = self.props;
-  const parentNodeId = asset.reservedNodes.coverImages;
-  const data = [];
-  try {
-    Spinner.showSpinner();
-    const files = await self.props.getGlobalCoverTemplates(asset._id, {
-      parentNodeId,
-    });
-    const images = files.nodes.filter((image) => {
-      return image.meta.document.mimetype === "image/jpeg";
-    });
-    images.forEach((image) => {
-      data.push({
-        url: image.meta.document.url,
-        name: image.name.replace(".jpeg", ""),
-        imageId: image?._id,
-      });
-    });
-    data.forEach((item) => {
-      const node = files.nodes.find((node) => {
-        return (
-          node.name.includes(".json") &&
-          node.name.replace(".json", "") === item.name
-        );
-      });
-      item.JsonUrl = node?.meta?.document?.url;
-      item.jsonId = node?._id;
-    });
-  } catch (error) {
-    Spinner.hideSpinner();
-    console.log(error);
-  } finally {
-    Spinner.hideSpinner();
-    if (data.length === 0) {
-      toast.error("Error", "No Designer Templates saved");
-    } else {
-      const modalConfig = Object.assign(MODAL_INTERFACE);
-      modalConfig.resData = "";
-      modalConfig.title = ["Select Design", "center"];
-      modalConfig.btns = [
-        { text: "OK", type: "contained" },
-        { text: "Cancel", className: "dangerBtn" },
-      ];
-      modalConfig.config = ["90vw", "auto"];
-      modalConfig.withJsx = (
-        <TemplatesModal
-          data={data}
-          toast={toast}
-          applyJsonToCanvas={(val) => {
-            Spinner.showSpinner();
-            Modal.hide();
-            initializeObject(val);
-            applyJsonToCanvas(val, self);
-          }}
-          getJSON={getJSON}
-          deleteDesign={(imgId, jsonId) => {
-            confirmDeletion(imgId, jsonId, self);
-          }}
-        />
-      );
-      modalConfig.dynamicModalResponseFun = ({ btnType }) => {
-        // show the modal
-      };
-      Modal.show(modalConfig, true);
-      self.setState({ modalActive: true });
-    }
-  }
-};
-
-export const confirmDeletion = (imgId, jsonId, self) => {
-  const modalConfig = cloneDeep(MODAL_INTERFACE);
-  modalConfig.portalId = "ui-kit-dynamic-modal-container";
-  modalConfig.title = ["Delete selected Design?", "center"];
-  modalConfig.config = ["auto", "auto"];
-  modalConfig.withJsx = (
-    <>
-      <div className="delete-modal modal-body">
-        <p className="text-center">
-          Selected Design in self page will be deleted.
-        </p>
-      </div>
-      <div className="modal-footer align-center">
-        <Button
-          type="button"
-          className="mr-2 bg-red-600"
-          onClick={() => {
-            Modal.hide("ui-kit-dynamic-modal-container");
-            deleteDesign(imgId, jsonId, self);
-          }}
-          size="sm"
-        >
-          OK
-        </Button>
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => {
-            Modal.hide("ui-kit-dynamic-modal-container");
-          }}
-          size="sm"
-        >
-          Cancel
-        </Button>
-      </div>
-    </>
-  );
-  modalConfig.btns = [];
-  Modal.show(modalConfig, true);
-};
-
-export const deleteDesign = async (imgId, jsonId, self) => {
-  try {
-    deleteTemplate(imgId, jsonId, self);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const deleteTemplate = async (imgId, jsonId, self) => {
-  const { asset, toast } = self.props;
-  try {
-    Spinner.showSpinner();
-    const deleteTemplate = self.props.fsOperations(asset._id, "trash", [
-      imgId,
-      jsonId,
-    ]);
-    const res = await Promise.all([deleteTemplate]);
-    if (res) {
-      toast.success("Success", "Cover deleted Successfully");
-    }
-  } catch (error) {
-    Spinner.hideSpinner();
-    toast.error("Error", error);
-  } finally {
-    Spinner.hideSpinner();
-    Modal.hide();
-    showSavedTemplates(self);
-  }
-};
+export const confirmDeletion = () => {};
 
 export const uploadTemplate = async (fileName, Modal, self) => {
   try {
@@ -1737,113 +1468,6 @@ export const uploadTemplate = async (fileName, Modal, self) => {
     console.log(err);
   } finally {
     Modal.hide();
-  }
-};
-
-export const uploadTemplateModal = async (self) => {
-  const modalConfig = Object.assign(MODAL_INTERFACE);
-  let fileName = "";
-  const { asset } = self.props;
-  const parentNodeId = asset.reservedNodes.coverImages;
-  let allNames = [];
-  let imgNodes = [];
-  let JsonNodes = [];
-  const canvasRef = Object.values(self.state.canvases)[0];
-  const fileSVGData = canvasRef.toDataURL({
-    format: "jpeg",
-    quality: 0.8,
-  });
-  try {
-    const reqConfig = cloneDeep(REQ_CONFIG);
-    reqConfig.cacheInvalidate = true;
-    const files = await self.props.getFiles(
-      asset._id,
-      { parentNodeId },
-      reqConfig
-    );
-    const imageNodes = files.data.nodes.filter((image) => {
-      return image.meta.document.mimetype === "image/jpeg";
-    });
-    const JsonFiles = files.data.nodes.filter((json) => {
-      return json.meta.document.mimetype === "application/json";
-    });
-    JsonFiles.forEach((JsonNode) => {
-      JsonNodes.push(JsonNode);
-    });
-    imageNodes.forEach((imageNode) => {
-      imgNodes.push(imageNode);
-      allNames.push(imageNode.name.replace(".jpeg", ""));
-    });
-  } catch (error) {
-    console.log(error);
-  } finally {
-    modalConfig.resData = "";
-    modalConfig.title = ["Cover Image name", "center"];
-    modalConfig.btns = [];
-    modalConfig.config = ["550px"];
-    modalConfig.withJsx = (
-      <>
-        <SaveTemplateModal
-          JsonNodes={JsonNodes}
-          imgNodes={imgNodes}
-          allNames={allNames}
-          fileName={fileName}
-          currImgDataUrl={fileSVGData}
-          onFileNameChange={(name) => {
-            fileName = name;
-          }}
-          onCancel={() => {
-            Modal.hide();
-            self.setState({ modalActive: false });
-          }}
-          onSave={() => {
-            uploadTemplate(fileName, Modal, self);
-          }}
-          onOverWrite={(imageNode, JsonNode) => {
-            //call patch api instead of post api for image and json
-            updateTemplate(imageNode, JsonNode, self);
-            Modal.hide();
-          }}
-        />
-      </>
-    );
-    Modal.show(modalConfig, true);
-    self.setState({ modalActive: true });
-  }
-};
-
-export const updateTemplate = async (imageNode, JsonNode, self) => {
-  const { asset, toast } = self.props;
-  const canvasRef = Object.values(self.state.canvases)[0];
-  const temp = createJSON(self);
-  var blob = new Blob([JSON.stringify(temp)], {
-    type: "text/plain",
-  });
-  var file = new File([blob], "file", { type: "application/json" });
-  const fileSVGData = canvasRef.toDataURL({
-    format: "jpeg",
-    quality: 0.8,
-  });
-  var imageblob = dataURLtoBlob(fileSVGData);
-  try {
-    Spinner.showSpinner();
-    const updateJson = self.props.patchImageFile(asset._id, JsonNode._id, file);
-    const updateImg = self.props.patchImageFile(
-      asset._id,
-      imageNode._id,
-      imageblob
-    );
-    const res = await Promise.all([updateJson, updateImg]);
-    if (res) {
-      Spinner.hideSpinner();
-      toast.success("Success", "Cover Updated Successfully");
-    }
-  } catch (error) {
-    Spinner.hideSpinner();
-    toast.error("Error", error);
-    console.log(error);
-  } finally {
-    Spinner.hideSpinner();
   }
 };
 
@@ -1908,7 +1532,7 @@ export const onSelectFile = (e, self) => {
 // UPLOAD IMAGE/SVG TO CANVAS PAGE
 export const onSelectImage = (e, self) => {
   if (e.target.files && e.target.files.length > 0) {
-    const [name, isValid] = validateString(e.target.files[0].name);
+    const name = e.target.files[0].name;
     const reader = new FileReader();
     let fType = e.target.files[0].type.split("/")[1];
     let img = new Image();
@@ -1943,7 +1567,7 @@ export const onSelectImage = (e, self) => {
   e.target.value = "";
 };
 
-function svgSize(name) {
+export const svgSize = (name) => {
   const match = name.match(/\b(\d{1,4})x(\d{1,4})\b/);
   if (match) {
     const width = parseInt(match[1], 10);
@@ -1955,7 +1579,7 @@ function svgSize(name) {
   } else {
     return { _width: null, _height: null };
   }
-}
+};
 
 export const onAddImageFromFile = (e, self, pageHeight, pageWidth) => {
   console.log(e, self, pageHeight, pageWidth);
@@ -2092,15 +1716,15 @@ export const applyJsonToCanvas = async (jsonData, self) => {
   for (const obj of textObjects) {
     await loadGoogleFont(obj?.fontFamily);
   }
-  if (jsonData?.hasOwnProperty("background")) {
-    self.setState({ pageBgColor: jsonData?.background });
-  }
-  if (jsonData?.hasOwnProperty("height")) {
-    dimensionChangeHandler("height", jsonData?.height, self);
-  }
-  if (jsonData?.hasOwnProperty("width")) {
-    dimensionChangeHandler("width", jsonData?.width, self);
-  }
+  // if (jsonData?.hasOwnProperty("background")) {
+  //   self.setState({ pageBgColor: jsonData?.background });
+  // }
+  // if (jsonData?.hasOwnProperty("height")) {
+  //   dimensionChangeHandler("height", jsonData?.height, self);
+  // }
+  // if (jsonData?.hasOwnProperty("width")) {
+  //   dimensionChangeHandler("width", jsonData?.width, self);
+  // }
   canvasRef.loadFromJSON(jsonData, () => {
     canvasRef.renderAll.bind(canvasRef);
     canvasRef.getObjects().forEach((obj, index) => {
@@ -2143,108 +1767,6 @@ export const handleJsonData = (event, self) => {
   };
   // Read the file as text.
   reader.readAsText(file);
-};
-
-export const showRandomBlob = (self, canvasRef) => {
-  let title = "blob";
-  let mySvg = null;
-  const { pageWidth, pageHeight } = self.state;
-  const modalConfig = cloneDeep(MODAL_INTERFACE);
-  modalConfig.title = [title, "center"];
-  modalConfig.config = ["auto", "900px"];
-  modalConfig.withJsx = (
-    <>
-      {/* <RandomBlobModal
-        canvasRef={canvasRef}
-        onChange={(svg) => {
-          mySvg = svg;
-        }}
-        pageWidth={pageWidth}
-        pageHeight={pageHeight}
-      /> */}
-      <div className="modal-footer align-center">
-        <Button
-          type="button"
-          className="mr-2 bg-red-600"
-          onClick={() => {
-            // onAdd(fabricSvg);
-            addRandomShape(self, mySvg);
-            Modal.hide();
-            self.setState({ modalActive: false });
-          }}
-          size="sm"
-        >
-          OK
-        </Button>
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => {
-            Modal.hide();
-            self.setState({ modalActive: false });
-          }}
-          size="sm"
-        >
-          Cancel
-        </Button>
-      </div>
-    </>
-  );
-  modalConfig.btns = [];
-  Modal.show(modalConfig, true);
-  self.setState({ modalActive: true });
-};
-
-// SHOW PAGE RESET WARNING
-export const showPageResetWarning = (deleteType, self) => {
-  let title =
-    deleteType === ACTIONS.DELETE_SELECTION
-      ? "Clear selected item(s)?"
-      : "Caution! Clear all object(s)?";
-  const modalConfig = cloneDeep(MODAL_INTERFACE);
-  modalConfig.title = [title, "center"];
-  modalConfig.config = ["480px", "auto"];
-  modalConfig.withJsx = (
-    <>
-      <div className="delete-modal modal-body">
-        <p className="text-center">
-          This will clear
-          {deleteType === ACTIONS.CLEAR_PAGE ? " all " : " Selected "}
-          object(s) from the screen. Are you sure?
-        </p>
-      </div>
-      <div className="modal-footer align-center">
-        <Button
-          type="button"
-          className="mr-2 bg-red-600"
-          onClick={() => {
-            Modal.hide();
-            self.setState({ modalActive: false });
-            if (deleteType === ACTIONS.CLEAR_PAGE) resetPage(self);
-            else if (deleteType === ACTIONS.DELETE_SELECTION)
-              deleteSelection(self);
-          }}
-          size="sm"
-        >
-          OK
-        </Button>
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => {
-            Modal.hide();
-            self.setState({ modalActive: false });
-          }}
-          size="sm"
-        >
-          Cancel
-        </Button>
-      </div>
-    </>
-  );
-  modalConfig.btns = [];
-  Modal.show(modalConfig, true);
-  self.setState({ modalActive: true });
 };
 
 // RESET PAGE TO EMPTY PAGE
@@ -2325,108 +1847,6 @@ export const handleNameElement = (val, self) => {
     _canvas.getActiveObject().name = _canvas.getActiveObject().val;
     self.setState({
       selectedElementName: val,
-    });
-  }
-};
-
-export const openImageLibrary = (self) => {
-  const openDialogConfig = {
-    zIndex: 5,
-    // localFileSystem: self.props._localFileSystem,
-    fileType: "i",
-    returnType: "i",
-    rootFolderType: "i",
-    fileDialogResponseFun: (res) => fileDialogResponseFun(res, self),
-    createFolder: (data) => FileDialog.createFolder(data),
-    search: (data) => FileDialog.search(data),
-    updateLocalFileSystem: (data) => FileDialog.updateLocalFileSystem(data),
-    redirectToFileLocation: (lastSelectedFile) =>
-      FileDialog.redirectToFileLocation(lastSelectedFile),
-  };
-  FileDialog.show(openDialogConfig);
-};
-
-export const fileDialogResponseFun = (res, self) => {
-  if (res.type === "btnClick" && res.btnType === "ok") {
-    fileDialogOkBtn(res, self);
-  }
-};
-
-export const fileDialogOkBtn = (res, self) => {
-  const { pageHeight, pageWidth } = self.state;
-  const fileObj = res.data;
-  const url = fileObj?.meta?.imageVariations?.[0]?.url;
-  const oheight = fileObj.meta.imageVariations?.[0].height;
-  const owidth = fileObj.meta.imageVariations?.[0].width;
-  const height = fileObj.meta.image.originalHeight;
-  const width = fileObj.meta.image.originalWidth;
-  const heightDiff = oheight - pageHeight;
-  const widthDiff = owidth - pageWidth;
-  let scale = 1;
-  let left = 0;
-  let top = 0;
-  if (heightDiff > 0 || widthDiff > 0) {
-    if (pageHeight / oheight < pageWidth / owidth) {
-      scale = pageHeight / oheight;
-      left = (pageWidth - width * scale) / 2;
-    } else if (pageHeight / oheight > pageWidth / owidth) {
-      scale = pageWidth / owidth;
-      top = (pageHeight - height * scale) / 2;
-    }
-  } else {
-    left = (pageWidth - owidth) / 2;
-    top = (pageHeight - oheight) / 2;
-  }
-  if (fileObj.meta.image.mimetype === "image/svg+xml") {
-    addSVGToPage(url, height, width, self);
-  } else {
-    const canvasRef = Object.values(self.state.canvases)[0];
-    const _rect = new fabric.Rect({
-      height: oheight * scale,
-      width: owidth * scale,
-      rx: 0,
-      ry: 0,
-      id: getNewID(),
-      BorderLock: true,
-      fill: "rgba(0 0 0 0)",
-      left,
-      top,
-      stroke: "#000",
-      strokeWidth: 0,
-      URL: url,
-      patternActive: true,
-      name: res.data.name,
-    });
-    canvasRef.add(_rect);
-    canvasRef.setActiveObject(_rect);
-    addPattern(url, canvasRef, (newProps) => {
-      const _activeElementProps = {
-        ...self.state.activeElementProps,
-        ...newProps,
-      };
-      self.setState(
-        {
-          activeElementProps: {
-            ..._activeElementProps,
-            height: oheight * scale,
-            width: owidth * scale,
-            rx: 0,
-            ry: 0,
-            BorderLock: true,
-            fill: "rgba(0 0 0 0)",
-            left,
-            top,
-            stroke: "#000",
-            URL: url,
-            patternActive: true,
-          },
-          loadingImage: false,
-        },
-        () => {
-          _rect.patternActive = true;
-          canvasRef.requestRenderAll();
-        }
-      );
     });
   }
 };
@@ -2524,52 +1944,20 @@ export const siblings = function (el) {
   });
 };
 
-export const openSizeTemplates = async (self) => {
-  Spinner.hideSpinner();
-  const modalConfig = Object.assign(MODAL_INTERFACE);
-  modalConfig.resData = "";
-  modalConfig.title = ["Select Design", "center"];
-  modalConfig.btns = [];
-  modalConfig.config = ["900px", "auto"];
-  modalConfig.closeOnOutSideClick = false;
-  modalConfig.withJsx = (
-    // <SizeTemplatesModal
-    //   dimensionChangeHandler={dimensionChangeHandler}
-    //   resetPage={resetPage}
-    //   self={self}
-    //   hide={() => {
-    //     Modal.hide();
-    //   }}
-    // />
-    <></>
-  );
-  // Modal.show(modalConfig, true);
-  self.setState({ modalActive: true });
-};
-
 // HANDLE EVENTS ON RIGHT PANEL AND PERFORM ACTIONS ACCORDINGLY
 export const handleRightPanelUpdates = (action, data, self) => {
+  console.log(action, data, self);
+
   const canvasRef = Object.values(self.state.canvases)[0];
   const alignment = data;
   const { pageHeight, pageWidth, loadingImage } = self.state;
   const activeElement = canvasRef.getActiveObject();
   switch (action) {
-    case ACTIONS.SHOW_SAVED_TEMPLATES:
-      showSavedTemplates(self);
-      break;
-    case ACTIONS.SHOW_GLOBAL_TEMPLATES:
-      showGlobalTemplates(self);
-      break;
-    case ACTIONS.OTHERS:
-      // openSizeTemplates(self);
-      break;
-    case ACTIONS.ADD_FROM_LIBRARY:
-      openImageLibrary(self);
-      break;
     case ACTIONS.ADD_TEXT:
       addText(self);
       break;
     case ACTIONS.CHANGE_ACTIVE_ELEMENT_PROPS:
+      console.log(data);
       self.setState(
         {
           showStyleEditor: true,
@@ -2606,9 +1994,6 @@ export const handleRightPanelUpdates = (action, data, self) => {
       break;
     case ACTIONS.DOWNLOAD_JSON:
       downloadJSON(self);
-      break;
-    case ACTIONS.UPLOAD_JSON:
-      uploadTemplateModal(self);
       break;
     case ACTIONS.UPLOAD_IMAGE:
       self.imagetoLibInputRef.current.click();
@@ -2677,9 +2062,6 @@ export const handleRightPanelUpdates = (action, data, self) => {
     case ACTIONS.ADD_SPEECH_LABEL:
       addSpeechLabel(self, true);
       break;
-    case ACTIONS.ADD_RANDOM_SHAPE:
-      showRandomBlob(self, canvasRef);
-      break;
     case ACTIONS.SPACE_WITHIN_GROUP_EVENLY:
       spaceGroupEvenly(data, self);
       break;
@@ -2690,25 +2072,27 @@ export const handleRightPanelUpdates = (action, data, self) => {
       self.imagetoCanvasRef.current.click();
       break;
     case ACTIONS.ADD_PATTERN:
-      activeElement.URL = data;
-      const _activeElementProps = {
-        ...self.state.activeElementProps,
-        URL: data,
-      };
-      self.setState({ activeElementProps: _activeElementProps });
-      if (!loadingImage) {
-        addPattern(data, canvasRef, (newProps) => {
-          const _activeElementProps = {
-            ...self.state.activeElementProps,
-            ...newProps,
-          };
-          self.setState(
-            { activeElementProps: _activeElementProps, loadingImage: false },
-            () => {
-              canvasRef.requestRenderAll();
-            }
-          );
-        });
+      {
+        activeElement.URL = data;
+        const _activeElementProps = {
+          ...self.state.activeElementProps,
+          URL: data,
+        };
+        self.setState({ activeElementProps: _activeElementProps });
+        if (!loadingImage) {
+          addPattern(data, canvasRef, (newProps) => {
+            const _activeElementProps = {
+              ...self.state.activeElementProps,
+              ...newProps,
+            };
+            self.setState(
+              { activeElementProps: _activeElementProps, loadingImage: false },
+              () => {
+                canvasRef.requestRenderAll();
+              }
+            );
+          });
+        }
       }
       break;
     case ACTIONS.CHANGE_PATTERN_SIZE:

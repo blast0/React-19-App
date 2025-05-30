@@ -10,8 +10,8 @@ import { useTheme } from "../../../context/themeProvider";
 const GradientMakerWithInput = ({
   label,
   value,
-  onBlur,
-  onFocus,
+  onBlur = () => {},
+  onFocus = () => {},
   tooltip,
   containerStyle,
   containerClass,

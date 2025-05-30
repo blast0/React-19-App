@@ -385,6 +385,7 @@ class Page extends Component {
     });
 
     _canvas.on("object:modified", (e) => {
+      console.log(e);
       if (e.target?.type === "text" || e.target?.type === "i-text") {
         if (e.target.changedName === true) {
           this.props.setSelectedName(e.target.customName);

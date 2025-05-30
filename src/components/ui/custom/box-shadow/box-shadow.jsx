@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import { Slider } from "../../slider";
 import ColorInput from "../color-input";
 import { Button } from "../../button";
-import { Title } from "../../title";
-import CopyToClipboard from "@/components/ui/custom/copy-to-clipboard";
-
-import "./boxshadow.css";
 import { Input } from "../../input";
+import { Title } from "../../title";
+import "./boxshadow.css";
+import CopyToClipboard from "@/components/ui/custom/copy-to-clipboard";
 
 const convertToConfig = (val) => {
   let names = val?.split(" ");
@@ -315,7 +314,7 @@ const BoxShadow = ({
         <div>
           <div className="text-xs font-bold mb-1">Color</div>
           <ColorInput
-            color={shadowColor}
+            value={shadowColor}
             onChange={(color) => {
               setConfig({
                 ...config,

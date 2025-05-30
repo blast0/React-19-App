@@ -23,7 +23,7 @@ const GradientContainer = ({ showInPopup, ...restProps }) => {
         <GradientMakerWithInput
           {...restProps}
           onValueChange={(val) => {
-            if (val?.config?.colorStops > 1) {
+            if (val?.config?.colorStops.length > 1) {
               restProps.onValueChange(val.gradient, val.config);
             } else {
               restProps.onValueChange(val.gradient);

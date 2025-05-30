@@ -21,7 +21,6 @@ const ColorInput = ({
       descriptionRef.current.innerHTML = description;
     }
   }, [description]);
-
   return (
     <div className={containerClassName}>
       <Label className="mb-1">{label}</Label>

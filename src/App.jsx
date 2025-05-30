@@ -10,6 +10,7 @@ import Spin from "./components/ui/custom/spinner";
 import { useAuth0 } from "@auth0/auth0-react";
 import FabricEditorPage from "./pages/FabricEditor/Editor";
 import Layout from "./components/Layout/layout";
+import FabricEditor2 from "./pages/NewEditor";
 
 function App() {
   const { isLoading, isAuthenticated, loginWithRedirect } = useAuth0();
@@ -37,7 +38,8 @@ function App() {
             />
             <Route
               path="/about"
-              element={<Layout children={<About theme={theme} />} />}
+              element={<Layout children={<FabricEditor2 theme={theme} />} />}
+              // element={<Layout children={<About theme={theme} />} />}
             />
             <Route
               path="/services"

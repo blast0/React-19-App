@@ -79,14 +79,14 @@ const StyleDesigner = ({ value, onStyleUpdate, label, expand }) => {
           {styleObject["background-color"] && (
             <ColorInput
               label="Background Color"
-              color={styleObject["background-color"]}
+              value={styleObject["background-color"]}
               onChange={(value) => updateStyle("background-color", value)}
             />
           )}
           {styleObject["color"] && (
             <ColorInput
               label="Text Color"
-              color={styleObject.color}
+              value={styleObject.color}
               onChange={(value) => updateStyle("color", value)}
             />
           )}

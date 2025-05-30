@@ -138,7 +138,7 @@ const BorderInput = ({
 
           <ColorInput
             label="Border Color"
-            color={state.borderColor}
+            value={state.borderColor}
             onChange={(value) => updateBorders("borderColor", value)}
           />
 

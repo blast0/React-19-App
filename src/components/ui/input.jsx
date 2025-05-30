@@ -14,6 +14,7 @@ const Input = React.forwardRef(
       type,
       icon,
       iconPosition = "left",
+      onChange = () => {},
       ...props
     },
     ref
@@ -37,6 +38,7 @@ const Input = React.forwardRef(
               className
             )}
             ref={ref}
+            onChange={onChange}
             {...props}
           />
           {icon && (
