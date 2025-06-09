@@ -1,6 +1,9 @@
-import FabricEditorPage from "../FabricEditor/Editor";
-const Contact = ({ theme }) => {
-  return <FabricEditorPage theme={theme} />;
-};
+const Contact = () => {
+  return (
+    <div>
+      <p>This is Contact page</p>
+    </div>
+  )
+}
 
-export default Contact;
+export default Contact

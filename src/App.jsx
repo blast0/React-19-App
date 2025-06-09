@@ -2,6 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import About from "./pages/About/About";
 import Home from "./pages/Home/Home"; // Adjust the path to your Home component
 import Service from "./pages/Service/Service";
+import GalleryPage from "./pages/ImageGallery/imagegallery";
+
 import { useTheme } from "./context/themeProvider";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Profile from "./pages/Dashboard/Profile";
@@ -30,16 +32,20 @@ function App() {
             <Route
               index
               path="/Editor"
-              element={<Layout children={<FabricEditorPage theme={theme} />} />}
+              // element={<Layout children={<FabricEditorPage theme={theme} />} />}
+              element={<Layout children={<FabricEditor2 theme={theme} />} />}
             />
             <Route
               path="/"
               element={<Layout children={<Home theme={theme} />} />}
             />
             <Route
+              path="/images"
+              element={<Layout children={<GalleryPage theme={theme} />} />}
+            />
+            <Route
               path="/about"
-              element={<Layout children={<FabricEditor2 theme={theme} />} />}
-              // element={<Layout children={<About theme={theme} />} />}
+              element={<Layout children={<About theme={theme} />} />}
             />
             <Route
               path="/services"

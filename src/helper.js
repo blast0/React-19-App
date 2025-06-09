@@ -1,5 +1,3 @@
-import { jwtDecode } from "jwt-decode";
-
 export const isImageUrlValid = (url) => {
   const img = new Image();
   img.src = url;

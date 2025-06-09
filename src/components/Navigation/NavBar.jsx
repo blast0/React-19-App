@@ -69,7 +69,10 @@ const Navbar = ({
           About
         </NavLink>
         <NavLink to="/services" className="hover:text-green-300 text-white">
-          Services
+          Components
+        </NavLink>
+        <NavLink to="/images" className="hover:text-green-300 text-white">
+          Images
         </NavLink>
         <NavLink to="/Editor" className="hover:text-green-300 text-white">
           Editor
