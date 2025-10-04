@@ -1,10 +1,11 @@
 import ColorInput from "@/components/ui/custom/color-input";
 import GradientContainer from "@/components/ui/custom/gradient-container";
+import BoxShadowWithInput from "@/components/ui/custom/box-shadow";
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import { useState } from "react";
 import { SquareX } from "lucide-react";
 
-function Service() {
+function ComponentsPreview() {
   const [color, setColor] = useState("#000");
   const [logs, setLogs] = useState([]);
 
@@ -17,7 +18,7 @@ function Service() {
   return (
     <div className="flex p-5">
       <div className="flex flex-col gap-2">
-        <div className="shadow resize-x overflow-auto h-[150px] w-[230px] min-w-[120px]">
+        <div className="shadow resize-x overflow-auto h-[150px] w-[250px] min-w-[120px]">
           <p className="text-2xl mx-2">Gradient Container:</p>
           <div className="p-2 box-border">
             <GradientContainer
@@ -51,7 +52,7 @@ function Service() {
             />
           </div>
         </div>
-        <div className="shadow resize-x overflow-auto h-[150px] w-[230px] min-w-[120px]">
+        <div className="shadow resize-x overflow-auto h-[150px] w-[250px] min-w-[120px]">
           <p className="text-2xl mx-2">Color Input:</p>
           <div className="p-2 box-border">
             <ColorInput
@@ -60,6 +61,23 @@ function Service() {
               onChange={(color) => {
                 addLog(`onChange: (${color})`);
                 setColor(color);
+              }}
+            />
+          </div>
+        </div>
+        <div className="shadow resize-x overflow-auto h-[150px] w-[250px] min-w-[120px]">
+          <p className="text-2xl mx-2">BoxShadowWithInput:</p>
+          <div className="p-2 box-border">
+            <BoxShadowWithInput
+              label="Box Shadow With Input"
+              showPreview={true}
+              value="#606060 0px 0px 5px"
+              containerClass={"box-shadow"}
+              showCopyClipboard={true}
+              showSpread={true}
+              showTypeButton={true}
+              onChange={(e) => {
+                // handleShadow(e, canvas);
               }}
             />
           </div>
@@ -105,4 +123,4 @@ function Service() {
   );
 }
 
-export default Service;
+export default ComponentsPreview;

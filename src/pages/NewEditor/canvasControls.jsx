@@ -182,7 +182,7 @@ const CanvasControls = ({ onChange, jsonRef, canvas, handleJsonData }) => {
       <MenuButton
         title="Reset page"
         options={DELETE_OPTIONS}
-        onSelect={(option) => this.deleteHandler(option.value)}
+        onSelect={(option) => {canvas.clear()}}
       >
         <Button
           size="icon-xs"

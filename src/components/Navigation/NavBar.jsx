@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   // Sun,
   // Moon,
+  LogIn ,
   UserRound,
   UserRoundX,
   UsersRound,
@@ -16,8 +17,15 @@ import { IoCloseCircleSharp } from "react-icons/io5"; // Close icon
 import { NavLink } from "react-router-dom";
 import SunAnimation from "../../assets/SunLightTheme.json";
 import MoonAnimation from "../../assets/MoonLightTheme.json";
+import { Title } from "@/components/ui/title";
+import { Button } from "@/components/ui/button";
 import Lottie from "lottie-react";
 const ACCOUNT = [
+   {
+    name: "Logout",
+    icon: <UserRoundX />,
+    value: "Logout",
+  },
   {
     name: "Edit Profile",
     icon: <UserRoundPen />,
@@ -28,16 +36,16 @@ const ACCOUNT = [
     icon: <UserRoundX />,
     value: "Logout",
   },
-  {
-    name: "Switch Account",
-    icon: <UsersRound />,
-    value: "SwitchAccount",
-  },
-  {
-    name: "Add another Account",
-    icon: <UserRoundPlus />,
-    value: "AddAccount",
-  },
+  // {
+  //   name: "Switch Account",
+  //   icon: <UsersRound />,
+  //   value: "SwitchAccount",
+  // },
+  // {
+  //   name: "Add another Account",
+  //   icon: <UserRoundPlus />,
+  //   value: "AddAccount",
+  // },
 ];
 
 const Navbar = ({
@@ -45,6 +53,8 @@ const Navbar = ({
   theme = "dark",
   setTheme = () => {},
   signout = () => {},
+  isAuthenticated=false,
+  loginWithRedirect
 }) => {
   console.log(user);
   const [isOpen, setIsOpen] = useState(false);
@@ -68,13 +78,13 @@ const Navbar = ({
         <NavLink to="/about" className="hover:text-green-300 text-white">
           About
         </NavLink>
-        <NavLink to="/services" className="hover:text-green-300 text-white">
-          Components
+        <NavLink to="/components" className="hover:text-green-300 text-white">
+          Components Preview
         </NavLink>
         <NavLink to="/images" className="hover:text-green-300 text-white">
           Images
         </NavLink>
-        <NavLink to="/Editor" className="hover:text-green-300 text-white">
+        <NavLink to="/editor" className="hover:text-green-300 text-white">
           Editor
         </NavLink>
         <NavLink to="/dashboard" className="hover:text-green-300 text-white">
@@ -113,6 +123,7 @@ const Navbar = ({
             </div>
           )}
         </div>
+        {isAuthenticated?
         <MenuButton
           title="Profile options"
           options={ACCOUNT}
@@ -133,7 +144,19 @@ const Navbar = ({
             </Avatar>
             <ChevronDown color="white" />
           </div>
-        </MenuButton>
+        </MenuButton>:      
+      <Title title={"Login To use Advance Features"}>
+        <Button
+          className="cursor-pointer"
+          // size="icon-xs"
+          // variant="outline"
+          onClick={() => {
+            loginWithRedirect();
+          }}
+        >
+         Login <LogIn  />
+        </Button>
+      </Title>}
       </div>
     </div>
   );
