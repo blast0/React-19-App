@@ -67,7 +67,7 @@ const Home = () => {
         </motion.div>
         </div>
       </div>
-      <div id="about" className="py-20 bg-slate-900 text-slate-100">
+      {/* <div id="about" className="py-20 bg-slate-900 text-slate-100">
         <motion.div
           className="max-w-4xl mx-auto text-center"
           initial={{ opacity: 0, y: 40 }}
@@ -175,7 +175,7 @@ const Home = () => {
             </a>
           </div>
         </motion.div>
-      </div> 
+      </div>  */}
     </div>
   );
 };

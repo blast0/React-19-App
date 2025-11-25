@@ -1,31 +1,30 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
-  // Sun,
-  // Moon,
-  LogIn ,
   UserRound,
   UserRoundX,
-  UsersRound,
   ChevronDown,
   UserRoundPen,
-  UserRoundPlus,
 } from "lucide-react";
 import { MenuButton } from "../ui/custom/menu-button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { FaHamburger } from "react-icons/fa"; // Hamburger icon
-import { IoCloseCircleSharp } from "react-icons/io5"; // Close icon
+import { FaHamburger } from "react-icons/fa";
+import { IoCloseCircleSharp } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
+import Lottie from "lottie-react";
 import SunAnimation from "../../assets/SunLightTheme.json";
 import MoonAnimation from "../../assets/MoonLightTheme.json";
 import { Title } from "@/components/ui/title";
-import { Button } from "@/components/ui/button";
-import Lottie from "lottie-react";
+
+const NAV_LINKS = [
+  { to: "/", label: "Home" },
+  { to: "/about", label: "About" },
+  { to: "/components", label: "Components Preview" },
+  { to: "/images", label: "Images" },
+  { to: "/editor", label: "Editor" },
+  { to: "/dashboard", label: "Dashboard" },
+];
+
 const ACCOUNT = [
-   {
-    name: "Logout",
-    icon: <UserRoundX />,
-    value: "Logout",
-  },
   {
     name: "Edit Profile",
     icon: <UserRoundPen />,
@@ -36,16 +35,6 @@ const ACCOUNT = [
     icon: <UserRoundX />,
     value: "Logout",
   },
-  // {
-  //   name: "Switch Account",
-  //   icon: <UsersRound />,
-  //   value: "SwitchAccount",
-  // },
-  // {
-  //   name: "Add another Account",
-  //   icon: <UserRoundPlus />,
-  //   value: "AddAccount",
-  // },
 ];
 
 const Navbar = ({
@@ -53,110 +42,87 @@ const Navbar = ({
   theme = "dark",
   setTheme = () => {},
   signout = () => {},
-  isAuthenticated=false,
-  loginWithRedirect
+  isAuthenticated = false,
+  loginWithRedirect,
 }) => {
-  console.log(user);
   const [isOpen, setIsOpen] = useState(false);
+
+  const themeIcon = theme === "light" ? MoonAnimation : SunAnimation;
+  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
+
   return (
     <div
-      className="NavBar"
+      className={`w-full h-[50px] lg:px-8 md:px-4 bg-[rgba(255,255,255,0.8)] dark:bg-[rgba(0,0,0,0.8)] static backdrop-filter backdrop-blur-lg hidden md:flex justify-between items-center gap-4 shadow-sm shadow-gray-300 dark:shadow-gray-800 fixed z-10 transition-all duration-100`}
       style={{
-        width: "100%",
-        height: "50px",
-        backgroundColor: theme === "light" ? "#0078d4" : "#181717",
-        display: "flex",
-        gap: "30px",
-        justifyContent: "space-between",
-        alignItems: "center",
+        backgroundColor:
+          theme === "light" ? "#ffffffcc" : "rgba(0, 0, 0, 0.8)",
       }}
     >
-      <div className="hidden md:flex md:items-center mx-10 md:space-x-8">
-        <NavLink to="/" className="hover:text-green-300 text-white">
-          Home
-        </NavLink>
-        <NavLink to="/about" className="hover:text-green-300 text-white">
-          About
-        </NavLink>
-        <NavLink to="/components" className="hover:text-green-300 text-white">
-          Components Preview
-        </NavLink>
-        <NavLink to="/images" className="hover:text-green-300 text-white">
-          Images
-        </NavLink>
-        <NavLink to="/editor" className="hover:text-green-300 text-white">
-          Editor
-        </NavLink>
-        <NavLink to="/dashboard" className="hover:text-green-300 text-white">
-          Dashboard
-        </NavLink>
+      {/* Desktop Navigation */}
+      <div className="hidden md:flex items-center space-x-8">
+        {NAV_LINKS.map((link) => (
+          <NavLink key={link.to} to={link.to} className="hover:text-green-800 text-[#c72c6c] dark:text-[#07d0e5] font-semibold">
+            {link.label}
+          </NavLink>
+        ))}
       </div>
 
+      {/* Mobile Menu Button */}
       <div className="md:hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="inline-flex cursor-pointer items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-white"
-          aria-expanded={isOpen}
+          className="p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800"
         >
-          <span className="sr-only">Open main menu</span>
-          <FaHamburger className={`${isOpen ? "hidden" : "block"} h-6 w-6`} />
-          <IoCloseCircleSharp
-            className={`${isOpen ? "block" : "hidden"} h-6 w-6`}
-          />
+          {isOpen ? (
+            <IoCloseCircleSharp className="h-6 w-6" />
+          ) : (
+            <FaHamburger className="h-6 w-6" />
+          )}
         </button>
       </div>
 
-      <div className="flex mr-5 justify-center gap-5 items-center">
+      {/* Right Side - Theme Toggle + Profile/Login */}
+      <div className="flex items-center gap-5">
+        {/* Theme Toggle */}
         <div
-          className="cursor-pointer h-[50px] w-[50px] overflow-hidden"
-          onClick={() => {
-            setTheme(theme === "light" ? "dark" : "light");
-          }}
+          className="cursor-pointer h-[50px] w-[50px] hover:scale-110"
+          onClick={toggleTheme}
         >
-          {theme === "light" ? (
-            <div className="h-[80px] w-[80px] mt-[-12px] ml-[-12px]">
-              <Lottie animationData={MoonAnimation} loop={true} />
-            </div>
-          ) : (
-            <div className="h-[50px] w-[50px] ">
-              <Lottie animationData={SunAnimation} loop={true} />
-            </div>
-          )}
+          <Lottie animationData={themeIcon} loop />
         </div>
-        {isAuthenticated?
-        <MenuButton
-          title="Profile options"
-          options={ACCOUNT}
-          onSelect={(option) => {
-            if (option.value === "Logout") {
-              signout();
-            }
-          }}
-        >
-          <div className="flex items-end">
-            <Avatar>
-              <AvatarImage
-                src={user ? user.picture : "https://github.com/shadcn.png"}
-              />
+
+        {/* Profile or Login */}
+        {isAuthenticated ? (
+          <MenuButton
+            title="Profile options"
+            options={ACCOUNT}
+            onSelect={(option) => option.value === "Logout" && signout()}
+          >
+            <div className="flex items-end">
+              <Avatar>
+                <AvatarImage
+                  src={user?.picture || "https://github.com/shadcn.png"}
+                />
+                <AvatarFallback>
+                  <UserRound color="white" />
+                </AvatarFallback>
+              </Avatar>
+              <ChevronDown color="white" />
+            </div>
+          </MenuButton>
+        ) : (
+          <Title title="Login To use all Features">
+            <Avatar
+              className="cursor-pointer"
+              onClick={loginWithRedirect}
+            >
+              <AvatarImage src="/login.png" />
               <AvatarFallback>
                 <UserRound color="white" />
               </AvatarFallback>
             </Avatar>
-            <ChevronDown color="white" />
-          </div>
-        </MenuButton>:      
-      <Title title={"Login To use Advance Features"}>
-        <Button
-          className="cursor-pointer"
-          // size="icon-xs"
-          // variant="outline"
-          onClick={() => {
-            loginWithRedirect();
-          }}
-        >
-         Login <LogIn  />
-        </Button>
-      </Title>}
+          </Title>
+        )}
       </div>
     </div>
   );
