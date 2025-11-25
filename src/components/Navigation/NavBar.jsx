@@ -55,7 +55,7 @@ const Navbar = ({
       className={`w-full h-[50px] lg:px-8 md:px-4 bg-[rgba(255,255,255,0.8)] dark:bg-[rgba(0,0,0,0.8)] static backdrop-filter backdrop-blur-lg hidden md:flex justify-between items-center gap-4 shadow-sm shadow-gray-300 dark:shadow-gray-800 fixed z-10 transition-all duration-100`}
       style={{
         backgroundColor:
-          theme === "light" ? "#ffffffcc" : "rgba(0, 0, 0, 0.8)",
+          theme === "light" ? "rgba(255, 255, 255, 0.8)" : "rgba(0, 0, 0, 0.8)",
       }}
     >
       {/* Desktop Navigation */}
