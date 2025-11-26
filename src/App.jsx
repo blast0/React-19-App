@@ -26,7 +26,7 @@ function App() {
         </div>
       ) :
       <>
-      <div>
+      <div className="relative min-h-[100vh]">
       <Navbar
         user={user}
         theme={isDarkMode ? "dark" : "light"}
@@ -67,9 +67,9 @@ function App() {
             </Route>
           </Routes>
         </main>
-              <footer className="w-full mt-20 absolute bottom-5  border-t pt-6 text-center text-xs sm:text-sm text-slate-500">
+        <footer className="w-full mt-20 absolute bottom-0 border-t py-2 text-center text-xs sm:text-sm text-slate-500">
         © {new Date().getFullYear()} Bishal Kumar — Built with React + Tailwind
-      </footer>
+        </footer>
     </div>
       </>
       }
