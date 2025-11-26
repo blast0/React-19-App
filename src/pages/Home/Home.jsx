@@ -63,7 +63,7 @@ export default function Home() {
                 </div>
 
                 <div className="p-1 flex flex-col items-center h-[85px] w-[85px] overflow-hidden bg-[#12f3f34b] rounded-2xl">
-                  <div className="h-[100px] w-[100px] mt-[-15px]">
+                  <div className="h-[120px] w-[120px] mt-[-20px]">
                     <Lottie animationData={Nodejs} loop />
                   </div>
                   <span className="mt-[-30px]">Nodejs</span>
