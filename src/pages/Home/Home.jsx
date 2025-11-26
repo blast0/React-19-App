@@ -6,7 +6,6 @@ import Lottie from "lottie-react";
 
 export default function Home() {
   return (
-    <div className="bg-gradient-to-b from-white to-slate-50 text-slate-900">
       <main className="max-w-7xl mx-auto px-6 py-12">
         {/* HERO */}
         <section className="grid md:grid-cols-2 gap-10 items-center">
@@ -20,7 +19,7 @@ export default function Home() {
               building beautiful, accessible web apps.
             </h1>
 
-            <p className="mt-4 text-base sm:text-lg text-slate-600">
+            <p className="mt-4 text-base sm:text-lg">
               I specialize in React, modern CSS and fast user experiences. Currently available
               for freelance and full-time roles.
             </p>
@@ -40,7 +39,7 @@ export default function Home() {
               </a>
             </div>
 
-            <div className="mt-6 flex justify-start sm:justify-start gap-5 text-slate-700">
+            <div className="mt-6 flex justify-start sm:justify-start gap-5">
               <a href="#" aria-label="Github" className="hover:text-slate-900">
                 <Github size={20} />
               </a>
@@ -73,6 +72,5 @@ export default function Home() {
           © {new Date().getFullYear()} Bishal Kumar — Built with React + Tailwind
         </footer>
       </main>
-    </div>
   );
 }
