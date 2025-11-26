@@ -17,6 +17,7 @@ import Cplusplus from "../../assets/Cplusplus.json";
 import Nextjs from "../../assets/Nextjs.json";
 import HTML from "../../assets/HTML.json";
 import Css3 from "../../assets/css3.json";
+import Me from "../../assets/me.jpg"
 
 export default function Home() {
 const techStack = [
@@ -52,7 +53,7 @@ const techStack = [
               </p>
               <p className="mt-3 text-xs sm:text-base">
                 Passionate about clean UI, performance and developer experience.
-              </p>
+              </p>              
 
               {/* Tech Stack */}
               <div className="mt-5">
@@ -114,13 +115,15 @@ const techStack = [
               </div>
             </motion.div>
 
-            {/* Coding Animation */}
+          {/* Coding Animation */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="flex justify-center"
+              className="flex flex-col justify-around items-center h-full"
             >
+              <img src={Me} className="justify-center" style={{borderRadius: "100%", objectFit: "cover", height: "200px", width: "200px"
+              }} alt=""  />
               <div className="w-full max-w-xs sm:max-w-sm h-56 sm:h-72 rounded-2xl  flex items-center justify-center">
                 <Lottie animationData={Coding} loop />
               </div>

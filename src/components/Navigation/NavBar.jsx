@@ -77,13 +77,13 @@ const Navbar = ({
       </div>
           <div>
             <div className="font-semibold text-[#c72c6c] dark:text-[#07d0e5]">Bishal Kumar</div>
-            <div className="text-xs text-slate-500 dark:text-[#07d0e5] hidden md:block">Frontend Engineer</div>
+            <div className="text-xs text-slate-500 dark:text-[#c72c6c] hidden md:block">Frontend Engineer</div>
           </div>
         </div>
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center space-x-8">
         {NAV_LINKS.map((link) => (
-          <NavLink key={link.to} to={link.to} className="hover:text-green-800 text-[#c72c6c] dark:text-[#07d0e5] font-semibold">
+          <NavLink key={link.to} to={link.to} className="hover:text-[#07d0e5] text-[#c72c6c] dark:text-[#c72c6c] font-semibold">
             {link.label}
           </NavLink>
         ))}
