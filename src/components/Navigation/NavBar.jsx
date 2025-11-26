@@ -57,12 +57,25 @@ const Navbar = ({
       }}>
         <div className="mx-auto px-6 py-1 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-white font-bold">B</div>
-            <div className="hidden md:block ">
-              <div className="font-semibold text-[#c72c6c] dark:text-[#07d0e5]">Bishal Kumar</div>
-              <div className="text-xs text-slate-500 dark:text-[#07d0e5]">Frontend Engineer</div>
-            </div>
-          </div>
+            <div className="hidden md:flex w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-white font-bold" onClick={() => setMenuOpen((s) => !s)}>B</div>
+        <div className="md:hidden">
+         <div className="md:hidden w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-white font-bold"
+          onClick={() => setMenuOpen((s) => !s)}
+          aria-label="Toggle menu"
+          // className="p-2 rounded-md border"
+        >
+          {menuOpen ?  (
+            <IoCloseCircleSharp className="h-6 w-6" />
+          ) : (
+            <FaHamburger className="h-6 w-6" />
+          )}
+        </div>
+      </div>
+      <div className="">
+        <div className="font-semibold text-[#c72c6c] dark:text-[#07d0e5]">Bishal Kumar</div>
+        <div className="text-xs text-slate-500 dark:text-[#07d0e5] hidden md:block">Frontend Engineer</div>
+      </div>
+    </div>
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center space-x-8">
         {NAV_LINKS.map((link) => (
@@ -72,19 +85,7 @@ const Navbar = ({
         ))}
       </div>
 
-      <div className="md:hidden">
-        <button
-          onClick={() => setMenuOpen((s) => !s)}
-          aria-label="Toggle menu"
-          className="p-2 rounded-md border"
-        >
-          {menuOpen ?  (
-            <IoCloseCircleSharp className="h-6 w-6" />
-          ) : (
-            <FaHamburger className="h-6 w-6" />
-          )}
-        </button>
-      </div>
+
 
       {/* Right Side - Theme Toggle + Profile/Login */}
       <div className="flex items-center gap-3">
@@ -134,13 +135,13 @@ const Navbar = ({
         {/* Mobile menu */}
         {menuOpen && (
           <div className="md:hidden border-t border-slate-200">
-            <div className="px-6 py-4 space-y-2 flex-col">
+            <ul className="px-6 py-2 space-y-2 flex flex-col">
             {NAV_LINKS.map((link) => (
               <NavLink key={link.to} to={link.to} className="hover:text-green-800 text-[#c72c6c] dark:text-[#07d0e5] font-semibold">
                 {link.label}
               </NavLink>
             ))}
-            </div>
+            </ul>
           </div>
         )}
     </header>

@@ -66,7 +66,7 @@ const GalleryPage = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center mt-1 mx-2">
+      <div className="flex justify-between items-center mt-5 mx-2">
         <span>
           Total: {allImages.length} | Page: {currentPage}/{totalPages}
         </span>
@@ -94,14 +94,14 @@ const GalleryPage = () => {
         <button
           onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
           disabled={currentPage === 1}
-          className="px-3 py-1 border rounded bg-gray-100 disabled:opacity-50"
+          className="px-3 py-1 border rounded cursor-pointer disabled:opacity-50"
         >
           Prev
         </button>
         <button
           onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
           disabled={currentPage === totalPages}
-          className="px-3 py-1 border rounded bg-gray-100 disabled:opacity-50"
+          className="px-3 py-1 border rounded cursor-pointer disabled:opacity-50"
         >
           Next
         </button>

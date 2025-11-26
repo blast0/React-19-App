@@ -359,10 +359,9 @@ class FabricEditor2 extends Component {
     const { theme } = this.props;
     const { canvas, canvasId, canvasHeight, canvasWidth, activeElementProps } =
       this.state;
-    console.log(canvas?.historyUndo);
     return (
       <div
-        className={`flex relative justify-between w-full h-[calc(100vh-50px)] ${
+        className={`flex relative justify-between w-full h-[calc(100vh-60px)] ${
           theme === "dark" ? "bg-[#333232]" : "bg-[#e7f5ff]"
         }`}
       >
@@ -388,7 +387,7 @@ class FabricEditor2 extends Component {
                   <React.Fragment>
                     <div className={isDragActive ? "drag-active" : ""}>
                       <React.Fragment>
-                        <div className="flex p-2 slim-scroll">
+                        <div className="flex p-4 slim-scroll">
                           <canvas
                             id={`canvas-${canvasId}`}
                             className=" border-[#ff4747] border-[2px] border-dashed"
@@ -403,9 +402,12 @@ class FabricEditor2 extends Component {
           </Dropzone>
         </div>
         <div
-          className={`sidepanel border absolute right-0 h-full ${
+          className={`sidepanel border absolute right-4 top-4 pb-10 rounded-[4px] ${
             theme === "light" ? "bg-white" : "bg-[#181717]"
           } border-[#989898]`}
+          style={{
+            overflow: "auto"
+          }}
         >
           <>
             <input
