@@ -14,6 +14,7 @@ import Lottie from "lottie-react";
 import SunAnimation from "../../assets/SunLightTheme.json";
 import MoonAnimation from "../../assets/MoonLightTheme.json";
 import { Title } from "@/components/ui/title";
+import { motion } from "framer-motion";
 
 const NAV_LINKS = [
   { to: "/", label: "Home" },
@@ -51,18 +52,21 @@ const Navbar = ({
   const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
   return (
-    <header className="sticky top-2 mx-4 z-30 backdrop-blur-md border-b border-slate-200 rounded-[15px]" style={{
+    <motion.header
+     initial={{ opacity: 0, y: 20 }}
+     animate={{ opacity: 1, y: 0 }}
+     transition={{ duration: 0.6 }}
+     className="sticky top-2 mx-4 z-30 backdrop-blur-md border-b border-slate-200 rounded-[15px]" style={{
         backgroundColor:
           theme === "light" ? "rgba(255, 255, 255, 0.8)" : "rgba(0, 0, 0, 0.8)", border: "1px solid gray"
       }}>
-        <div className="mx-auto px-6 py-1 flex items-center justify-between">
+        <div className="mx-auto px-4 py-1 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="hidden md:flex w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-white font-bold" onClick={() => setMenuOpen((s) => !s)}>B</div>
         <div className="md:hidden">
          <div className="md:hidden w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-white font-bold"
           onClick={() => setMenuOpen((s) => !s)}
           aria-label="Toggle menu"
-          // className="p-2 rounded-md border"
         >
           {menuOpen ?  (
             <IoCloseCircleSharp className="h-6 w-6" />
@@ -71,11 +75,11 @@ const Navbar = ({
           )}
         </div>
       </div>
-      <div className="">
-        <div className="font-semibold text-[#c72c6c] dark:text-[#07d0e5]">Bishal Kumar</div>
-        <div className="text-xs text-slate-500 dark:text-[#07d0e5] hidden md:block">Frontend Engineer</div>
-      </div>
-    </div>
+          <div>
+            <div className="font-semibold text-[#c72c6c] dark:text-[#07d0e5]">Bishal Kumar</div>
+            <div className="text-xs text-slate-500 dark:text-[#07d0e5] hidden md:block">Frontend Engineer</div>
+          </div>
+        </div>
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center space-x-8">
         {NAV_LINKS.map((link) => (
@@ -84,9 +88,6 @@ const Navbar = ({
           </NavLink>
         ))}
       </div>
-
-
-
       {/* Right Side - Theme Toggle + Profile/Login */}
       <div className="flex items-center gap-3">
         {/* Theme Toggle */}
@@ -135,7 +136,7 @@ const Navbar = ({
         {/* Mobile menu */}
         {menuOpen && (
           <div className="md:hidden border-t border-slate-200">
-            <ul className="px-6 py-2 space-y-2 flex flex-col">
+            <ul className="px-4 py-2 space-y-2 flex flex-col">
             {NAV_LINKS.map((link) => (
               <NavLink key={link.to} to={link.to} className="hover:text-green-800 text-[#c72c6c] dark:text-[#07d0e5] font-semibold">
                 {link.label}
@@ -144,7 +145,7 @@ const Navbar = ({
             </ul>
           </div>
         )}
-    </header>
+    </motion.header>
   );
 };
 

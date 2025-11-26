@@ -119,7 +119,17 @@ function ComponentsPreview() {
         ></div>
         <p className="px-2 text-center">{color}</p>
       </div>
-    </div>
+          <Button
+            className="flex group relative p-5"
+            onClick={() => {
+              setLogs([]);
+            }}
+          >
+           New Button
+            <span className="absolute inset-x-0 bottom-[-2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent h-[2px] w-full mx-auto"></span>
+            <span className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-300 inset-x-0 bottom-[5px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent h-[2px] w-full mx-auto blur-sm"></span>
+          </Button>
+    </div> 
   );
 }
 

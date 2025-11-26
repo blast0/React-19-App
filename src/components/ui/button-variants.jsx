@@ -6,8 +6,7 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "cursor-pointer border bg-primary-dark-100 dark:border-slate-200 hover:bg-slate-200",
-        // "bg-primary-dark-100 text-slate-50 shadow hover:bg-primary-dark-100/90 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90",
+          "cursor-pointer border bg-primary-dark-100 dark:border-slate-200",
         destructive:
           "cursor-pointer bg-red-500 text-slate-50 shadow-sm hover:bg-red-500/90 dark:bg-red-900 dark:text-slate-50 dark:hover:bg-red-900/90",
         outline:

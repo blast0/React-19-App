@@ -1,8 +1,15 @@
-import "./home.css";
-import { motion } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
-import Coding from "../../assets/coding.json";
 import Lottie from "lottie-react";
+import { motion } from "framer-motion";
+import Mail from "../../assets/Mail.json";
+import Coding from "../../assets/coding.json";
+import Linkedin from "../../assets/Linkedin.json";
+import GitHubLogo from "../../assets/GitHubLogo.json";
+import ReactIcon from "../../assets/ReactIcon.json";
+import Angular from "../../assets/Angular.json";
+import MySQL from "../../assets/MySQL.json";
+import Mongodb from "../../assets/Mongodb.json";
+import Javascript from "../../assets/Javascript.json";
+import Nodejs from "../../assets/Nodejs.json";
 
 export default function Home() {
   return (
@@ -18,26 +25,70 @@ export default function Home() {
               Hi, I’m <span className="text-[#ff7e00]">Bishal Kumar</span> — 
               <span className="text-[#ffce00]"> Software Engineer</span>
             </h1>
-
-            <p className="mt-4 text-base sm:text-lg text-slate-700">
+            <p className="mt-4 text-base sm:text-lg ">
               Software Engineer with 3+ years of experience building high-performance web apps,
               visual editors, automation workflows and enterprise-scale solutions. I specialize in
               front-end engineering (React / Angular) and scalable backend systems with Node.js & Azure.
             </p>
-
-            <p className="mt-3 text-sm sm:text-base text-slate-600">
+            <p className="mt-3 text-sm sm:text-base ">
               Passionate about clean UI, performance and developer experience.
             </p>
 
             {/* Skills */}
-            <div className="mt-6">
-              <h3 className="font-semibold text-slate-800">Tech Stack</h3>
-              <p className="text-sm sm:text-base text-slate-600 mt-1">
+            <div className="mt-4">
+              <h3 className="text-2xl font-semibold ">Tech Stack</h3>
+              {/* <p className="text-sm sm:text-base">
                 React, Angular, TypeScript, Node.js, MongoDB, PostgreSQL, Azure, Docker, Jest
-              </p>
+              </p> */}   
+              <div className="flex flex-wrap gap-2">
+                <div className="p-1 flex flex-col items-center h-[85px] w-[85px] overflow-hidden bg-[#12f3f34b] rounded-2xl">
+                  <div className="h-[50px] w-[50px] mt-1">
+                    <Lottie animationData={Javascript} loop />
+                  </div>
+                  <span>Javascript</span>
+                </div>
+
+                <div className="p-1 flex flex-col items-center h-[85px] w-[85px] overflow-hidden bg-[#12f3f34b] rounded-2xl">
+                  <div className="h-[55px] w-[55px]">
+                    <Lottie animationData={ReactIcon} loop />
+                  </div>
+                  <span>React</span>
+                </div>
+
+                <div className="p-1 flex flex-col items-center h-[85px] w-[85px] overflow-hidden bg-[#12f3f34b] rounded-2xl">
+                  <div className="h-[65px] w-[65px] mt-[-10px]">
+                    <Lottie animationData={Angular} loop />
+                  </div>
+                  <span>Angular</span>
+                </div>
+
+                <div className="p-1 flex flex-col items-center h-[85px] w-[85px] overflow-hidden bg-[#12f3f34b] rounded-2xl">
+                  <div className="h-[100px] w-[100px] mt-[-15px]">
+                    <Lottie animationData={Nodejs} loop />
+                  </div>
+                  <span className="mt-[-30px]">Nodejs</span>
+                </div>
+
+                <div className="p-1 flex flex-col items-center h-[85px] w-[85px] overflow-hidden bg-[#12f3f34b] rounded-2xl">
+                  <div className="h-[70px] w-[70px] mt-[-15px]">
+                    <Lottie animationData={Mongodb} loop />
+                  </div>
+                  <span>MongoDB</span>
+                </div>
+
+                <div className="p-1 flex flex-col items-center h-[85px] w-[85px] overflow-hidden  bg-[#12f3f34b] rounded-2xl">
+                  <div className="h-[80px] w-[80px] mt-[-5px]">
+                    <Lottie animationData={MySQL} loop />
+                  </div>
+                  <span className="mt-[-20px]">MySQL</span>
+                </div>
+                                
+              </div>
+
+              
             </div>
 
-            <div className="mt-6 flex flex-col sm:flex-row gap-3">
+            <div className="mt-6 p-2 flex flex-col sm:flex-row gap-3">
               <a
                 href="#projects"
                 className="inline-flex justify-center items-center gap-2 px-5 py-2.5 rounded-md bg-indigo-600 text-white font-medium"
@@ -52,15 +103,15 @@ export default function Home() {
               </a>
             </div>
 
-            <div className="mt-6 flex gap-5">
-              <a href="https://github.com/blast0" target="_blank" aria-label="Github" className="hover:text-slate-900">
-                <Github size={22} />
+            <div className="mt-6 flex gap-3 items-center">
+              <a href="https://github.com/blast0" target="_blank" aria-label="Github" className="hover:text-slate-900 h-[55px] w-[55px]">
+                <Lottie animationData={GitHubLogo} loop />
               </a>
-              <a href="https://linkedin.com/in/bishal-kumar-832398158" target="_blank" aria-label="LinkedIn" className="hover:text-slate-900">
-                <Linkedin size={22} />
+              <a href="https://linkedin.com/in/bishal-kumar-832398158" target="_blank" aria-label="LinkedIn" className="hover:text-slate-900 h-[70px] w-[70px]">
+                <Lottie animationData={Linkedin} loop />
               </a>
-              <a href="#contact" aria-label="Email" className="hover:text-slate-900">
-                <Mail size={22} />
+              <a href="#contact" aria-label="Email" className="hover:text-slate-900 h-[75px] w-[75px]">
+                <Lottie animationData={Mail} loop />
               </a>
             </div>
           </motion.div>
@@ -78,7 +129,6 @@ export default function Home() {
             </div>
           </motion.div>
         </section>
-
 
         {/* FOOTER */}
         <footer
