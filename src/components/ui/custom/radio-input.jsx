@@ -3,10 +3,10 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const RadioInput = ({ options, defaultValue, onValueChange }) => {
   return (
-    <RadioGroup defaultValue={defaultValue} onValueChange={onValueChange}>
+    <RadioGroup className="flex items-center space-x-2" defaultValue={defaultValue} onValueChange={onValueChange}>
       {options && options.map((option, index) => (
-        <div key={index} className="flex items-center space-x-2">
-          <RadioGroupItem value={option.value} id={option?.id} />
+        <div key={index} >
+          <RadioGroupItem className="cursor-pointer" value={option.value} id={option?.id} />
           <Label htmlFor={option?.id}>{option.name}</Label>
         </div>
       ))}

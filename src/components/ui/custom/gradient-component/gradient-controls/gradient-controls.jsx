@@ -1,10 +1,8 @@
 import { Component } from "react";
 import ColorBox from "../color-box";
 import produce from "immer";
-// import PropTypes from "prop-types";
 import { SketchPicker } from "react-color";
 import { isUndefined, noop } from "lodash";
-
 import GradientContext, { GradientConsumer } from "../gradient-context";
 import {
   Popover,
@@ -12,11 +10,10 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
-
-import "./gradient-controls.css";
 import RadioInput from "@/components/ui/custom/radio-input";
 import { Label } from "@/components/ui/label";
 import { CircleMinus, CirclePlus } from "lucide-react";
+import "./gradient-controls.css";
 
 class GradientControls extends Component {
   static contextType = GradientContext;
@@ -398,22 +395,6 @@ class GradientControls extends Component {
                             />
                           </div>
                           <div className="add-remove-buttons">
-                            {config.colorStops.length > minColorStops ? (
-                              <div
-                                className="flex items-center cursor-pointer remove-colorstop"
-                                onClick={() => {
-                                  if (
-                                    config.colorStops.length === minColorStops
-                                  ) {
-                                    noop();
-                                  } else {
-                                    this.removeStop(index);
-                                  }
-                                }}
-                              >
-                                <CircleMinus />
-                              </div>
-                            ) : null}
                             {config.colorStops.length < maxColorStops ? (
                               <div
                                 className="flex items-center cursor-pointer add-colorstop"
@@ -428,6 +409,22 @@ class GradientControls extends Component {
                                 }}
                               >
                                 <CirclePlus />
+                              </div>
+                            ) : null}
+                            {config.colorStops.length > minColorStops ? (
+                              <div
+                                className="flex items-center cursor-pointer remove-colorstop"
+                                onClick={() => {
+                                  if (
+                                    config.colorStops.length === minColorStops
+                                  ) {
+                                    noop();
+                                  } else {
+                                    this.removeStop(index);
+                                  }
+                                }}
+                              >
+                                <CircleMinus />
                               </div>
                             ) : null}
                           </div>

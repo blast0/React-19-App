@@ -18,7 +18,7 @@ import { Title } from "@/components/ui/title";
 const NAV_LINKS = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
-  { to: "/components", label: "Components Preview" },
+  { to: "/components", label: "Preview" },
   { to: "/images", label: "Images" },
   { to: "/editor", label: "Editor" },
   { to: "/dashboard", label: "Dashboard" },
@@ -46,18 +46,23 @@ const Navbar = ({
   loginWithRedirect,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [menuOpen, setMenuOpen] = useState(false);
   const themeIcon = theme === "light" ? MoonAnimation : SunAnimation;
   const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
   return (
-    <div
-      className={`w-full h-[50px] lg:px-8 md:px-4 bg-[rgba(255,255,255,0.8)] dark:bg-[rgba(0,0,0,0.8)] static backdrop-filter backdrop-blur-lg hidden md:flex justify-between items-center gap-4 shadow-sm shadow-gray-300 dark:shadow-gray-800 fixed z-10 transition-all duration-100`}
-      style={{
+    <header className="sticky top-2 mx-4 z-30 backdrop-blur-md border-b border-slate-200 rounded-[15px]" style={{
         backgroundColor:
-          theme === "light" ? "rgba(255, 255, 255, 0.8)" : "rgba(0, 0, 0, 0.8)",
-      }}
-    >
+          theme === "light" ? "rgba(255, 255, 255, 0.8)" : "rgba(0, 0, 0, 0.8)", border: "1px solid gray"
+      }}>
+        <div className="mx-auto px-6 py-1 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-white font-bold">B</div>
+            <div className="hidden md:block ">
+              <div className="font-semibold text-[#c72c6c] dark:text-[#07d0e5]">Bishal Kumar</div>
+              <div className="text-xs text-slate-500 dark:text-[#07d0e5]">Frontend Engineer</div>
+            </div>
+          </div>
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center space-x-8">
         {NAV_LINKS.map((link) => (
@@ -67,13 +72,13 @@ const Navbar = ({
         ))}
       </div>
 
-      {/* Mobile Menu Button */}
       <div className="md:hidden">
         <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800"
+          onClick={() => setMenuOpen((s) => !s)}
+          aria-label="Toggle menu"
+          className="p-2 rounded-md border"
         >
-          {isOpen ? (
+          {menuOpen ?  (
             <IoCloseCircleSharp className="h-6 w-6" />
           ) : (
             <FaHamburger className="h-6 w-6" />
@@ -82,7 +87,7 @@ const Navbar = ({
       </div>
 
       {/* Right Side - Theme Toggle + Profile/Login */}
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-3">
         {/* Theme Toggle */}
         <div
           className="cursor-pointer h-[50px] w-[50px] hover:scale-110"
@@ -124,8 +129,23 @@ const Navbar = ({
           </Title>
         )}
       </div>
-    </div>
+        </div>
+
+        {/* Mobile menu */}
+        {menuOpen && (
+          <div className="md:hidden border-t border-slate-200">
+            <div className="px-6 py-4 space-y-2 flex-col">
+            {NAV_LINKS.map((link) => (
+              <NavLink key={link.to} to={link.to} className="hover:text-green-800 text-[#c72c6c] dark:text-[#07d0e5] font-semibold">
+                {link.label}
+              </NavLink>
+            ))}
+            </div>
+          </div>
+        )}
+    </header>
   );
 };
 
 export default Navbar;
+

@@ -4,10 +4,10 @@
   gap: 10px;
 }
 .GradientControls .offset {
-  min-width: 55px;
+  min-width: 45px;
   font-size: 13px;
   padding: 2px 5px;
-  background-color: #f1f1f1;
+  border: 1px solid gray;
   border-radius: 3px;
   text-align: center;
 }
@@ -43,8 +43,8 @@
   width: 20px;
 }
 .GradientControls .ColorStops-scroll {
-  max-height: 150px;
-  overflow: auto;
+  max-height: 100px;
+  overflow-y: scroll;
   overflow-x: hidden;
 }
 .GradientControls .slider {

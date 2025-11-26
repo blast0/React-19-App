@@ -34,7 +34,7 @@ class GradientMaker extends Component {
 
     return (
       <div
-        className={`control-wrapper GradientMaker rounded-[4px] p-2 border-grey-100 canvas-parent ${
+        className={`control-wrapper GradientMaker rounded-[4px] border-grey-100 canvas-parent ${
           containerClass ?? ""
         }`}
       >
@@ -115,7 +115,7 @@ class GradientMaker extends Component {
 
 GradientMaker.defaultProps = {
   previewHeight: 120,
-  previewWidth: 200,
+  previewWidth: 240,
   onGradientChange: noop,
   opt: {},
   containerStyle: {},
