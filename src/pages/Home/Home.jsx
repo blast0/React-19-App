@@ -18,7 +18,6 @@ import Nextjs from "../../assets/Nextjs.json";
 import HTML from "../../assets/HTML.json";
 import Css3 from "../../assets/css3.json";
 import firebase from "../../assets/firebase.json";
-
 import Me from "../../assets/me.jpg"
 
 export default function Home() {
@@ -142,8 +141,6 @@ const techStack = [
                 </div>
               </div>
             </motion.div>
-
-
           </section>
     </main>
   );
