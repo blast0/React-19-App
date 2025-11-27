@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-6">
           {/* HERO */}
-          <section className="grid md:grid-cols-1 gap-10 items-center">
+          <section className="grid md:grid-cols-1 mt-10 gap-10 items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -93,7 +93,7 @@ export default function Home() {
                 </div>
 
                 {/* Tech Stack */}
-                <h2 className="text-4xl font-bold text-center mb-12">Skills</h2>
+                <h2 className="text-4xl font-bold text-center mb-6">Skills</h2>
                 <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-3 mt-3">
                   {techStack.map((skill) => (
                     <TechCard skill={skill}  />
@@ -101,7 +101,7 @@ export default function Home() {
                 </div>
 
                 {/* Projects */}
-                <section id="projects" className="py-20">
+                <section id="projects" className="py-6">
                   <h2 className="text-4xl font-bold text-center mb-12">Projects</h2>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {projects.map((project, index) => (
