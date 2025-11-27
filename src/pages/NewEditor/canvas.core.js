@@ -116,16 +116,6 @@ class CanvasCore {
           isUrlValid: true,
           strokeUniform: true,
         });
-        if (imageFit) {
-          scaleElementTofitCanvas(imageFit, canvas.height, canvas.width, image);
-        }
-        canvas.add(image);
-        if (restOptions.sendtoback) {
-          image.sendToBack();
-        }
-        if (options.preselected) {
-          image.preselected = options.preselected;
-        }
         resolve(image);
       };
     });

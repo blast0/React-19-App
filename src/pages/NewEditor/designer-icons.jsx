@@ -257,7 +257,7 @@ export const OPEN_OPTIONS = [
     name: "Add Image",
     tooltip: "Upload Image from Desktop",
     icon: <ImageUp />,
-    value: ACTIONS.UPLOAD_SVG,
+    value: ACTIONS.UPLOAD_IMAGE,
   },
   {
     name: "Open Image",

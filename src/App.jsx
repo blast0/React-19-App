@@ -12,6 +12,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import FabricEditor2 from "./pages/NewEditor";
 import Navbar from "./components/Navigation/NavBar";
 import Projects from "./pages/Projects/projects";
+import Contact from "./pages/Contact/Contact";
 
 function App() {
   const { isLoading, isAuthenticated, loginWithRedirect, user, logout } = useAuth0();
@@ -49,6 +50,10 @@ function App() {
             <Route
               path="/components"
               element={<ComponentsPreview theme={theme} />}
+            />
+            <Route
+              path="/contact"
+              element={<Contact theme={theme} />}
             />
             <Route
               index

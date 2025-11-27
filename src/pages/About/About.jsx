@@ -1,49 +1,68 @@
-import Cprogram from "../../assets/Cprogram.json";
-import Cplusplus from "../../assets/Cplusplus.json";
-import Javascript from "../../assets/Javascript.json";
 import Nodejs from "../../assets/Nodejs.json";
-import { TechCard } from "../../components/TechCard";
-import ReactIcon from "../../assets/ReactIcon.json";
-import Angular from "../../assets/Angular.json";
 import Nextjs from "../../assets/Nextjs.json";
-import HTML from "../../assets/HTML.json";
-import Css3 from "../../assets/css3.json";
-import Git from "../../assets/Git.json";
+import ReactIcon from "../../assets/ReactIcon.json";
+import Javascript from "../../assets/Javascript.json";
+import Angular from "../../assets/Angular.json";
+import css from "../../assets/css.svg";
+import html from "../../assets/html.svg";
 import sass from "../../assets/sass.svg";
+import redis from "../../assets/redis.svg";
+import redux from "../../assets/redux.svg";
+import azure from "../../assets/azure.svg";
 import shadcn from "../../assets/shadcn.svg";
 import mongodb from "../../assets/mongodb.svg";
-import redis from "../../assets/redis.svg";
-import azure from "../../assets/azure.svg";
+import Cprogram from "../../assets/Cprogram.svg";
+import Cplusplus from "../../assets/Cplusplus.svg";
+import { TechCard } from "../../components/TechCard";
 
+const skillGroups = [
+  {
+    title: "Languages",
+    items: [
+      { label: "C", icon: Cprogram, size: "50px", top: 5, labelMargin: 0 },
+      { label: "C++", icon: Cplusplus, size: "65px", top: -5, labelMargin: -5 },
+      { label: "Javascript", animation: Javascript, size: "45px", top: 10, labelMargin: 0 },
+      { label: "NodeJS", animation: Nodejs, size: "120px", top: -20, labelMargin: -45 },
+    ],
+  },
+  {
+    title: "Frameworks & Libraries",
+    items: [
+      { label: "React", animation: ReactIcon, size: "50px", top: 5 },
+      { label: "Angular", animation: Angular, size: "60px", top: -5 },
+      { label: "NextJS", animation: Nextjs, size: "55px" },
+      { label: "Redux", icon: redux, size: "55px" },
+    ],
+  },
+  {
+    title: "Web Tech",
+    items: [
+      { label: "HTML5", icon: html, size: "55px" },
+      { label: "CSS3", icon: css, size: "55px" },
+      { label: "Sass", icon: sass, size: "55px" },
+      { label: "Shadcn-UI", icon: shadcn, size: "55px" },
+    ],
+  },
+  {
+    title: "Databases & Cloud",
+    items: [
+      { label: "MongoDB", icon: mongodb, size: "50px" },
+      { label: "Redis", icon: redis, size: "50px" },
+      { label: "MS Azure", icon: azure, size: "50px" },
+    ],
+  },
+];
+
+const IconCard = ({ icon, label, size,labelMargin, top }) => (
+  <div className="flex hover:-translate-y-4 transition-all flex-col items-center py-2 rounded-xl bg-[#d9ecec0c] shadow-sm">
+    <img src={icon} alt={label} style={{ width: size, height: size, marginTop: top }} />
+    <span className="text-sm" style={{ marginTop: labelMargin ?? 0 }}>{label}</span>
+  </div>
+);
 
 const About = () => {
-
-  const Languages = [
-    { label: "C", animation: Cprogram, size: "50px", top: 5, labelMargin: 0 },
-    { label: "C++", animation: Cplusplus, size: "80px", top: -10, labelMargin: -15 },
-    { label: "Javascript", animation: Javascript, size: "45px", top: 10, labelMargin: 0 },
-    { label: "NodeJS", animation: Nodejs, size: "120px", top: -20, labelMargin: -45 },
-  ];
-
-  const Frameworks  = [
-    { label: "React", animation: ReactIcon, size: "50px", top: 5, labelMargin: 0 },
-    { label: "Angular", animation: Angular, size: "60px", top: -5, labelMargin: 0 },
-    { label: "NextJS", animation: Nextjs, size: "55px", labelMargin: 0 },
-  ];
-
-  const Webtech  = [
-    { label: "HTML5", animation: HTML, size: "65px", top: -5, labelMargin: -5 },
-    { label: "CSS3", animation: Css3, size: "60px", top: -10, labelMargin: 5 },
-  ];
-
-    const Tools  = [
-    { label: "Git", animation: Git, size: "65px", top: -5, labelMargin: -5 },
-    { label: "CSS3", animation: Css3, size: "60px", top: -10, labelMargin: 5 },
-  ];
-
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-4 flex w-full items-center justify-center">
-      {/* ABOUT */}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex w-full items-center justify-center">
       <section id="about" className="mt-6">
         <h2 className="text-3xl font-semibold">About Me</h2>
         <p className="mt-4 leading-relaxed">
@@ -64,101 +83,39 @@ const About = () => {
         </p>
 
         {/* Quick Info Cards */}
-        {/* <div className="mt-8 grid sm:grid-cols-3 gap-4">
-          <div className="p-4 border rounded-lg shadow-sm hover:shadow-md transition">
+        <div className="mt-4 grid sm:grid-cols-3 gap-4">
+          <div className="p-2 border rounded-lg shadow-sm hover:shadow-md transition">
             <div className="text-sm">Experience</div>
             <div className="mt-1 font-medium">3+ years</div>
-          </div>
-          <div className="p-4 border rounded-lg shadow-sm hover:shadow-md transition">
+            </div>
+          <div className="p-2 border rounded-lg shadow-sm hover:shadow-md transition">
             <div className="text-sm">Location</div>
             <div className="mt-1 font-medium">Guwahati, India</div>
           </div>
-          <div className="p-4 border rounded-lg shadow-sm hover:shadow-md transition">
+          <div className="p-2 border rounded-lg shadow-sm hover:shadow-md transition">
             <div className="text-sm">Open to</div>
             <div className="mt-1 font-medium">Remote / Full-time</div>
-          </div>
-        </div> */}
+        </div>
+        </div>
 
         {/* Technical Skills */}
-        <h3 className="text-xl font-semibold mt-10">Core Technical Skills</h3>
-        <ul className="mt-4 grid sm:grid-cols-2 gap-3">
-          <li><span className="font-medium">Languages:</span>
-          <div className="grid grid-cols-5 gap-3 mt-3">
-          {Languages.map((skill, index) => (
-            <TechCard skill={skill}  key={skill.id || index}/>
-            
-          ))}
+        <h3 className="text-xl font-semibold mt-6">Core Technical Skills</h3>
 
-          </div>
-          </li>
-          <li><span className="font-medium">Frameworks & Libraries:</span> 
-          <div className="grid grid-cols-5 gap-3 mt-3">
-          {Frameworks.map((skill, index) => (
-            <TechCard skill={skill}  key={skill.id || index}/>
+        <ul className="mt-4 grid sm:grid-cols-2 gap-6">
+          {skillGroups.map((group, i) => (
+            <li key={i}>
+              <span className="font-medium">{group.title}:</span>
+              <div className="grid grid-cols-5 gap-3 mt-3">
+                {group.items.map((skill, index) =>
+                  skill.animation ? (
+                    <TechCard key={index} skill={skill} />
+                  ) : (
+                    <IconCard key={index} {...skill} />
+                  )
+                )}
+              </div>
+            </li>
           ))}
-          </div> 
-          {/* Redux, Tailwind, Material UI, Bootstrap, Fabric.js, Slate.js */}
-          </li>
-          <li><span className="font-medium">Web Tech:</span>          
-          <div className="grid grid-cols-5 gap-3 mt-3">
-          {Webtech.map((skill, index) => (
-            <TechCard skill={skill}  key={skill.id || index}/>
-          ))} 
-          <div className="flex hover:-translate-y-4 transition-all flex-col items-center py-2 rounded-xl bg-[#d9ecec0c] shadow-sm">
-            <img
-            src={sass}
-            alt="icon"
-            style={{ width: "55px", height: "55px" }}
-            />
-            <span className="text-sm" style={{ marginTop:  0 }}>
-             Sass
-          </span>
-          </div>
-          <div className="flex hover:-translate-y-4 transition-all flex-col items-center py-2 rounded-xl bg-[#d9ecec0c] shadow-sm">
-            <img
-            src={shadcn}
-            alt="icon"
-            style={{ width: "55px", height: "55px" }}
-            />
-            <span className="text-sm" style={{ marginTop:  0 }}>
-             Shadcn-UI
-          </span>
-          </div>
-          </div> </li>
-          <li><span className="font-medium">Databases & Cloud:</span><div className="grid grid-cols-5 gap-3 mt-3">           
-            <div className="flex hover:-translate-y-4 transition-all flex-col items-center py-2 rounded-xl bg-[#d9ecec0c] shadow-sm">
-            <img
-            src={mongodb}
-            alt="icon"
-            style={{ width: "50px", height: "50px" }}
-            />
-            <span className="text-sm" style={{ marginTop:  0 }}>
-             MongoDB
-            </span>
-            </div>
-            <div className="flex hover:-translate-y-4 transition-all flex-col items-center py-2 rounded-xl bg-[#d9ecec0c] shadow-sm">
-            <img
-            src={redis}
-            alt="icon"
-            style={{ width: "50px", height: "50px" }}
-            />
-            <span className="text-sm" style={{ marginTop:  0 }}>
-             Redis
-            </span>
-            </div>
-            <div className="flex hover:-translate-y-4 transition-all flex-col items-center py-2 rounded-xl bg-[#d9ecec0c] shadow-sm">
-            <img
-            src={azure}
-            alt="icon"
-            style={{ width: "50px", height: "50px" }}
-            />
-            <span className="text-sm" style={{ marginTop:  0 }}>
-             Ms Azure
-            </span>
-            </div>
-          </div> Azure Table Storage</li>
-          <li><span className="font-medium">Testing:</span> Jest, React Testing Library</li>
-          <li><span className="font-medium">Tools:</span> Git, Jira, Figma, CI/CD</li>
         </ul>
 
         {/* Experience Summary */}

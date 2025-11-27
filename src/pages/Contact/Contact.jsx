@@ -1,34 +1,98 @@
 import { motion } from "framer-motion";
+
 const Contact = () => {
   return (
-    <div>
-        {/* CONTACT */}
-        <section id="contact" className="mt-16">
-          <h2 className="text-2xl font-semibold">Contact</h2>
-          <p className="mt-2 text-slate-600">Want to work together or just say hi? Send a message.</p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-6 py-10">
+      <div className="max-w-3xl w-full bg-white rounded-2xl shadow-xl p-8 md:p-10">
 
-          <motion.form
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 }}
-            className="mt-6 grid md:grid-cols-2 gap-4"
-            onSubmit={(e) => {
-              e.preventDefault();
-              // Replace with your form handler
-              alert("Thanks! Replace this with a real submit handler.");
-            }}
+        {/* Heading */}
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl font-bold text-gray-800 text-center"
+        >
+          Contact Me
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="mt-2 text-center text-gray-600"
+        >
+          Got a question, proposal or want to work together? Send a message!
+        </motion.p>
+
+        {/* Form */}
+        <motion.form
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="mt-8 space-y-5"
+        >
+          <div>
+            <label htmlFor="name" className="text-gray-700 font-medium">
+              Full Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              className="w-full mt-1 p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="email" className="text-gray-700 font-medium">
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="w-full mt-1 p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="message" className="text-gray-700 font-medium">
+              Message
+            </label>
+            <textarea
+              id="message"
+              rows={5}
+              className="w-full mt-1 p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Write your message..."
+              required
+            ></textarea>
+          </div>
+
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.2 }}
+            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold shadow-md hover:bg-blue-700"
           >
-            <input name="name" placeholder="Your name" className="p-3 border rounded-md w-full" />
-            <input name="email" placeholder="you@domain.com" className="p-3 border rounded-md w-full" />
-            <textarea name="message" placeholder="Message" className="p-3 border rounded-md w-full md:col-span-2" rows={5} />
-            <div className="md:col-span-2 flex items-center justify-between">
-              <div className="text-sm text-slate-500">Or email me at <a href="mailto:you@example.com" className="underline">you@example.com</a></div>
-              <button type="submit" className="px-4 py-2 bg-indigo-600 text-white rounded-md">Send</button>
-            </div>
-          </motion.form>
-        </section>
-    </div>
-  )
-}
+            Send Message
+          </motion.button>
+        </motion.form>
 
-export default Contact
+        {/* Contact Info */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="mt-8 text-center text-gray-600"
+        >
+          <p>Or reach me via</p>
+          <p className="font-medium text-gray-800">bishalkumar.sde@gmail.com</p>
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
+export default Contact;

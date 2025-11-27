@@ -20,7 +20,8 @@ const NAV_LINKS = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
   // { to: "/components", label: "Preview" },
-  { to: "/images", label: "Images" },
+  // { to: "/images", label: "Images" },
+  { to: "/contact", label: "contact" },
   { to: "/editor", label: "Editor" },
   { to: "/projects", label: "Projects" },
 ];

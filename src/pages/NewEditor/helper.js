@@ -370,8 +370,8 @@ export const dataURLtoBlob = (dataurl) => {
 };
 
 export const handleDrop = (images, cb = () => {}) => {
-  let imagesCount = countElementTypes("Image", self);
-  let svgCount = countElementTypes("Svg", self);
+  // let imagesCount = countElementTypes("Image", self);
+  // let svgCount = countElementTypes("Svg", self);
   const elements = [];
   images.forEach(async (image, index) => {
     console.log(image);
@@ -383,22 +383,17 @@ export const handleDrop = (images, cb = () => {}) => {
     reader.addEventListener("load", () => {
       if (reader.result.includes("svg+xml")) {
         ({ _width, _height } = svgSize(name, _width, _height));
-        // let zoomX = getSVGSize("300px", canvasWidth, canvasHeight);
-        // let zoomY = getSVGSize("300px", canvasWidth, canvasHeight);
-        // let zoom = zoomX > zoomY ? zoomY : zoomX;
         const svgElementSchema = {
           id: getNewID(),
           type: "Svg",
           url: reader.result,
           center: true,
-          // scaleX: zoom,
-          // scaleY: zoom,
-          name: "Svg " + svgCount,
+          name: "Svg ", // + svgCount,
           _height: _height > 0 ? _height : null,
           _width: _width > 0 ? _width : null,
           imageFit: "Show full Svg", //contain= Show full Svg, cover=Fit Svg to boundary
         };
-        svgCount++;
+        // svgCount++;
         elements.push(svgElementSchema);
         if (index + 1 === images.length) {
           cb(elements);
@@ -410,7 +405,7 @@ export const handleDrop = (images, cb = () => {}) => {
           const imgElementSchema = {
             id: getNewID(),
             type: "Image",
-            name: "Image " + imagesCount,
+            name: "Image ", //  + imagesCount,
             left: 0,
             top: 0,
             preselected: true,
@@ -420,10 +415,11 @@ export const handleDrop = (images, cb = () => {}) => {
             BorderX: 5,
             BorderY: 5,
           };
-          imagesCount++;
+          // imagesCount++;
+              console.log(imgElementSchema);
           elements.push(imgElementSchema);
+          cb(elements);
           if (index + 1 === images.length) {
-            cb(elements);
           }
         };
       }
@@ -466,6 +462,7 @@ export const isGroupPresent = (canvas) => {
 };
 
 export const onAddImageFromFile = (e, self) => {
+  console.log(e, self)
   const { canvas, canvasHeight, canvasWidth } = self.state;
   if (e.target.files && e.target.files.length > 0) {
     const reader = new FileReader();
@@ -591,15 +588,15 @@ function svgSize(name) {
 // UPDATE PAGE DIMENSIONS
 export const resizePage = (self, cb = () => {}) => {
   const { pages, canvasHeight, canvasWidth } = self.state;
-  // const page = pages[0];
-  // const newPage = {
-  //   ...page,
-  //   style: {
-  //     ...page.style,
-  //     height: canvasHeight,
-  //     width: canvasWidth,
-  //   },
-  // };
+  const page = pages[0];
+  const newPage = {
+    ...page,
+    style: {
+      ...page.style,
+      height: canvasHeight,
+      width: canvasWidth,
+    },
+  };
   self.setState(
     {
       // to add page
@@ -757,7 +754,7 @@ export const handleRightPanelUpdates = (action, data, self) => {
       deleteSelection(self);
       break;
     case ACTIONS.UPLOAD_IMAGE:
-      self.imagetoLibInputRef.current.click();
+      self.imageInputRef.current.click();
       break;
     case ACTIONS.UPLOAD_SVG:
       self.svgInputRef.current.click();

@@ -37,7 +37,7 @@ export default function Home() {
               </p>
 
               <div className="flex gap-2 flex-wrap items-center">
-                <a href="https://github.com/blast0" target="_blank" className="h-12 w-12 sm:h-14 sm:w-14">
+                <a href="https://github.com/blast0" target="_blank" className="h-14 w-14 sm:h-14 sm:w-14">
                   <Lottie animationData={GitHubLogo} loop />
                 </a>
                 <a href="https://linkedin.com/in/bishal-kumar-832398158" target="_blank" className="h-14 w-14 sm:h-16 sm:w-16">
@@ -46,12 +46,12 @@ export default function Home() {
                 <a href="mailto:bishalkumar.sde@gmail.com?cc=bishalkumar.coder@gmail.com&subject=Portfolio%20&body=Hello%20Bishal" className="h-14 w-14 sm:h-16 sm:w-16">
                   <Lottie animationData={Mail} loop />
                 </a>
-                <div className="cursor-pointer h-12 w-12 sm:h-14 sm:w-14">
+                {/* <div className="cursor-pointer h-12 w-12 sm:h-14 sm:w-14">
                   <Lottie animationData={Whatsapp} loop />
                 </div>
                 <div className="cursor-pointer h-16 w-16 sm:h-20 sm:w-20">
                   <Lottie animationData={Call} loop />
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -81,12 +81,38 @@ export default function Home() {
 
           {/* CTA */}
           <div className="my-4 flex flex-col sm:flex-row gap-3">
+            <motion.div className="flex gap-2" whileHover={{
+              translateY: -5,
+              // boxShadow: "#07d0e58f 6px 6px 10px 0px, rgba(0, 0, 0, 0.35) 0px 16px 16px -12px"
+            }}
+            transition={{
+              duration: 0.3,
+              ease: "easeInOut"
+            }}
+            whileTap={{
+              translateY: 0,
+            }}
+            >
               <NavLink key={"/"} to={"/projects"} className="inline-flex justify-center px-5 py-2.5 rounded-md bg-indigo-600 text-white">
                 View Projects
               </NavLink>
-            <a href="#contact" className="inline-flex justify-center px-5 py-2.5 rounded-md border">
-              Contact
-            </a>
+            </motion.div>
+                        <motion.div className="flex gap-2" whileHover={{
+              translateY: -5,
+              // boxShadow: "#07d0e58f 6px 6px 10px 0px, rgba(0, 0, 0, 0.35) 0px 16px 16px -12px"
+            }}
+            transition={{
+              duration: 0.3,
+              ease: "easeInOut"
+            }}
+            whileTap={{
+              translateY: 0,
+            }}
+            >
+              <NavLink key={"/contact"} to={"/contact"} className="inline-flex justify-center px-5 py-2.5 rounded-md bg-indigo-600 text-white">
+                Contact Me
+              </NavLink>
+              </motion.div>
           </div>
 
           {/* Tech Stack */}
