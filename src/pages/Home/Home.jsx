@@ -38,7 +38,7 @@ const techStack = [
 ];
 
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-6">
           {/* HERO */}
           <section className="grid md:grid-cols-1 gap-10 items-center">
             <motion.div
@@ -87,7 +87,6 @@ const techStack = [
               </div>
 
               {/* Tech Stack */}
-              <div className="mt-5">
                 <h3 className="text-xl sm:text-2xl font-semibold">Tech Stack</h3>
                 <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-3 mt-3">
                   {techStack.map((skill, index) => (
@@ -113,7 +112,6 @@ const techStack = [
                     </div>
                   ))}
                 </div>
-              </div>
 
               {/* CTA */}
               <div className="mt-6 flex flex-col sm:flex-row gap-3">
