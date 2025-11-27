@@ -65,7 +65,7 @@ const Navbar = ({
           <div className="flex items-center gap-3">
             <div className={`hidden flex md:flex w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500  ${theme === "light" ? "to-[#07d0e5]" : "to-pink-500"} items-center justify-center text-white font-bold`} onClick={() => setMenuOpen((s) => !s)}>B</div>
         <div className="md:hidden">
-         <div className={`md:hidden w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 ${theme === "light" ? "to-[#07d0e5]" : "to-pink-500"} flex items-center justify-center text-white font-bold`}
+         <div className={`md:hidden cursor-pointer w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 ${theme === "light" ? "to-[#07d0e5]" : "to-pink-500"} flex items-center justify-center text-white font-bold`}
           onClick={() => setMenuOpen((s) => !s)}
           aria-label="Toggle menu"
         >
@@ -139,7 +139,7 @@ const Navbar = ({
           <div className="md:hidden border-t border-slate-200">
             <ul className="px-4 py-2 space-y-2 flex flex-col">
             {NAV_LINKS.map((link) => (
-              <NavLink key={link.to} to={link.to} className="hover:text-green-800 text-[#c72c6c] dark:text-[#07d0e5] font-semibold">
+              <NavLink key={link.to} to={link.to} className={`${theme === "light" ? "text-[#07d0e5] hover:text-[#c72c6c]" : "text-[#c72c6c] hover:text-[#07d0e5]"} font-semibold`}>
                 {link.label}
               </NavLink>
             ))}
