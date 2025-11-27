@@ -18,23 +18,51 @@ import Nextjs from "../../assets/Nextjs.json";
 import HTML from "../../assets/HTML.json";
 import Css3 from "../../assets/css3.json";
 import firebase from "../../assets/firebase.json";
-import Me from "../../assets/me.jpg"
+import docker from "../../assets/docker.json";
+import TypeScipt from "../../assets/TypeScript.json";
+import Me from "../../assets/me.jpg";
 
 export default function Home() {
-const techStack = [
-  { label: "C", animation: Cprogram, size: "50px", top: 5, labelMargin: 0 },
-  { label: "C++", animation: Cplusplus, size: "80px", top: -10, labelMargin: -15 },
-  { label: "HTML5", animation: HTML, size: "65px", top: -5, labelMargin: -5 },
-  { label: "CSS3", animation: Css3, size: "60px", top: -10, labelMargin: 5 },
-  { label: "Javascript", animation: Javascript, size: "45px", top: 10, labelMargin: 0 },
-  { label: "React", animation: ReactIcon, size: "50px", top: 5, labelMargin: 0 },
-  { label: "NextJS", animation: Nextjs, size: "55px", labelMargin: 0 },
-  { label: "Angular", animation: Angular, size: "60px", top: -5, labelMargin: 0 },
-  { label: "NodeJS", animation: Nodejs, size: "120px", top: -20, labelMargin: -45 },
-  { label: "MongoDB", animation: Mongodb, size: "60px", top: -15, labelMargin: 10 },
-  { label: "Firebase", animation: firebase, size: "65px", top: -20, labelMargin: 10 },
-  { label: "MySQL", animation: MySQL, size: "80px", top: -5, labelMargin: -20 },
-];
+  const techStack = [
+    { label: "C", animation: Cprogram, size: "50px", top: 5, labelMargin: 0 },
+    { label: "C++", animation: Cplusplus, size: "80px", top: -10, labelMargin: -15 },
+    { label: "HTML5", animation: HTML, size: "65px", top: -5, labelMargin: -5 },
+    { label: "CSS3", animation: Css3, size: "60px", top: -10, labelMargin: 5 },
+    { label: "Javascript", animation: Javascript, size: "45px", top: 10, labelMargin: 0 },
+    { label: "TypeScipt", animation: TypeScipt, size: "65px", top: 0, labelMargin: -10 },
+    { label: "React", animation: ReactIcon, size: "50px", top: 5, labelMargin: 0 },
+    { label: "NextJS", animation: Nextjs, size: "55px", labelMargin: 0 },
+    { label: "Angular", animation: Angular, size: "60px", top: -5, labelMargin: 0 },
+    { label: "NodeJS", animation: Nodejs, size: "120px", top: -20, labelMargin: -45 },
+    { label: "MongoDB", animation: Mongodb, size: "60px", top: -15, labelMargin: 10 },
+    { label: "Firebase", animation: firebase, size: "65px", top: -20, labelMargin: 10 },
+    { label: "MySQL", animation: MySQL, size: "80px", top: -10, labelMargin: -15 },
+    { label: "Docker", animation: docker, size: "80px", top: -10, labelMargin: -15 },
+  ];
+
+  const projects = [
+  {
+  title: "Fleet Tracking Dashboard",
+  description: "Interactive real‑time fleet tracking dashboard with trip playback, telemetry events, and Leaflet map visualization.",
+  tech: ["React", "Leaflet", "Tailwind", "React‑Leaflet"],
+  link: "https://mapup-fleet-dashboard-by-bishalkr.netlify.app/",
+  preview: "https://github.com/blast0/Demo-assets/blob/main/ter-ezgif.com-optimize.gif"
+  },
+  {
+  title: "E-Commerce Store",
+  description: "Full stack MERN e-commerce platform with cart and authentication.",
+  tech: ["MongoDB", "Express", "React", "Node"],
+  link: "https://mapup-fleet-dashboard-by-bishalkr.netlify.app/",
+  preview: "https://github.com/blast0/Demo-assets/blob/main/ter-ezgif.com-optimize.gif"
+  },
+  {
+  title: "Task Manager App",
+  description: "Task management app with drag & drop and real‑time syncing.",
+  tech: ["React", "Firebase", "DND Kit"],
+  link: "https://mapup-fleet-dashboard-by-bishalkr.netlify.app/",
+  preview: "https://github.com/blast0/Demo-assets/blob/main/ter-ezgif.com-optimize.gif"
+  },
+  ];
 
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-6">
@@ -85,32 +113,71 @@ const techStack = [
               </motion.div>
               </div>
 
-              {/* Tech Stack */}
-                <h3 className="text-xl sm:text-2xl font-semibold">Tech Stack</h3>
-                <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-3 mt-3">
-                  {techStack.map((skill, index) => (
-                    <div
-                      key={index}
-                      className="flex flex-col items-center py-2  rounded-xl bg-[#d9ecec0c] shadow-sm"
-                    >
-                      <div
-                        style={{
-                          height: skill.size,
-                          width: skill.size,
-                          marginTop: skill.top ?? 0,
-                        }}
-                      >
-                        <Lottie animationData={skill.animation} loop />
-                      </div>
-                  <span
-                    className="text-sm"
-                    style={{ marginTop: skill.labelMargin ?? 0 }}
-                  >
-                    {skill.label}
-                  </span>
-                    </div>
-                  ))}
+                <section id="projects" className="py-20 bg-gradient-to-b from-white to-gray-50">
+                <div className="max-w-6xl mx-auto px-6">
+                <h2 className="text-4xl font-bold text-center mb-12">Projects</h2>
+
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {projects.map((project, index) => (
+                <div
+                key={index}
+                className="group p-0 rounded-2xl border border-gray-200 shadow-sm hover:shadow-xl transition duration-300 bg-white overflow-hidden"
+                >
+                {project.preview && (
+                <div className="h-48 overflow-hidden relative">
+                <img
+                src={project.preview}
+                alt={project.title}
+                className="w-full h-full object-cover"
+                />
                 </div>
+                )}
+
+
+<div className="p-6">
+<h3 className="text-2xl font-semibold mb-2">{project.title}</h3>
+<p className="text-gray-600 mb-4">{project.description}</p>
+
+
+<div className="flex flex-wrap gap-2 mb-4">
+{project.tech.map((t, idx) => (
+<span
+key={idx}
+className="px-3 py-1 text-sm bg-gray-100 rounded-full border border-gray-200"
+>
+{t}
+</span>
+))}
+</div>
+
+
+<div className="flex gap-3 mt-4">
+{project.demo && (
+<a
+href={project.demo}
+target="_blank"
+className="px-4 py-2 rounded-xl border border-blue-600 text-blue-600 font-medium hover:bg-blue-600 hover:text-white transition"
+>
+Live Demo
+</a>
+)}
+{project.github && (
+<a
+href={project.github}
+target="_blank"
+className="px-4 py-2 rounded-xl border border-gray-600 text-gray-700 font-medium hover:bg-gray-700 hover:text-white transition"
+>
+GitHub
+</a>
+)}
+</div>
+</div>
+</div>
+))}
+</div>
+</div>
+</section> 
 
               {/* CTA */}
               <div className="mt-6 flex flex-col sm:flex-row gap-3">
@@ -121,6 +188,46 @@ const techStack = [
                   Contact
                 </a>
               </div>
+
+              <section id="projects" className="py-20 bg-gradient-to-b from-white to-gray-50">
+              <div className="">
+              <h2 className="text-4xl font-bold text-center mb-12">Projects</h2>
+
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {projects.map((project, index) => (
+              <div
+              key={index}
+              className="p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-xl transition duration-300 bg-white"
+              >
+              <h3 className="text-2xl font-semibold mb-2">{project.title}</h3>
+              <p className="text-gray-600 mb-4">{project.description}</p>
+
+
+              <div className="flex flex-wrap gap-2 mb-4">
+              {project.tech.map((t, idx) => (
+              <span
+              key={idx}
+              className="px-3 py-1 text-sm bg-gray-100 rounded-full border border-gray-200"
+              >
+              {t}
+              </span>
+              ))}
+              </div>
+
+
+              <a
+              href={project.link}
+              target="_blank"
+              className="inline-block mt-2 font-medium hover:underline text-blue-600"
+              >
+              View Project →
+              </a>
+              </div>
+              ))}
+              </div>
+              </div>
+              </section>
 
               {/* Social Icons */}
               <div className="mt-6 flex gap-4 flex-wrap items-center">
