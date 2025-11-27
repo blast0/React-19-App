@@ -11,7 +11,7 @@ import { techStack } from "../../data/techstack";
 import { ProjectCard } from "../../components/ProjectCard";
 import { TechCard } from "../../components/TechCard";
 import Lottie from "lottie-react";
-
+import { NavLink } from "react-router-dom";
 export default function Home() {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-6">
@@ -81,35 +81,25 @@ export default function Home() {
             </motion.div>
           </div>
 
-            {/* CTA */}
-            <div className="my-4 flex flex-col sm:flex-row gap-3">
-              <a href="#projects" className="inline-flex justify-center px-5 py-2.5 rounded-md bg-indigo-600 text-white">
+          {/* CTA */}
+          <div className="my-4 flex flex-col sm:flex-row gap-3">
+              <NavLink key={"/"} to={"/projects"} className="inline-flex justify-center px-5 py-2.5 rounded-md bg-indigo-600 text-white">
                 View Projects
-              </a>
-              <a href="#contact" className="inline-flex justify-center px-5 py-2.5 rounded-md border">
-                Contact
-              </a>
-            </div>
+              </NavLink>
+            <a href="#contact" className="inline-flex justify-center px-5 py-2.5 rounded-md border">
+              Contact
+            </a>
+          </div>
 
-            {/* Tech Stack */}
-            <h2 className="text-4xl font-bold text-center mb-6">Skills</h2>
-            <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-3 mt-3">
-              {techStack.map((skill) => (
-                <TechCard skill={skill}  />
-              ))}
-            </div>           
+          {/* Tech Stack */}
+          <h2 className="text-4xl font-bold text-center mb-6">Skills</h2>
+          <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-3 mt-3">
+            {techStack.map((skill, index) => (
+              <TechCard skill={skill}  key={skill.id || index}/>
+            ))}
+          </div>           
         </motion.div>
       </section>
-
-      {/* Projects */}
-      <section id="projects" className="py-6">
-        <h2 className="text-4xl font-bold text-center mb-6">Projects</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project, index) => (
-          <ProjectCard project={project} index={index} />
-          ))}
-        </div>
-      </section> 
  
     </main>
   );

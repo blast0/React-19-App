@@ -31,7 +31,12 @@ const providerConfig = {
 
 const root = createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
+  <BrowserRouter
+    future={{
+    v7_startTransition: true,
+    v7_relativeSplatPath: true
+    }}
+  >
     <ThemeProvider>
       <Auth0Provider {...providerConfig}>
         <App />

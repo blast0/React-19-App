@@ -11,6 +11,7 @@ import Spin from "./components/ui/custom/spinner";
 import { useAuth0 } from "@auth0/auth0-react";
 import FabricEditor2 from "./pages/NewEditor";
 import Navbar from "./components/Navigation/NavBar";
+import Projects from "./pages/Projects/projects";
 
 function App() {
   const { isLoading, isAuthenticated, loginWithRedirect, user, logout } = useAuth0();
@@ -58,6 +59,10 @@ function App() {
               path="/images"
               element={<GalleryPage theme={theme} />}
             />
+              <Route
+                 path="/projects"
+                 element={<Projects theme={theme} />}
+               />
             <Route
               path="/dashboard"
               element={<Dashboard theme={theme} />}

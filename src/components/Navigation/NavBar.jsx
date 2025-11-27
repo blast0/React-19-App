@@ -14,7 +14,7 @@ import Lottie from "lottie-react";
 import SunAnimation from "../../assets/SunLightTheme.json";
 import MoonAnimation from "../../assets/MoonLightTheme.json";
 import { Title } from "@/components/ui/title";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const NAV_LINKS = [
   { to: "/", label: "Home" },
@@ -22,7 +22,7 @@ const NAV_LINKS = [
   // { to: "/components", label: "Preview" },
   { to: "/images", label: "Images" },
   { to: "/editor", label: "Editor" },
-  { to: "/dashboard", label: "Dashboard" },
+  { to: "/projects", label: "Projects" },
 ];
 
 const ACCOUNT = [
@@ -65,17 +65,17 @@ const Navbar = ({
           <div className="flex items-center gap-3">
             <div className={`hidden flex md:flex w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500  ${theme === "light" ? "to-[#07d0e5]" : "to-pink-500"} items-center justify-center text-white font-bold`} onClick={() => setMenuOpen((s) => !s)}>B</div>
         <div className="md:hidden">
-         <div className={`md:hidden cursor-pointer w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 ${theme === "light" ? "to-[#07d0e5]" : "to-pink-500"} flex items-center justify-center text-white font-bold`}
-          onClick={() => setMenuOpen((s) => !s)}
-          aria-label="Toggle menu"
-        >
-          {menuOpen ?  (
-            <IoCloseCircleSharp className="h-6 w-6" />
-          ) : (
-            <FaHamburger className="h-6 w-6" />
-          )}
+          <div className={`md:hidden cursor-pointer w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 ${theme === "light" ? "to-[#07d0e5]" : "to-pink-500"} flex items-center justify-center text-white font-bold`}
+            onClick={() => setMenuOpen((s) => !s)}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ?  (
+              <IoCloseCircleSharp className="h-6 w-6" />
+            ) : (
+              <FaHamburger className="h-6 w-6" />
+            )}
+          </div>
         </div>
-      </div>
           <div>
             <div className={`font-semibold ${theme === "light" ? "text-[#07d0e5]" : "text-[#c72c6c]"}`}>Bishal Kumar</div>
             <div className={`text-xs ${theme === "light" ? "text-[#07d0e5]" : "text-[#c72c6c]"} hidden md:block`}>Frontend Engineer</div>
@@ -134,18 +134,56 @@ const Navbar = ({
       </div>
         </div>
 
-        {/* Mobile menu */}
+      {/* Mobile menu */}
+      <AnimatePresence>
         {menuOpen && (
-          <div className="md:hidden border-t border-slate-200">
-            <ul className="px-4 py-2 space-y-2 flex flex-col">
-            {NAV_LINKS.map((link) => (
-              <NavLink key={link.to} to={link.to} className={`${theme === "light" ? "text-[#07d0e5] hover:text-[#c72c6c]" : "text-[#c72c6c] hover:text-[#07d0e5]"} font-semibold`}>
-                {link.label}
-              </NavLink>
-            ))}
-            </ul>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="md:hidden border-t border-slate-200 overflow-hidden"
+          >
+            <motion.ul
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.15,
+                  },
+                },
+              }}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              className="px-4 py-2 space-y-2 flex flex-col"
+            >
+              {NAV_LINKS.map((link) => (
+                <motion.li
+                  key={link.to}
+                  variants={{
+                    hidden: { opacity: 0, x: -20 },
+                    visible: { opacity: 1, x: 0 },
+                  }}
+                >
+                  <NavLink
+                    to={link.to}
+                    className={`${
+                      theme === "light"
+                        ? "text-[#07d0e5] hover:text-[#c72c6c]"
+                        : "text-[#c72c6c] hover:text-[#07d0e5]"
+                    } font-semibold`}
+                    onClick={() => setMenuOpen(false)} // optional close on click
+                  >
+                    {link.label}
+                  </NavLink>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </motion.div>
         )}
+      </AnimatePresence>
     </motion.header>
   );
 };
