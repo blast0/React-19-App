@@ -19,7 +19,7 @@ import { motion } from "framer-motion";
 const NAV_LINKS = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
-  { to: "/components", label: "Preview" },
+  // { to: "/components", label: "Preview" },
   { to: "/images", label: "Images" },
   { to: "/editor", label: "Editor" },
   { to: "/dashboard", label: "Dashboard" },

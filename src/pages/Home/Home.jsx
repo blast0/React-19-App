@@ -40,12 +40,14 @@ const techStack = [
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
           {/* HERO */}
-          <section className="grid md:grid-cols-2 gap-10 items-center">
+          <section className="grid md:grid-cols-1 gap-10 items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
+              <div className="flex justify-between items-center h-full">
+              <div>
               <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
                 Hi, I’m <span className="bg-gradient-to-r from-indigo-500 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">Bishal Kumar</span>
               </h1>
@@ -59,11 +61,35 @@ const techStack = [
               <p className="mt-3 text-xs sm:text-base">
                 Passionate about clean UI, performance and developer experience.
               </p>              
+              </div>
+              <motion.div
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                className="flex flex-col justify-around items-center h-full"
+              >
+                <div className="w-full max-w-xs sm:max-w-sm h-56 sm:h-72 rounded-2xl  flex items-center justify-center">
+                  <img src={Me} className="justify-center" style={{borderRadius: "100%", objectFit: "cover", height: "150px", width: "150px"
+                  }} alt=""  />              
+                </div>
+              </motion.div>
+       
+              {/* Coding Animation */}
+              <motion.div
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                className="hidden md:flex flex-col justify-around items-center h-full">
+                <div className="w-full max-w-xs sm:max-w-sm h-56 sm:h-72 rounded-2xl  flex items-center justify-center">
+                  <Lottie animationData={Coding} loop />
+                </div>
+              </motion.div>
+              </div>
 
               {/* Tech Stack */}
               <div className="mt-5">
                 <h3 className="text-xl sm:text-2xl font-semibold">Tech Stack</h3>
-                <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3 mt-3">
+                <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-3 mt-3">
                   {techStack.map((skill, index) => (
                     <div
                       key={index}
@@ -119,19 +145,7 @@ const techStack = [
               </div>
             </motion.div>
 
-          {/* Coding Animation */}
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex flex-col justify-around items-center h-full"
-            >
-              <img src={Me} className="justify-center" style={{borderRadius: "100%", objectFit: "cover", height: "200px", width: "200px"
-              }} alt=""  />
-              <div className="w-full max-w-xs sm:max-w-sm h-56 sm:h-72 rounded-2xl  flex items-center justify-center">
-                <Lottie animationData={Coding} loop />
-              </div>
-            </motion.div>
+
           </section>
     </main>
   );
