@@ -50,21 +50,22 @@ const Navbar = ({
   const [menuOpen, setMenuOpen] = useState(false);
   const themeIcon = theme === "light" ? MoonAnimation : SunAnimation;
   const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
-
+  
   return (
     <motion.header
      initial={{ opacity: 0, y: 20 }}
      animate={{ opacity: 1, y: 0 }}
      transition={{ duration: 0.6 }}
-     className="sticky top-2 mx-4 z-30 backdrop-blur-md border-b border-slate-200 rounded-[15px]" style={{
+     className="sticky top-2 mx-4 z-30 backdrop-blur-md rounded-[15px]" style={{
         backgroundColor:
-          theme === "light" ? "rgba(255, 255, 255, 0.8)" : "rgba(0, 0, 0, 0.8)", border: "1px solid gray"
+          theme === "light" ? "rgba(255, 255, 255, 0.8)" : "rgba(0, 0, 0, 0.8)",
+          boxShadow: theme === "light" ? "#07d0e58f 4px 6px 0px 0px, rgba(0, 0, 0, 0.35) 0px 16px 16px -12px": "#c72c6c 4px 6px 0px 0px, rgba(0, 0, 0, 0.35) 0px 16px 16px -12px"
       }}>
         <div className="mx-auto px-4 py-1 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="hidden md:flex w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-white font-bold" onClick={() => setMenuOpen((s) => !s)}>B</div>
+            <div className={`hidden flex md:flex w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500  ${theme === "light" ? "to-[#07d0e5]" : "to-pink-500"} items-center justify-center text-white font-bold`} onClick={() => setMenuOpen((s) => !s)}>B</div>
         <div className="md:hidden">
-         <div className="md:hidden w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-white font-bold"
+         <div className={`md:hidden w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 ${theme === "light" ? "to-[#07d0e5]" : "to-pink-500"} flex items-center justify-center text-white font-bold`}
           onClick={() => setMenuOpen((s) => !s)}
           aria-label="Toggle menu"
         >
@@ -76,14 +77,14 @@ const Navbar = ({
         </div>
       </div>
           <div>
-            <div className="font-semibold text-[#c72c6c] dark:text-[#07d0e5]">Bishal Kumar</div>
-            <div className="text-xs text-slate-500 dark:text-[#c72c6c] hidden md:block">Frontend Engineer</div>
+            <div className={`font-semibold ${theme === "light" ? "text-[#07d0e5]" : "text-[#c72c6c]"}`}>Bishal Kumar</div>
+            <div className={`text-xs ${theme === "light" ? "text-[#07d0e5]" : "text-[#c72c6c]"} hidden md:block`}>Frontend Engineer</div>
           </div>
         </div>
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center space-x-8">
         {NAV_LINKS.map((link) => (
-          <NavLink key={link.to} to={link.to} className="hover:text-[#07d0e5] text-[#c72c6c] dark:text-[#c72c6c] font-semibold">
+          <NavLink key={link.to} to={link.to} className={`${theme === "light" ? "text-[#07d0e5] hover:text-[#c72c6c]" : "text-[#c72c6c] hover:text-[#07d0e5]"} font-semibold`}>
             {link.label}
           </NavLink>
         ))}

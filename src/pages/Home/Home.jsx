@@ -17,6 +17,8 @@ import Cplusplus from "../../assets/Cplusplus.json";
 import Nextjs from "../../assets/Nextjs.json";
 import HTML from "../../assets/HTML.json";
 import Css3 from "../../assets/css3.json";
+import firebase from "../../assets/firebase.json";
+
 import Me from "../../assets/me.jpg"
 
 export default function Home() {
@@ -31,6 +33,7 @@ const techStack = [
   { label: "Angular", animation: Angular, size: "60px", top: -5, labelMargin: 0 },
   { label: "NodeJS", animation: Nodejs, size: "120px", top: -20, labelMargin: -45 },
   { label: "MongoDB", animation: Mongodb, size: "60px", top: -15, labelMargin: 10 },
+  { label: "Firebase", animation: firebase, size: "65px", top: -20, labelMargin: 10 },
   { label: "MySQL", animation: MySQL, size: "80px", top: -5, labelMargin: -20 },
 ];
 
@@ -44,9 +47,11 @@ const techStack = [
               transition={{ duration: 0.5 }}
             >
               <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
-                Hi, I’m <span className="text-[#ff7e00]">Bishal Kumar</span>
-                <span className="text-[#ffce00]"> Software Engineer</span>
+                Hi, I’m <span className="bg-gradient-to-r from-indigo-500 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">Bishal Kumar</span>
               </h1>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight" >
+                <p className="bg-gradient-to-r from-indigo-500 via-pink-500 to-indigo-500 inline-block text-transparent bg-clip-text"> Software Engineer</p>
+              </h2>
 
               <p className="mt-4 text-sm sm:text-lg">
                 with 3+ years of experience building high-performance web apps...
@@ -58,7 +63,7 @@ const techStack = [
               {/* Tech Stack */}
               <div className="mt-5">
                 <h3 className="text-xl sm:text-2xl font-semibold">Tech Stack</h3>
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 mt-3">
+                <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3 mt-3">
                   {techStack.map((skill, index) => (
                     <div
                       key={index}
@@ -73,7 +78,6 @@ const techStack = [
                       >
                         <Lottie animationData={skill.animation} loop />
                       </div>
-
                   <span
                     className="text-sm"
                     style={{ marginTop: skill.labelMargin ?? 0 }}
@@ -103,7 +107,7 @@ const techStack = [
                 <a href="https://linkedin.com/in/bishal-kumar-832398158" target="_blank" className="h-14 w-14 sm:h-16 sm:w-16">
                   <Lottie animationData={Linkedin} loop />
                 </a>
-                <a href="#contact" className="h-14 w-14 sm:h-16 sm:w-16">
+                <a href="mailto:bishalkumar.sde@gmail.com?cc=bishalkumar.coder@gmail.com&subject=Portfolio%20&body=Hello%20Bishal" className="h-14 w-14 sm:h-16 sm:w-16">
                   <Lottie animationData={Mail} loop />
                 </a>
                 <div className="cursor-pointer h-12 w-12 sm:h-14 sm:w-14">
@@ -117,8 +121,8 @@ const techStack = [
 
           {/* Coding Animation */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
               className="flex flex-col justify-around items-center h-full"
             >
