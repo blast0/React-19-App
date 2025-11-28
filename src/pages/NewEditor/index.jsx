@@ -14,8 +14,8 @@ const FabricEditor2 = () => {
       canvasCoreRef.current = new CanvasCore();
       const canvasObj = await canvasCoreRef.current._init({
         canvasId: "main",
-        width: 900,
-        height: 500,
+        width: 1280,
+        height: 700,
         selection: true,
       });
 
@@ -171,9 +171,9 @@ const FabricEditor2 = () => {
 
   return (
     <div className="p-4 w-full flex flex-col items-center">
-      <h2 className="text-2xl font-semibold mb-4">Fabric.js Editor</h2>
+      {/* <h2 className="text-2xl font-semibold mb-4">Fabric.js Editor</h2> */}
 
-      <div className="flex gap-3 mb-4">
+      <div className="flex gap-3 my-4">
         <button onClick={addImage} className="px-4 py-2 bg-green-600 text-white rounded">
           Add Image
         </button>
@@ -207,7 +207,7 @@ const FabricEditor2 = () => {
 
         <button
           onClick={redo}
-          className="px-4 py-2 bg-gray-500 text-white rounded"
+          className="px-4 py-2 bg-gray-700 text-white rounded"
         >
           Redo
         </button>
@@ -216,7 +216,7 @@ const FabricEditor2 = () => {
       <div
         id="canvas-wrapper"
         className="border border-gray-300 shadow-lg"
-        style={{ width: 900, height: 500 }}
+        style={{ width: 1280, height: 700 }}
       >
         <canvas id="canvas-main" ref={canvasRef}></canvas>
       </div>
