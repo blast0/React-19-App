@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import CanvasCore from "./canvas.core"; // import your core file
+import "./fabric-history"; 
+import BackgroundColorControl from "./Controls/backgroundColor";
 
 const FabricEditor2 = () => {
   const canvasRef = useRef(null);
   const canvasCoreRef = useRef(null);
   const [canvasInstance, setCanvasInstance] = useState(null);
+  const [activeElementProps, setActiveElementProps] = useState({ backgroundColor: "" });
 
   useEffect(() => {
     const initCanvas = async () => {
@@ -17,9 +20,13 @@ const FabricEditor2 = () => {
       });
 
       setCanvasInstance(canvasObj);
-
       // Enable drag & drop
       enableDragDrop(canvasObj);
+
+      // Listen for selection changes
+      canvasObj.on("selection:updated", updateActiveProps);
+      canvasObj.on("selection:created", updateActiveProps);
+      canvasObj.on("selection:cleared", () => setActiveElementProps({ backgroundColor: "" }));
     };
 
     initCanvas();
@@ -31,6 +38,25 @@ const FabricEditor2 = () => {
       }
     };
   }, []);
+
+  const undo = async () => {
+  await canvasCoreRef.current.canvas.undo();
+  canvasCoreRef.current.canvas.renderAll();
+  };
+
+  const redo = async () => {
+    await canvasCoreRef.current.canvas.redo();
+    canvasCoreRef.current.canvas.renderAll();
+  };
+
+  const updateActiveProps = () => {
+    const obj = canvasCoreRef.current.canvas.getActiveObject();
+    if (obj) {
+      setActiveElementProps({
+        backgroundColor: obj.backgroundColor || "#ffffff",
+      });
+    }
+  };
 
 
   const enableDragDrop = (canvas) => {
@@ -162,6 +188,28 @@ const FabricEditor2 = () => {
         </button>
         <button onClick={deleteElement} className="px-4 py-2 bg-red-600 text-white rounded">
           Delete Selected
+        </button>
+        <div className="mt-3">
+          {canvasInstance && (
+            <BackgroundColorControl
+              canvas={canvasInstance}
+              activeElementProps={activeElementProps}
+              setActiveElementProps={() => updateActiveProps()}
+            />
+          )}
+        </div>
+        <button
+          onClick={undo}
+          className="px-4 py-2 bg-gray-700 text-white rounded"
+        >
+          Undo
+        </button>
+
+        <button
+          onClick={redo}
+          className="px-4 py-2 bg-gray-500 text-white rounded"
+        >
+          Redo
         </button>
       </div>
 

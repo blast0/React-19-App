@@ -1,4 +1,3 @@
-import React from "react";
 import ColorInput from "@/components/ui/custom/color-input";
 
 const BackgroundColorControl = ({
