@@ -12,7 +12,7 @@ const StrokeColorControl = ({
     return (
       <ColorInput
         label="Border Color:"
-        value={activeElementProps.stroke}
+        value={activeElementProps?.stroke || 0}
         onChange={(color) => {
           selectedElement.set({ stroke: color });
           canvas.renderAll();

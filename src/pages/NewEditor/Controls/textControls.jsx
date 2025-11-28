@@ -18,7 +18,7 @@ import FlipElementControl from "./flipControl";
 const TextControls = (props) => {
   const { canvas, activeElementProps, setActiveElementProps } = props;
   const selectedElement = canvas.getActiveObject();
-
+  console.log(activeElementProps)
   const activeElementColor = (
     <GradientOrColorControl
       canvas={canvas}
@@ -101,9 +101,10 @@ const TextControls = (props) => {
 
   const patternImgController = (
     <div className="image-url-control w-[100%]">
-      <Label>Fill Image:</Label>
+      {/* <Label>Fill Image:</Label> */}
       <FileInput
-        containerClassName="w-full"
+        containerClassName="w-full mt-1"
+        label="Fill Image:"
         value={activeElementProps?.URL}
         mimeTypeExclusions={["image/svg+xml"]}
         onChange={async (url) => {
@@ -123,7 +124,7 @@ const TextControls = (props) => {
   const activePattern = (
     <>
       <div className="pattern-controls w-[100%] flex flex-wrap gap-2">
-        <div className="w-[48%]">
+        <div className="max-w-[130px]">
           <Label>Image Width:</Label>
           <Input
             type={"number"}
@@ -137,7 +138,7 @@ const TextControls = (props) => {
             // }
           />
         </div>
-        <div className="w-[48%]">
+        <div className="max-w-[130px]">
           <Label>Image Height:</Label>
           <Input
             type={"number"}
@@ -151,7 +152,7 @@ const TextControls = (props) => {
             // }}
           />
         </div>
-        <div className="w-[48%]">
+        <div className="max-w-[130px]">
           <Label>Image Left:</Label>
           <Input
             type={"number"}
@@ -166,7 +167,7 @@ const TextControls = (props) => {
             // }
           />
         </div>
-        <div className="w-[48%]">
+        <div className="max-w-[130px]">
           <Label>Image Top:</Label>
           <Input
             type={"number"}
@@ -201,24 +202,28 @@ const TextControls = (props) => {
 
   return (
     <div className="font-controls flex flex-wrap gap-2">
-      <div className="w-[48%] gap-[14px]">
+      <div className="max-w-[130px]">
         {!selectedElement?.patternActive
           ? activeElementColor
           : activeBorderColor}
       </div>
-      <div className="w-[48%]">{activeBgColor}</div>
-      <div className="w-[48%]">{activeBorderThickness}</div>
-      <div className="w-[48%]">
+      <div className="max-w-[130px]">{activeBgColor}</div>
+      <div className="max-w-[110px]">{activeBorderThickness}</div>
+      <div className="max-w-[130px]">
         {!selectedElement?.patternActive ? activeBorderColor : imageFit}
       </div>
-      <div className="w-[48%]">{activeFontFamily}</div>
-      <div className="w-[48%]">{TextStyles}</div>
-      <div className="w-[70%]">{boxShadow}</div>
+      <div className="max-w-[130px]">{activeFontFamily}</div>
+      <div className="max-w-[150px]">{TextStyles}</div>
+      <div className="max-w-[220px]">{boxShadow}</div>
+      <div className="max-w-[80px]">
       {FlipElement}
-      <div className="w-[48%]">
-        {selectedElement.textLines?.length > 1 ? AlignText : null}
       </div>
-      {patternImgController}
+      <div className="max-w-[130px]">
+        {selectedElement?.textLines?.length > 1 ? AlignText : null}
+      </div>
+      <div className="max-w-[200px]">
+        {patternImgController}
+      </div>
       {selectedElement?.patternActive ? activePattern : null}
     </div>
   );

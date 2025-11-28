@@ -41,10 +41,10 @@ const FileInput = ({
   return (
     <div className={`flex flex-col gap-1 ${containerClassName}`}>
       <Label>{label}</Label>
-      <div className={`relative border rounded-sm shadow-sm ${className}`}>
+      <div className={`relative border border-slate-200 rounded-sm shadow-sm ${className}`}>
         <Input
           containerClassName={`pr-5 ${
-            showImagePreview && value ? "border-b border-black" : ""
+            showImagePreview && value ? "border-b border-slate-200" : ""
           }`}
           className="border-none shadow-none"
           value={value.startsWith("data:image") ? value.slice(0, 50) : value}

@@ -22,6 +22,7 @@ const TextStyleControl = ({
               <Button
                 key={item.bId}
                 type="button"
+                className=" h-[36px]"
                 // variant="outline"
                 size="icon-xs"
                 onClick={() => {

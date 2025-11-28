@@ -55,7 +55,7 @@ const GradientMakerWithInput = ({
           style={{ ...controlStyle }}
         >
           <Input
-            className="border-none shadow-none"
+            className="border-none shadow-none h-[34px]"
             value={gradient}
             onFocus={() => {
               onFocus();
@@ -68,7 +68,7 @@ const GradientMakerWithInput = ({
               onValueChange({ gradient: e.target.value, config: null });
             }}
           />
-          <div className="absolute right-0 top-[5px]">
+          <div className="absolute right-0 top-1">
             <GradientMakerWithPopup
               {...restProps}
               onValueChange={(val) => {

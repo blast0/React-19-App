@@ -2,12 +2,18 @@ import { useEffect, useRef, useState } from "react";
 import CanvasCore from "./canvas.core"; // import your core file
 import "./fabric-history"; 
 import BackgroundColorControl from "./Controls/backgroundColor";
+import RectangleControls from "./Controls/rectControls";
+import CircleControls from "./Controls/circleControls";
+import TextControls from "./Controls/textControls";
+import ImageControls from "./Controls/imageFitControl";
+
 
 const FabricEditor2 = () => {
   const canvasRef = useRef(null);
   const canvasCoreRef = useRef(null);
   const [canvasInstance, setCanvasInstance] = useState(null);
-  const [activeElementProps, setActiveElementProps] = useState({ backgroundColor: "" });
+  const [activeElementType, setActiveElementType] = useState("");
+  const [activeElementProps, setActiveElementProps] = useState(null);
 
   useEffect(() => {
     const initCanvas = async () => {
@@ -15,7 +21,7 @@ const FabricEditor2 = () => {
       const canvasObj = await canvasCoreRef.current._init({
         canvasId: "main",
         width: 1280,
-        height: 700,
+        height: 600,
         selection: true,
       });
 
@@ -26,7 +32,7 @@ const FabricEditor2 = () => {
       // Listen for selection changes
       canvasObj.on("selection:updated", updateActiveProps);
       canvasObj.on("selection:created", updateActiveProps);
-      canvasObj.on("selection:cleared", () => setActiveElementProps({ backgroundColor: "" }));
+      canvasObj.on("selection:cleared", () => setActiveElementProps(null));
     };
 
     initCanvas();
@@ -51,12 +57,31 @@ const FabricEditor2 = () => {
 
   const updateActiveProps = () => {
     const obj = canvasCoreRef.current.canvas.getActiveObject();
+    console.log(obj)
     if (obj) {
-      setActiveElementProps({
-        backgroundColor: obj.backgroundColor || "#ffffff",
-      });
+      setActiveElementType(obj.type);
+
+      setActiveElementProps((prev) => ({
+        ...prev,
+        backgroundColor: obj.backgroundColor || "",
+        color: obj.fill,
+        stroke: obj.stroke || "#000",
+        strokewidth: obj.strokewidth || 0,
+        fontFamily: obj.fontFamily,
+        BorderLock: obj.BorderLock,
+        rx: obj.rx,
+        ry: obj.ry,
+        width: obj.width,
+        height: obj.height,
+        imageFit: obj.imageFit,
+        patternActive: obj.patternActive,
+      }));
+    } else {
+      setActiveElementType("");
+      setActiveElementProps({});
     }
   };
+;
 
 
   const enableDragDrop = (canvas) => {
@@ -189,25 +214,16 @@ const FabricEditor2 = () => {
         <button onClick={deleteElement} className="px-4 py-2 bg-red-600 text-white rounded">
           Delete Selected
         </button>
-        <div className="mt-3">
-          {canvasInstance && (
-            <BackgroundColorControl
-              canvas={canvasInstance}
-              activeElementProps={activeElementProps}
-              setActiveElementProps={() => updateActiveProps()}
-            />
-          )}
-        </div>
         <button
           onClick={undo}
-          className="px-4 py-2 bg-gray-700 text-white rounded"
+          className="px-4 py-2 bg-gray-600 text-white rounded"
         >
           Undo
         </button>
 
         <button
           onClick={redo}
-          className="px-4 py-2 bg-gray-700 text-white rounded"
+          className="px-4 py-2 bg-gray-600 text-white rounded"
         >
           Redo
         </button>
@@ -216,12 +232,45 @@ const FabricEditor2 = () => {
       <div
         id="canvas-wrapper"
         className="border border-gray-300 shadow-lg"
-        style={{ width: 1280, height: 700 }}
+        style={{ width: 1280, height: 600 }}
       >
         <canvas id="canvas-main" ref={canvasRef}></canvas>
       </div>
-
       <p className="text-sm text-gray-600 mt-3">Drag & Drop image or SVG onto canvas</p>
+
+        {activeElementProps && <div className="border border-amber-500 p-2">
+          {canvasInstance && activeElementType === "rect" && (
+            <RectangleControls
+              canvas={canvasInstance}
+              activeElementProps={activeElementProps}
+              setActiveElementProps={updateActiveProps}
+            />
+          )}
+
+          {canvasInstance && activeElementType === "circle" && (
+            <CircleControls
+              canvas={canvasInstance}
+              activeElementProps={activeElementProps}
+              setActiveElementProps={updateActiveProps}
+            />
+          )}
+
+          {canvasInstance && activeElementType === "i-text" && (
+            <TextControls
+              canvas={canvasInstance}
+              activeElementProps={activeElementProps}
+              setActiveElementProps={updateActiveProps}
+            />
+          )}
+
+          {canvasInstance && activeElementType === "image" && (
+            <ImageControls
+              canvas={canvasInstance}
+              activeElementProps={activeElementProps}
+              setActiveElementProps={updateActiveProps}
+            />
+          )}
+        </div>}
     </div>
   );
 };

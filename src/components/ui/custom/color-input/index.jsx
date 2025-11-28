@@ -26,16 +26,16 @@ const ColorInput = ({
       <Label className="mb-1">{label}</Label>
       {description ? <p className="Title" ref={descriptionRef}></p> : null}
       <div
-        className={`relative border border-slate-200 dark:border-slate-200 dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300  rounded-sm shadow-sm ${className}`}
+        className={`flex items-center justify-center relative border border-slate-200 dark:border-slate-200 dark:file:text-slate-50 dark:placeholder:text-slate-400 dark:focus-visible:ring-slate-300  rounded-sm shadow-sm ${className}`}
       >
         <Input
           value={value}
-          className="border-none shadow-none"
+          className="border-none shadow-none h-[34px]"
           onChange={(e) => {
             onChange(e.target.value);
           }}
         />
-        <div className="absolute right-2 top-1.25 ">
+        <div className="absolute right-2 top-1">
           <ColorSelector
             {...restProps}
             color={value}
