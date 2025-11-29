@@ -169,6 +169,7 @@ const Navbar = ({
                     hidden: { opacity: 0, x: -20 },
                     visible: { opacity: 1, x: 0 },
                   }}
+                  className={`py-1 border-b border-solid ${theme === "light" ? "border-[#07d0e5]" : "border-[#c72c6c]"} `}
                 >
                   <NavLink
                     to={link.to}
