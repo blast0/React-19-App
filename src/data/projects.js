@@ -6,32 +6,32 @@
   export const projects = [
   {
   title: "Fleet Tracking Dashboard",
-  description: "Interactive real‑time fleet tracking dashboard with trip playback, telemetry events, and Leaflet map visualization.",
+  description: "Interactive real-time fleet tracking dashboard with trip playback simulation, telemetry events, Leaflet map visualization, fleet summary metrics, dark/light theme",
   tech: ["React", "Leaflet", "Tailwind", "React‑Leaflet"],
   demo: "https://mapup-fleet-dashboard-by-bishalkr.netlify.app/",
   preview: fleetDashboard,
   github: "https://github.com/blast0/mapup-dashboard"
   },
   {
-  title: "React Image Maker Tool",
-  description: "Full stack MERN e-commerce platform with cart and authentication.",
-  tech: ["MongoDB", "Express", "React", "Node"],
-  demo: "https://myimagemaker.netlify.app/",
-  preview: imageeditor,
-  github: "https://github.com/blast0/React-Image-Maker-Tool"
+    title: "React Image Maker Tool",
+    description: "Web-based image editor SVG support, undo/redo history, QR generator, gradient maker, cropper, and multi-format export (PNG, JPG, WEBP, SVG)",
+    tech: ["Fabric.js", "React", "Node.js", "MongoDB", "Jest"],
+    demo: "https://myimagemaker.netlify.app/",
+    preview: imageeditor,
+    github: "https://github.com/blast0/React-Image-Maker-Tool"
   },
   {
-    title: "Mini Employee Dashboard",
-    description: "Employee management dashboard with CRUD, validation, sorting, filtering, search, dark mode, CSV export, and localStorage persistence.",
-    tech: ["Angular", "TypeScript", "Angular Material", "LocalStorage"],
-    demo: "https://blast0.github.io/Mini-Employee-Dashboard-Deployment/#/",
+    title: "Personal Portfolio Website",
+    description: "Modern responsive portfolio showcasing skills, projects, and experience using HTML, CSS, and JavaScript with smooth navigation and interactive UI.",
+    tech: ["HTML", "CSS", "JavaScript"],
+    demo: "https://blast0.github.io/Myportfolio/",
     preview: jsportfolio,
-    github: "https://github.com/blast0/Mini-Employee-Dashboard"
+    github: "https://github.com/blast0/Myportfolio"
   },
   {
     title: "PWA-ready React App",
     description:
-      "Fully responsive animated PWA with internationalization, custom install experience, sliders, gallery album, splash screen, hero video, and excellent Lighthouse results.",
+    "Fully responsive animated PWA with internationalization, custom install experience, sliders, gallery album, splash screen, hero video, and excellent Lighthouse results.",
     tech: [
       "React",
       "Styled-Components",
@@ -43,6 +43,14 @@
     demo: "https://frost-tattoo.hu",
     preview: bhabeshtatto,
     github: "https://github.com/AndrasE/frost-tattoo-and-piercing"
+  },
+  {
+    title: "Mini Employee Dashboard",
+    description: "Employee management dashboard with CRUD, validation, sorting, filtering, search, dark mode, CSV export, and localStorage persistence.",
+    tech: ["Angular", "TypeScript", "Angular Material", "LocalStorage"],
+    demo: "https://blast0.github.io/Mini-Employee-Dashboard-Deployment/#/",
+    preview: "./Angular-Portfolio-Preview.gif",
+    github: "https://github.com/blast0/Mini-Employee-Dashboard"
   },
   {
     title: "Angular Portfolio",
