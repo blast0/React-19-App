@@ -31,7 +31,7 @@
   {
     title: "PWA-ready React App",
     description:
-      "Fully responsive animated PWA with internationalization, custom install experience, sliders, gallery album, lightbox, splash screen, hero video, and excellent Lighthouse results.",
+      "Fully responsive animated PWA with internationalization, custom install experience, sliders, gallery album, splash screen, hero video, and excellent Lighthouse results.",
     tech: [
       "React",
       "Styled-Components",
