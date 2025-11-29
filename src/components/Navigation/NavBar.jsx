@@ -78,7 +78,9 @@ const Navbar = ({
           </div>
         </div>
           <div>
-            <div className={`font-semibold ${theme === "light" ? "text-[#07d0e5]" : "text-[#c72c6c]"}`}>Bishal Kumar</div>
+            <NavLink key={"/"} to={"/"} className={`${theme === "light" ? "text-[#07d0e5] hover:text-[#c72c6c]" : "text-[#c72c6c] hover:text-[#07d0e5]"} font-semibold`}>
+              <div className={`font-semibold ${theme === "light" ? "text-[#07d0e5]" : "text-[#c72c6c]"}`}>Bishal Kumar</div>
+            </NavLink>
             <div className={`text-xs ${theme === "light" ? "text-[#07d0e5]" : "text-[#c72c6c]"} hidden md:block`}>Frontend Engineer</div>
           </div>
         </div>
