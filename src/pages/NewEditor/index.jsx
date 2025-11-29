@@ -30,6 +30,7 @@ import SaveModalJsx from "./Templates/saveModal";
 import SaveTemplateModal from "./Templates/saveTemplateModal";
 import { Title } from "@/components/ui/title";
 import { debounce } from "lodash";
+import "./googlefonts.css";
 
 
 const FabricEditor2 = () => {
@@ -162,7 +163,7 @@ const FabricEditor2 = () => {
         backgroundColor: obj.backgroundColor || "",
         color: obj.fill,
         stroke: obj.stroke || "#000",
-        strokewidth: obj.strokewidth || 0,
+        strokeWidth: obj.strokeWidth || 0,
         fontFamily: obj.fontFamily,
         BorderLock: obj.BorderLock,
         rx: obj.rx,
