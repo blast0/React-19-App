@@ -254,13 +254,13 @@ export const OPEN_OPTIONS = [
   //   value: ACTIONS.ADD_FROM_LIBRARY,
   // },
   {
-    name: "Add Image",
+    name: "Add Image From Desktop",
     tooltip: "Upload Image from Desktop",
     icon: <ImageUp />,
     value: ACTIONS.UPLOAD_IMAGE,
   },
   {
-    name: "Open Image",
+    name: "Add Image From URL",
     icon: <ImageUp />,
     value: ACTIONS.IMAGE_DATA,
   },

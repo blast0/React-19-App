@@ -1,11 +1,35 @@
-import { useEffect, useRef, useState } from "react";
-import CanvasCore from "./canvas.core"; // import your core file
 import "./fabric-history"; 
-import BackgroundColorControl from "./Controls/backgroundColor";
+import CanvasCore from "./canvas.core"; // import your core file
+import { useCallback, useEffect, useRef, useState } from "react";
+import { MenuButton } from "@/components/ui/custom/menu-button";
+import { Button } from "@/components/ui/button";
+import {
+  ChevronDown,
+  Image,
+  Redo,
+  Save,
+  Shapes,
+  Trash,
+  Undo,
+  ImageDown,
+  FileDown,
+} from "lucide-react";
+import {
+  ADD_SHAPE_OPTIONS,
+  DELETE_OPTIONS,
+  OPEN_OPTIONS,
+} from "./designer-icons";
 import RectangleControls from "./Controls/rectControls";
 import CircleControls from "./Controls/circleControls";
 import TextControls from "./Controls/textControls";
 import ImageControls from "./Controls/imageFitControl";
+import { ACTIONS } from "./Constants/actions";
+import { DialogBox } from "../../components/DialogBox";
+import { DialogDropDown } from "../../components/ui/custom/dialogDropDown";
+import SaveModalJsx from "./Templates/saveModal";
+import SaveTemplateModal from "./Templates/saveTemplateModal";
+import { Title } from "@/components/ui/title";
+import { debounce } from "lodash";
 
 
 const FabricEditor2 = () => {
@@ -14,6 +38,75 @@ const FabricEditor2 = () => {
   const [canvasInstance, setCanvasInstance] = useState(null);
   const [activeElementType, setActiveElementType] = useState("");
   const [activeElementProps, setActiveElementProps] = useState(null);
+    const CANVAS_OPTIONS = [
+    {
+      name: "Save Image",
+      value: ACTIONS.SAVE_PAGE_TO_LIBRARY,
+      modalJsx: (
+        <DialogBox
+          title="Download Image"
+          trigger={
+            <div className="flex items-center cursor-pointer gap-2">
+              <ImageDown />
+              Download Image
+            </div>
+          }
+          modalJsx={
+            <SaveModalJsx
+              // self={this}
+              thumbnailUrl={null}
+              canvas={canvasInstance}
+              defaultFileName={"canvas"}
+              defaultFileType={"jpeg"}
+              imageWidth={canvasInstance?.width}
+              ratio={canvasInstance?.width / canvasInstance?.height}
+            />
+          }
+        />
+      ),
+    },
+    {
+      name: "Save My Template",
+      value: ACTIONS.UPLOAD_JSON,
+      modalJsx: (
+        <DialogBox
+          title="Image"
+          // theme={theme}
+          trigger={
+            <div className="flex items-center h-[27px] cursor-pointer gap-2">
+              <FileDown />
+              Download Canvas JSON
+            </div>
+          }
+          modalJsx={
+            <>
+              <SaveTemplateModal
+                JsonNodes={{}}
+                imgNodes={{}}
+                allNames={[]}
+                currImgDataUrl={null}
+                onCancel={() => {}}
+                onSave={async (fileName) => {
+                  const temp = createJSON(this, canvasInstance);
+                  const hash = await sha256(JSON.stringify(temp));
+                  temp.hash = hash;
+                  const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+                    JSON.stringify(temp)
+                  )}`;
+                  const link = document.createElement("a");
+                  link.href = jsonString;
+                  if (fileName === "") link.download = "sample.json";
+                  else link.download = fileName + ".json";
+                  link.click();
+                }}
+                onOverWrite={() => {}}
+              />
+            </>
+          }
+        />
+      ),
+    },
+  ];
 
   useEffect(() => {
     const initCanvas = async () => {
@@ -40,6 +133,9 @@ const FabricEditor2 = () => {
     return () => {
       // Cleanup must be synchronous
       if (canvasCoreRef.current) {
+        canvasObj.off("selection:updated", updateActiveProps);
+        canvasObj.off("selection:created", updateActiveProps);
+        canvasObj.off("selection:cleared", updateActiveProps);
         canvasCoreRef.current.canvas.dispose();
       }
     };
@@ -55,7 +151,7 @@ const FabricEditor2 = () => {
     canvasCoreRef.current.canvas.renderAll();
   };
 
-  const updateActiveProps = () => {
+  const updateActiveProps = debounce(() => {
     const obj = canvasCoreRef.current.canvas.getActiveObject();
     console.log(obj)
     if (obj) {
@@ -80,8 +176,7 @@ const FabricEditor2 = () => {
       setActiveElementType("");
       setActiveElementProps({});
     }
-  };
-;
+  }, 100);
 
 
   const enableDragDrop = (canvas) => {
@@ -153,19 +248,18 @@ const FabricEditor2 = () => {
     canvasInstance.renderAll();
   };
 
-  const addText = async () => {
+  const addText = useCallback(async () => {
     const textObj = await canvasCoreRef.current.getIText("Hello World", {
       left: 150,
       top: 150,
       fontSize: 32,
       fill: "black",
     });
-    console.log(canvasInstance, canvasCoreRef)
     canvasInstance.add(textObj);
-    canvasInstance.renderAll();
-  };
+    // canvasInstance.renderAll();
+  }, [canvasInstance]);
 
-  const addRect = () => {
+  const addRect = useCallback(() => {
     const rect = canvasCoreRef.current.getRect({
       width: 120,
       height: 80,
@@ -174,9 +268,9 @@ const FabricEditor2 = () => {
       top: 200,
     });
     canvasInstance.add(rect);
-  };
+  }, [canvasInstance]);
 
-  const addCircle = () => {
+  const addCircle = useCallback(() => {
     const circ = canvasCoreRef.current.getCircle({
       radius: 50,
       fill: "#60a5fa",
@@ -184,49 +278,115 @@ const FabricEditor2 = () => {
       top: 200,
     });
     canvasInstance.add(circ);
-  };
+  }, [canvasInstance]);
 
-  const deleteElement = () => {
+  const deleteElement = useCallback(() => {
     const activeObj = canvasInstance.getActiveObject();
     if (activeObj) {
       canvasInstance.remove(activeObj);
       canvasInstance.renderAll();
     }
-  };
+  }, [canvasInstance]);
 
   return (
     <div className="p-4 w-full flex flex-col items-center">
-      {/* <h2 className="text-2xl font-semibold mb-4">Fabric.js Editor</h2> */}
-
       <div className="flex gap-3 my-4">
-        <button onClick={addImage} className="px-4 py-2 bg-green-600 text-white rounded">
-          Image
-        </button>
-        <button onClick={addText} className="px-4 py-2 bg-blue-600 text-white rounded">
-          Text
-        </button>
-        <button onClick={addRect} className="px-4 py-2 bg-purple-600 text-white rounded">
-          Rect
-        </button>
-        <button onClick={addCircle} className="px-4 py-2 bg-indigo-600 text-white rounded">
-          Circle
-        </button>
-        <button onClick={deleteElement} className="px-4 py-2 bg-red-600 text-white rounded">
-          Selected
-        </button>
-        <button
-          onClick={undo}
-          className="px-4 py-2 bg-gray-600 text-white rounded"
+        <MenuButton
+          title="Add shapes"
+          options={ADD_SHAPE_OPTIONS}
+          onSelect={(option) => {
+            switch(option.value){
+              case "add-text": 
+              addText();
+              break;
+              case "circle": 
+              addCircle();
+              break;
+              case "rectangle": 
+              addRect();
+              break;
+            }
+          }}
         >
-          Undo
-        </button>
+          <Button
+            size="icon-xs"
+            // variant="outline"
+            className="flex items-center gap-0"
+          >
+            <Shapes />
+            <ChevronDown />
+          </Button>
+        </MenuButton>
+        <MenuButton
+          title="Add Image"
+          options={OPEN_OPTIONS}
+          onSelect={(option) => {
+            if(option.name==="Add Image From URL"){
+              addImage()
+            }
+          }}
+        >
+          <Button
+            size="icon-xs"
+            // variant="outline"
+            className="flex items-center gap-0"
+          >
+            <Image />
+            <ChevronDown />
+          </Button>
+        </MenuButton>
 
-        <button
-          onClick={redo}
-          className="px-4 py-2 bg-gray-600 text-white rounded"
+        <DialogDropDown
+          title="Save to cloud"
+          options={CANVAS_OPTIONS}
+          onSelect={(option) => onChange(option.value)}
         >
-          Redo
-        </button>
+          <Button
+            size="icon-xs"
+            // variant="outline"
+            className="flex items-center gap-0"
+          >
+            <Save />
+            <ChevronDown />
+          </Button>
+        </DialogDropDown>
+      
+        <Title title={"Undo last action"}>
+          <Button
+            className="cursor-pointer"
+            size="icon-xs"
+            // variant="outline"
+            onClick={() => undo()}
+          >
+            <Undo />
+          </Button>
+        </Title>
+      
+        <Title title={"Redo last action"}>
+          <Button
+            className="cursor-pointer"
+            size="icon-xs"
+            // variant="outline"
+            onClick={() => redo()}
+          >
+            <Redo />
+          </Button>
+        </Title>
+      
+        <MenuButton
+          title="Reset page"
+          options={DELETE_OPTIONS}
+          onSelect={(option) => deleteElement()}
+        >
+          <Button
+            size="icon-xs"
+            // variant="outline"
+            className="flex items-center gap-0"
+          >
+            <Trash />
+            <ChevronDown />
+          </Button>
+        </MenuButton>
       </div>
 
       <div
