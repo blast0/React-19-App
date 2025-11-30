@@ -43,8 +43,8 @@ const ImageEditor = () => {
   const [activeElementType, setActiveElementType] = useState("");
   const [activeElementProps, setActiveElementProps] = useState(null);
   const [zoom, setZoom] = useState(1);
-  const [canvasHeight,setCanvasHeight]=useState(500);
-  const [canvasWidth,setCanvasWidth]=useState(500);
+  const [canvasHeight,setCanvasHeight]=useState(480);
+  const [canvasWidth,setCanvasWidth]=useState(480);
 
   const setCanvasZoom = (value) => {
     const canvas = canvasCoreRef.current.canvas;
