@@ -43,7 +43,7 @@ export const ACTIONS = {
   UNDO_ACTION: "undo-action",
   UPDATE_ACTIVE_ELEMENT: "update-active-element",
   UPLOAD_JSON: "upload-file",
-  UPLOAD_IMAGE: "image",
+  UPLOAD_IMAGE: "upload",
   UPLOAD_SVG: "svg",
   OTHERS: "others",
 };

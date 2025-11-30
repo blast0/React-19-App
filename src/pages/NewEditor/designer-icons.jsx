@@ -254,7 +254,7 @@ export const OPEN_OPTIONS = [
   //   value: ACTIONS.ADD_FROM_LIBRARY,
   // },
   {
-    name: "Add Image From Desktop",
+    name: "Upload from Device",
     tooltip: "Upload Image from Desktop",
     icon: <ImageUp />,
     value: ACTIONS.UPLOAD_IMAGE,

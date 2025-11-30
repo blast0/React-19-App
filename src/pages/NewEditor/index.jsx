@@ -32,12 +32,105 @@ const ImageEditor = () => {
   const canvasRef = useRef(null);
   const canvasCoreRef = useRef(null);
   const canvasInstanceRef = useRef(null);
-
+  const fileInputRef = useRef(null);
   const [activeElementType, setActiveElementType] = useState("");
   const [activeElementProps, setActiveElementProps] = useState(null);
   const [zoom, setZoom] = useState(1);
   const [canvasHeight,setCanvasHeight]=useState(480);
   const [canvasWidth,setCanvasWidth]=useState(480);
+  const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0 });
+
+  const bringToFront = () => {
+    const obj = canvasInstanceRef.current.getActiveObject();
+    if (!obj) return;
+    canvasInstanceRef.current.bringToFront(obj);
+    canvasInstanceRef.current.renderAll();
+  };
+
+  const bringForward = () => {
+    const obj = canvasInstanceRef.current.getActiveObject();
+    if (!obj) return;
+    canvasInstanceRef.current.bringForward(obj);
+    canvasInstanceRef.current.renderAll();
+  };
+
+  const sendBackward = () => {
+    const obj = canvasInstanceRef.current.getActiveObject();
+    if (!obj) return;
+    canvasInstanceRef.current.sendBackwards(obj);
+    canvasInstanceRef.current.renderAll();
+  };
+
+  const sendToBack = () => {
+    const obj = canvasInstanceRef.current.getActiveObject();
+    if (!obj) return;
+    canvasInstanceRef.current.sendToBack(obj);
+    canvasInstanceRef.current.renderAll();
+  };
+
+  const deleteSelected = () => {
+    const obj = canvasInstanceRef.current.getActiveObject();
+    if (obj) canvasInstanceRef.current.remove(obj);
+    canvasInstanceRef.current.renderAll();
+  };
+
+
+  const addImageFromDevice = (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    if (!file) return;
+    if(!file.type.match(/image|svg/)) {
+      alert("Unsupported file type");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const dataUrl = event.target.result;
+
+      let obj=null;
+      if (file.type.includes("svg+xml") || file.name.endsWith(".svg")) {
+        const svgText = await file.text();
+        obj= await canvasCoreRef.getSvgFromString({
+          svgStr: svgText,
+          name: "Dropped SVG",
+          top: 50,
+          left: 50,
+        });
+      } else {
+        // PNG/JPG
+        obj= await canvasCoreRef.current.addImgFromURL(dataUrl, {
+          left: 100,
+          top: 100,
+          selectable: true,
+        });
+        // console.log(canvasInstanceRef.current)
+      }
+      const canvasWidth = canvasInstanceRef.current.getWidth();
+      const canvasHeight = canvasInstanceRef.current.getHeight();
+
+      // Get SVG original dimensions
+      const bounds = obj.getBoundingRect();
+      const { width, height } = bounds;
+
+      // Max allowed size (75% of canvas)
+      const maxWidth = canvasWidth * 0.75;
+      const maxHeight = canvasHeight * 0.75;
+
+      // Determine scale factor
+      let scale = 1;
+      if (width > maxWidth || height > maxHeight) {
+        scale = Math.min(maxWidth / width, maxHeight / height);
+      }
+      // Apply proportional scale
+      obj.scale(scale);
+
+      canvasInstanceRef.current.add(obj);
+      canvasInstanceRef.current.centerObject(obj);
+      canvasInstanceRef.current.renderAll();
+      console.log(fileURL)
+    };
+    reader.readAsDataURL(file);
+  };
 
   const setCanvasZoom = (value) => {
     const canvas = canvasCoreRef.current.canvas;
@@ -52,7 +145,6 @@ const ImageEditor = () => {
   };
 
   const resetZoom = () => setCanvasZoom(1);
-
   
   const CANVAS_OPTIONS = [
     {
@@ -122,63 +214,7 @@ const ImageEditor = () => {
           />
         ),
       },
-    ];
-
-    const dropListener= async (e, canvas) => {
-      e.preventDefault();
-      const file = e.dataTransfer.files[0];
-      if (!file) return;
-      if(!file.type.match(/image|svg/)) {
-        alert("Unsupported file type");
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = async (event) => {
-        const fileURL = event.target.result;
-        let obj=null;
-        if (file.type.includes("svg+xml") || file.name.endsWith(".svg")) {
-          const svgText = await file.text();
-          obj= await canvasCoreRef.current.getSvgFromString({
-            svgStr: svgText,
-            name: "Dropped SVG",
-            top: 50,
-            left: 50,
-          });
-        }
-        else if (file.type.includes("image")) {
-         obj= await canvasCoreRef.current.addImgFromURL(fileURL, {
-            left: 100,
-            top: 100,
-            selectable: true,
-          });
-          // Get canvas dimensions
-        }  
-        const canvasWidth = canvas.getWidth();
-        const canvasHeight = canvas.getHeight();
-
-        // Get SVG original dimensions
-        const bounds = obj.getBoundingRect();
-        const { width, height } = bounds;
-
-        // Max allowed size (75% of canvas)
-        const maxWidth = canvasWidth * 0.75;
-        const maxHeight = canvasHeight * 0.75;
-
-        // Determine scale factor
-        let scale = 1;
-        if (width > maxWidth || height > maxHeight) {
-          scale = Math.min(maxWidth / width, maxHeight / height);
-        }
-        // Apply proportional scale
-        obj.scale(scale);
-
-        canvas.add(obj);
-        canvas.centerObject(obj);
-        canvas.renderAll();
-        console.log(fileURL)
-      }
-      reader.readAsDataURL(file);
-    }
+  ];
 
   /** ----- Update Active Props ------ */
   const updateActiveProps = debounce(() => {
@@ -218,11 +254,41 @@ const ImageEditor = () => {
       });
 
       enableZoomAndPan(canvasInstanceRef.current);
-      enableDragDrop(canvasInstanceRef.current);
-      enableExtraListeners(canvasInstanceRef.current, updateActiveProps)
+      enableDragDrop(canvasInstanceRef.current, canvasCoreRef.current);
+      enableExtraListeners(canvasInstanceRef.current, updateActiveProps);
+      const canvas = canvasInstanceRef.current;
+      const handleRightClick = (e) => {
+        e.preventDefault();
+
+        const canvas = canvasInstanceRef.current;
+        const target = canvas.findTarget(e);
+
+        if (target) canvas.setActiveObject(target);
+
+        const wrapper = document.getElementById("canvas-wrapper");
+        const rect = wrapper.getBoundingClientRect();
+
+        setContextMenu({
+          visible: true,
+          x: e.clientX - rect.left, // position inside wrapper
+          y: e.clientY - rect.top,
+        });
+        canvas.renderAll();
+      };
+
+      canvas.upperCanvasEl.addEventListener("contextmenu", handleRightClick);
+
+      const hideMenu = () => setContextMenu((prev) => ({ ...prev, visible: false }));
+      window.addEventListener("click", hideMenu);
     };
 
     initCanvas();
+
+
+    return () => {
+      canvas.upperCanvasEl.removeEventListener("contextmenu", handleRightClick);
+      window.removeEventListener("click", hideMenu);
+    };
   }, []);
 
   /** ----- Draw rulers on zoom change ----- */
@@ -238,7 +304,7 @@ const ImageEditor = () => {
     canvasCoreRef.current.canvas.renderAll();
   };
 
-  const addImage = async () => {
+  const addImage =useCallback(async () => {
     const url = prompt("Enter Image URL:");
     if (!url) return;
     await canvasCoreRef.current.addImgFromURL(url, {
@@ -247,7 +313,7 @@ const ImageEditor = () => {
       selectable: true,
     });
     canvasInstanceRef.current.renderAll();
-  };
+  }, [canvasInstanceRef.current]);
 
   const addText = useCallback(async () => {
 
@@ -368,9 +434,8 @@ const ImageEditor = () => {
             options={OPEN_OPTIONS}
             onSelect={(option) => {
               if (!canvasCoreRef.current?.canvas) return;
-              if(option.name==="Add Image From URL"){
-                addImage()
-              }
+              if (option.name === "Add Image From URL") addImage();
+              if (option.name === "Upload from Device") fileInputRef.current.click();
             }}
           >
             <Button
@@ -432,7 +497,7 @@ const ImageEditor = () => {
             </Button>
           </MenuButton>
         </div>
-      <div className="relative">
+        <div className="relative">
           <canvas id="ruler-top" style={{ height: "10px", width: canvasWidth, background:"#fafafa" }} className="absolute ml-[10px]"></canvas>
           <canvas id="ruler-left" style={{ width: "10px", height: canvasHeight, background:"#fafafa" }} className="absolute mt-[10px]"></canvas>
           <div
@@ -442,6 +507,23 @@ const ImageEditor = () => {
           >
             <canvas id="canvas-main" ref={canvasRef}></canvas>
           </div>
+          {contextMenu.visible && (
+            <ul
+              className="absolute bg-white shadow-lg border rounded text-sm"
+              style={{
+                top: contextMenu.y,
+                left: contextMenu.x,
+                zIndex: 9999,
+                width: "160px",
+              }}
+            >
+              <li className="px-2 py-1 hover:bg-gray-100 cursor-pointer" onClick={bringToFront}>Bring to Front</li>
+              <li className="px-2 py-1 hover:bg-gray-100 cursor-pointer" onClick={bringForward}>Bring Forward</li>
+              <li className="px-2 py-1 hover:bg-gray-100 cursor-pointer" onClick={sendBackward}>Send Backward</li>
+              <li className="px-2 py-1 hover:bg-gray-100 cursor-pointer" onClick={sendToBack}>Send to Back</li>
+              <li className="px-2 py-1 hover:bg-red-100 cursor-pointer text-red-600" onClick={deleteSelected}>Delete</li>
+            </ul>
+          )}
         </div>
         <div className="flex flex-col items-center gap-2 my-2">
           <p className="text-sm text-gray-600">Drag & Drop image or SVG onto canvas</p>
@@ -463,7 +545,13 @@ const ImageEditor = () => {
           </div>
         </div>
       </div>
-
+      <input
+        type="file"
+        ref={fileInputRef}
+        accept="image/*,.svg"
+        style={{ display: "none" }}
+        onChange={addImageFromDevice}
+      />
         {activeElementProps && <div className="border border-amber-500 p-2">
           {ActiveControl && <ActiveControl canvas={canvasInstanceRef.current} activeElementProps={activeElementProps} setActiveElementProps={updateActiveProps} />}
         </div>}
