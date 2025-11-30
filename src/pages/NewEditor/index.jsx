@@ -42,10 +42,26 @@ const ImageEditor = () => {
 
   const [activeElementType, setActiveElementType] = useState("");
   const [activeElementProps, setActiveElementProps] = useState(null);
+  const [zoom, setZoom] = useState(1);
   const [canvasHeight,setCanvasHeight]=useState(500);
   const [canvasWidth,setCanvasWidth]=useState(500);
 
-    const CANVAS_OPTIONS = [
+  const setCanvasZoom = (value) => {
+    const canvas = canvasCoreRef.current.canvas;
+    const zoomValue = Math.min(5, Math.max(value, 0.2));
+    setZoom(zoomValue);
+
+    canvas.zoomToPoint(
+      new fabric.Point(canvas.getWidth() / 2, canvas.getHeight() / 2),
+      zoomValue
+    );
+    canvas.renderAll();
+  };
+
+  const resetZoom = () => setCanvasZoom(1);
+
+  
+  const CANVAS_OPTIONS = [
     {
       name: "Save Image",
       value: ACTIONS.SAVE_PAGE_TO_LIBRARY,
@@ -114,85 +130,8 @@ const ImageEditor = () => {
         ),
       },
     ];
-    
-    useEffect(() => {
-      const initCanvas = async () => {
-        canvasCoreRef.current = new CanvasCore();
-        canvasInstanceRef.current = await canvasCoreRef.current._init({
-          canvasId: "main",
-          width: canvasWidth,
-          height: canvasHeight,
-          selection: true,
-        });
-        
-        // Enable drag & drop
-        enableDragDrop(canvasInstanceRef.current);
-        
-        // Listen for selection changes
-      canvasInstanceRef.current.on("selection:updated", updateActiveProps);
-      canvasInstanceRef.current.on("selection:created", updateActiveProps);
-      canvasInstanceRef.current.on("selection:cleared", () => setActiveElementProps(null));
-    };
-    
-    initCanvas();
-    const canvasElem = document.getElementById("canvas-wrapper");
 
-    return () => {
-      // Cleanup must be synchronous
-      if (canvasCoreRef.current?.canvas) {
-        canvasInstanceRef.current.off("selection:updated", updateActiveProps);
-        canvasInstanceRef.current.off("selection:created", updateActiveProps);
-        canvasInstanceRef.current.off("selection:cleared", updateActiveProps);
-        // canvasElem.removeEventListener("dragover", fn);
-        // canvasElem.removeEventListener("drop", fn);
-        canvasCoreRef.current.canvas.dispose();
-      }
-    };
-  }, []);
-
-  const undo = async () => {
-  await canvasCoreRef.current.canvas.undo();
-  canvasCoreRef.current.canvas.renderAll();
-  };
-
-  const redo = async () => {
-    await canvasCoreRef.current.canvas.redo();
-    canvasCoreRef.current.canvas.renderAll();
-  };
-
-  const updateActiveProps = debounce(() => {
-    const obj = canvasCoreRef.current.canvas.getActiveObject();
-    console.log(obj)
-    if (obj) {
-      setActiveElementType(obj.type);
-
-      setActiveElementProps((prev) => ({
-        ...prev,
-        backgroundColor: obj.backgroundColor || "",
-        color: obj.fill,
-        stroke: obj.stroke || "#000",
-        strokeWidth: obj.strokeWidth || 0,
-        fontFamily: obj.fontFamily,
-        BorderLock: obj.BorderLock,
-        rx: obj.rx,
-        ry: obj.ry,
-        width: obj.width,
-        height: obj.height,
-        imageFit: obj.imageFit,
-        patternActive: obj.patternActive,
-      }));
-    } else {
-      setActiveElementType("");
-      setActiveElementProps({});
-    }
-  }, 100);
-
-
-  const enableDragDrop = (canvas) => {
-    const canvasElem = document.getElementById("canvas-wrapper");
-
-    canvasElem.addEventListener("dragover", (e) => e.preventDefault());
-    canvasElem.addEventListener("drop", async (e) => {
+    const dropListener= async (e, canvas) => {
       e.preventDefault();
       const file = e.dataTransfer.files[0];
       if (!file) return;
@@ -246,7 +185,173 @@ const ImageEditor = () => {
         console.log(fileURL)
       }
       reader.readAsDataURL(file);
-    });
+    }
+
+    const drawRulers = () => {
+      const topCanvas = document.getElementById("ruler-top");
+      const leftCanvas = document.getElementById("ruler-left");
+      const tCtx = topCanvas.getContext("2d");
+      const lCtx = leftCanvas.getContext("2d");
+      const zoomVal = zoom;
+
+      topCanvas.width = topCanvas.offsetWidth;
+      topCanvas.height = 30;
+      tCtx.clearRect(0, 0, topCanvas.width, 30);
+      tCtx.fillStyle = "#999";
+
+      for (let i = 0; i < topCanvas.width / zoomVal; i += 10) {
+        const x = i * zoomVal;
+        const height = i % 50 === 0 ? 20 : 10;
+        tCtx.fillRect(x, 30 - height, 1, height);
+      }
+
+      leftCanvas.height = leftCanvas.offsetHeight;
+      leftCanvas.width = 30;
+      lCtx.clearRect(0, 0, 30, leftCanvas.height);
+      lCtx.fillStyle = "#999";
+
+      for (let i = 0; i < leftCanvas.height / zoomVal; i += 10) {
+        const y = i * zoomVal;
+        const width = i % 50 === 0 ? 20 : 10;
+        lCtx.fillRect(30 - width, y, width, 1);
+      }
+    };
+
+
+    const enableZoomAndPan = (canvas) => {
+      // ----- Zoom on wheel -----
+      canvas.on("mouse:wheel", function (opt) {
+        let delta = opt.e.deltaY;
+        let zoom = canvas.getZoom();
+        zoom *= 0.999 ** delta; // smooth
+        zoom = Math.min(5, Math.max(zoom, 0.2)); // zoom limits
+        canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
+        opt.e.preventDefault();
+        opt.e.stopPropagation();
+      });
+
+      // ----- Pan Variables -----
+      let panning = false;
+
+      canvas.on("mouse:down", function (opt) {
+        if (opt.e.spaceKey || opt.e.button === 1) {
+          panning = true;
+          canvas.selection = false;
+          canvas.setCursor("grab");
+        }
+      });
+
+      canvas.on("mouse:move", function (opt) {
+        if (panning) {
+          const delta = new fabric.Point(opt.e.movementX, opt.e.movementY);
+          canvas.relativePan(delta);
+        }
+      });
+
+      canvas.on("mouse:up", function () {
+        panning = false;
+        canvas.selection = true;
+        canvas.setCursor("default");
+      });
+
+      // Detect space key state
+      document.addEventListener("keydown", (e) => (e.key === " " ? (e.spaceKey = true) : null));
+      document.addEventListener("keyup", (e) => (e.key === " " ? (e.spaceKey = false) : null));
+    };
+    
+    useEffect(() => {
+      const initCanvas = async () => {
+        canvasCoreRef.current = new CanvasCore();
+        canvasInstanceRef.current = await canvasCoreRef.current._init({
+          canvasId: "main",
+          width: canvasWidth,
+          height: canvasHeight,
+          selection: true,
+        });
+        
+        // Enable drag & drop
+        enableDragDrop(canvasInstanceRef.current);
+        enableZoomAndPan(canvasInstanceRef.current)
+        canvasInstanceRef.current.on("object:moving", (e) => {
+          const obj = e.target;
+          const canvasCenter = canvasInstanceRef.current.getCenter();
+          const snapTolerance = 5;
+
+          if (Math.abs(obj.left - canvasCenter.left) < snapTolerance) obj.left = canvasCenter.left;
+          if (Math.abs(obj.top - canvasCenter.top) < snapTolerance) obj.top = canvasCenter.top;
+          console.log(canvasCenter)
+          canvasInstanceRef.current.renderAll();
+        });
+        // Listen for selection changes
+      canvasInstanceRef.current.on("selection:updated", updateActiveProps);
+      canvasInstanceRef.current.on("selection:created", updateActiveProps);
+      canvasInstanceRef.current.on("selection:cleared", () => setActiveElementProps(null));
+    };
+    
+    initCanvas();
+    const canvasElem = document.getElementById("canvas-wrapper");
+
+    return () => {
+      // Cleanup must be synchronous
+      if (canvasCoreRef.current?.canvas) {
+        canvasInstanceRef.current.off("selection:updated", updateActiveProps);
+        canvasInstanceRef.current.off("selection:created", updateActiveProps);
+        canvasInstanceRef.current.off("selection:cleared", updateActiveProps);
+        canvasInstanceRef.current.off("mouse:wheel");
+        canvasInstanceRef.current.off("mouse:down");
+        canvasInstanceRef.current.off("mouse:move");
+        canvasInstanceRef.current.off("mouse:up");
+        // canvasElem.removeEventListener("dragover", fn);
+        canvasElem.removeEventListener("drop", dropListener);
+        canvasCoreRef.current.canvas.dispose();
+      }
+    };
+  }, []);
+
+  useEffect(() => drawRulers(), [zoom]);
+
+  const undo = async () => {
+  await canvasCoreRef.current.canvas.undo();
+  canvasCoreRef.current.canvas.renderAll();
+  };
+
+  const redo = async () => {
+    await canvasCoreRef.current.canvas.redo();
+    canvasCoreRef.current.canvas.renderAll();
+  };
+
+  const updateActiveProps = debounce(() => {
+    const obj = canvasCoreRef.current.canvas.getActiveObject();
+    console.log(obj)
+    if (obj) {
+      setActiveElementType(obj.type);
+
+      setActiveElementProps((prev) => ({
+        ...prev,
+        backgroundColor: obj.backgroundColor || "",
+        color: obj.fill,
+        stroke: obj.stroke || "#000",
+        strokeWidth: obj.strokeWidth || 0,
+        fontFamily: obj.fontFamily,
+        BorderLock: obj.BorderLock,
+        rx: obj.rx,
+        ry: obj.ry,
+        width: obj.width,
+        height: obj.height,
+        imageFit: obj.imageFit,
+        patternActive: obj.patternActive,
+      }));
+    } else {
+      setActiveElementType("");
+      setActiveElementProps({});
+    }
+  }, 100);
+
+
+  const enableDragDrop = (canvas) => {
+    const canvasWrapperElement = document.getElementById("canvas-wrapper");
+    canvasWrapperElement.addEventListener("dragover", (e) => e.preventDefault());
+    canvasWrapperElement.addEventListener("drop", (e) => dropListener(e, canvas));
   };
 
   const addImage = async () => {
@@ -346,7 +451,7 @@ const ImageEditor = () => {
   return (
     <div className="p-4 w-full flex flex-col items-center">
       <div className="flex flex-col items-center">
-        <div className="flex gap-3 my-4">
+        <div className="flex gap-3 mt-4 mb-2">
           <MenuButton
             title="Add shapes"
             options={ADD_SHAPE_OPTIONS}
@@ -446,16 +551,36 @@ const ImageEditor = () => {
             </Button>
           </MenuButton>
         </div>
-
-        <div
-          id="canvas-wrapper"
-          className="border border-gray-300 shadow-lg"
-          style={{ width: canvasWidth, height: canvasHeight }}
-        >
-          <canvas id="canvas-main" ref={canvasRef}></canvas>
+        <div className="relative">
+          <canvas id="ruler-top" style={{ height: "10px", width: canvasWidth, background:"#fafafa" }} className="absolute ml-[10px]"></canvas>
+          <canvas id="ruler-left" style={{ width: "10px", height: canvasHeight, background:"#fafafa" }} className="absolute mt-[10px]"></canvas>
+          <div
+            id="canvas-wrapper"
+            className="border border-gray-300 shadow-lg ml-[10px] mt-[10px]"
+            style={{ width: canvasWidth, height: canvasHeight }}
+          >
+            <canvas id="canvas-main" ref={canvasRef}></canvas>
+          </div>
         </div>
+        <div className="flex flex-col items-center gap-2 my-2">
+          <p className="text-sm text-gray-600">Drag & Drop image or SVG onto canvas</p>
+          <div className="flex gap-2">
 
-        <p className="text-sm text-gray-600 mt-3">Drag & Drop image or SVG onto canvas</p>
+          <Button onClick={resetZoom}>Reset Zoom</Button>
+
+          <input
+            type="range"
+            min="0.2"
+            max="5"
+            step="0.01"
+            value={zoom}
+            onChange={(e) => setCanvasZoom(parseFloat(e.target.value))}
+            className="w-30"
+          />
+
+          <span className="text-sm">{Math.round(zoom * 100)}%</span>
+          </div>
+        </div>
       </div>
 
         {activeElementProps && <div className="border border-amber-500 p-2">
