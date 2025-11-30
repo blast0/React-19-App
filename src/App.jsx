@@ -10,6 +10,8 @@ import Settings from "./pages/Dashboard/Settings";
 import Spin from "./components/ui/custom/spinner";
 import { useAuth0 } from "@auth0/auth0-react";
 import ImageEditor from "./pages/NewEditor";
+import FabricEditorPage from "./pages/FabricEditor/Editor";
+
 import Navbar from "./components/Navigation/NavBar";
 import Projects from "./pages/Projects/projects";
 import Contact from "./pages/Contact/Contact";
@@ -58,16 +60,21 @@ function App() {
             <Route
               index
               path="/editor"
+              element={<FabricEditorPage theme={theme} />}
+            />
+            <Route
+              index
+              path="/neweditor"
               element={<ImageEditor theme={theme} />}
             />
             <Route
               path="/images"
               element={<GalleryPage theme={theme} />}
             />
-              <Route
-                 path="/projects"
-                 element={<Projects theme={theme} />}
-               />
+            <Route
+              path="/projects"
+              element={<Projects theme={theme} />}
+            />
             <Route
               path="/dashboard"
               element={<Dashboard theme={theme} />}
