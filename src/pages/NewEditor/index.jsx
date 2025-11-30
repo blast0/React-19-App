@@ -7,13 +7,16 @@ import { DialogDropDown } from "@/components/ui/custom/dialogDropDown";
 import {
   ChevronDown, Image, Redo, Save, Shapes,
   Trash, Undo, ImageDown, FileDown,
+  FileUp,
+  FileSpreadsheet,
+  FileCog,
 } from "lucide-react";
 import { debounce } from "lodash";
 import { sha256 } from "crypto-hash";
 import "./fabric-history";
 
 import CanvasCore from "./canvas.core";
-import { ADD_SHAPE_OPTIONS, DELETE_OPTIONS, OPEN_OPTIONS } from "./designer-icons";
+import { ADD_SHAPE_OPTIONS, DELETE_OPTIONS, ADD_OPTIONS } from "./designer-icons";
 import SaveModalJsx from "./Templates/saveModal";
 import SaveTemplateModal from "./Templates/saveTemplateModal";
 
@@ -27,6 +30,7 @@ import { controlMap } from "./controlMap";
 import { Input } from "@/components/ui/input";
 import "./googlefonts.css";
 import { enableExtraListeners } from "./utils/enableExtraListeners";
+import CardGallery from "./card";
 
 const ImageEditor = () => {
   const canvasRef = useRef(null);
@@ -105,6 +109,21 @@ const ImageEditor = () => {
     canvasInstanceRef.current.renderAll();
   };
 
+  // const OPEN_OPTIONS=[    {
+  //     name: "Select a Template",
+  //     value: ACTIONS.UPLOAD_JSON,
+  //     modalJsx: (  
+
+  //     ),
+  //   },
+  //   {
+  //     name: "Open Template From File",
+  //     modalJsx: <div className="flex items-center h-[27px] cursor-pointer gap-2">
+  //     <FileUp /> Open Template From File
+  //     </div>,
+  //     value: "raw_data",
+  //   },
+  // ]
 
   const addImageFromDevice = (e) => {
     e.preventDefault();
@@ -244,7 +263,7 @@ const ImageEditor = () => {
           }
           />
         ),
-      },
+    },
   ];
 
   /** ----- Update Active Props ------ */
@@ -430,6 +449,23 @@ const ImageEditor = () => {
     <div className="p-4 w-full flex flex-col items-center">
       <div className="flex flex-col items-center">
       <div className="flex gap-3 mt-4 mb-2">
+        <DialogBox
+          title="Image"
+          trigger={
+            <Button  title="Select a template"
+              size="icon-xs"
+              // variant="outline"
+              className="flex items-center gap-0"
+            >
+              <FileSpreadsheet />
+            </Button>
+          }
+          modalJsx={
+            <CardGallery onSelect={(card)=>{
+              loadCanvasFromJSON(card)
+            }}/>
+          }
+          />
           <MenuButton
             title="Add shapes"
             options={ADD_SHAPE_OPTIONS}
@@ -462,13 +498,13 @@ const ImageEditor = () => {
           </MenuButton>
           <MenuButton
             title="Add Image"
-            options={OPEN_OPTIONS}
+            options={ADD_OPTIONS}
             onSelect={(option) => {
               if (!canvasCoreRef.current?.canvas) return;
               if (option.name === "Add Image From URL") addImage();
               if (option.name === "Upload from Device") fileInputRef.current.click();
-              else jsonInputRef.current.click()
-            }}
+              if (option.name === "Open Template From File") jsonInputRef.current.click();
+             }}
           >
             <Button
               size="icon-xs"
@@ -482,7 +518,6 @@ const ImageEditor = () => {
           <DialogDropDown
             title="Save to cloud"
             options={CANVAS_OPTIONS}
-            onSelect={(option) => onChange(option.value)}
           >
             <Button
               size="icon-xs"
@@ -555,10 +590,10 @@ const ImageEditor = () => {
                 width: "160px",
               }}
             >
-              <li className="px-2 py-1 hover:bg-gray-100 cursor-pointer" onClick={bringToFront}>Bring to Front</li>
-              <li className="px-2 py-1 hover:bg-gray-100 cursor-pointer" onClick={bringForward}>Bring Forward</li>
-              <li className="px-2 py-1 hover:bg-gray-100 cursor-pointer" onClick={sendBackward}>Send Backward</li>
-              <li className="px-2 py-1 hover:bg-gray-100 cursor-pointer" onClick={sendToBack}>Send to Back</li>
+              <li className="px-2 py-1 hover:bg-gray-100 cursor-pointer text-slate-400" onClick={bringToFront}>Bring to Front</li>
+              <li className="px-2 py-1 hover:bg-gray-100 cursor-pointer text-slate-400" onClick={bringForward}>Bring Forward</li>
+              <li className="px-2 py-1 hover:bg-gray-100 cursor-pointer text-slate-400" onClick={sendBackward}>Send Backward</li>
+              <li className="px-2 py-1 hover:bg-gray-100 cursor-pointer text-slate-400" onClick={sendToBack}>Send to Back</li>
               <li className="px-2 py-1 hover:bg-red-100 cursor-pointer text-red-600" onClick={deleteSelected}>Delete</li>
             </ul>
           )}

@@ -247,7 +247,7 @@ export const DELETE_OPTIONS = [
   },
 ];
 
-export const OPEN_OPTIONS = [
+export const ADD_OPTIONS = [
   // {
   //   name: "Add Image from library",
   //   icon: <Images />,
