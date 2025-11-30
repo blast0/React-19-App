@@ -297,26 +297,26 @@ export const ADD_SHAPE_OPTIONS = [
     icon: <Circle />,
     value: ACTIONS.ADD_CIRCLE,
   },
-  {
-    name: "Add Solid Line",
-    icon: <Slash />,
-    value: ACTIONS.ADD_LINE,
-  },
-  {
-    name: "Add Arrow",
-    icon: <Spline />,
-    value: ACTIONS.ADD_QUADRATIC_CURVE,
-  },
-  {
-    name: "Add Speech Bubble",
-    icon: <MessageSquareQuote />,
-    value: ACTIONS.ADD_SPEECH_BUBBLE,
-  },
-  {
-    name: "Add Label",
-    icon: <MessageCircle />,
-    value: ACTIONS.ADD_SPEECH_LABEL,
-  },
+  // {
+  //   name: "Add Solid Line",
+  //   icon: <Slash />,
+  //   value: ACTIONS.ADD_LINE,
+  // },
+  // {
+  //   name: "Add Arrow",
+  //   icon: <Spline />,
+  //   value: ACTIONS.ADD_QUADRATIC_CURVE,
+  // },
+  // {
+  //   name: "Add Speech Bubble",
+  //   icon: <MessageSquareQuote />,
+  //   value: ACTIONS.ADD_SPEECH_BUBBLE,
+  // },
+  // {
+  //   name: "Add Label",
+  //   icon: <MessageCircle />,
+  //   value: ACTIONS.ADD_SPEECH_LABEL,
+  // },
 ];
 
 export const ELEMENT_POSITION_OPTIONS = [

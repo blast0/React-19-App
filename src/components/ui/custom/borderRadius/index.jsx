@@ -54,7 +54,7 @@ const BorderRadius = ({
   };
 
   return (
-    <div className="Slider-With-Input-Controls">
+    <div className="Slider-With-Input-Controls  max-w-[240px]">
       {showLockButton ? (
         <div className="Toggle-icon-container shadow">
           <span

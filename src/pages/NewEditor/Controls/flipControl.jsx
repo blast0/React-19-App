@@ -22,6 +22,7 @@ const FlipElementControl = ({
                 key={item.bId}
                 type="button"
                 // variant="outline"
+                className="h-[36px]"
                 size="icon-xs"
                 onClick={() => {
                   if (item.value === "x")

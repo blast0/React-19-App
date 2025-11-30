@@ -1,8 +1,9 @@
-import "./fabric-history"; 
-import CanvasCore from "./canvas.core"; // import your core file
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MenuButton } from "@/components/ui/custom/menu-button";
 import { Button } from "@/components/ui/button";
+import { DialogBox } from "@/components/DialogBox";
+import { Title } from "@/components/ui/title";
+import { DialogDropDown } from "@/components/ui/custom/dialogDropDown";
 import {
   ChevronDown,
   Image,
@@ -14,6 +15,10 @@ import {
   ImageDown,
   FileDown,
 } from "lucide-react";
+import { debounce } from "lodash";
+import { sha256 } from "crypto-hash";
+import "./fabric-history"; 
+import CanvasCore from "./canvas.core"; // import your core file
 import {
   ADD_SHAPE_OPTIONS,
   DELETE_OPTIONS,
@@ -25,13 +30,8 @@ import TextControls from "./Controls/textControls";
 import ImageControls from "./Controls/imageFitControl";
 import TriangleControls from "./Controls/triangleControls";
 import { ACTIONS } from "./Constants/actions";
-import { DialogBox } from "@/components/DialogBox";
-import { Title } from "@/components/ui/title";
-import { DialogDropDown } from "@/components/ui/custom/dialogDropDown";
 import SaveModalJsx from "./Templates/saveModal";
 import SaveTemplateModal from "./Templates/saveTemplateModal";
-import { debounce } from "lodash";
-import { sha256 } from "crypto-hash";
 import { createJSON, getNewID } from "./helper";
 import "./googlefonts.css";
 
@@ -115,9 +115,10 @@ const FabricEditor2 = () => {
   ];
 
   useEffect(() => {
+    let canvasObj = null;
     const initCanvas = async () => {
       canvasCoreRef.current = new CanvasCore();
-      const canvasObj = await canvasCoreRef.current._init({
+      canvasObj = await canvasCoreRef.current._init({
         canvasId: "main",
         width: canvasWidth,
         height: canvasHeight,
@@ -138,7 +139,7 @@ const FabricEditor2 = () => {
 
     return () => {
       // Cleanup must be synchronous
-      if (canvasCoreRef.current) {
+      if (canvasCoreRef.current && canvasObj) {
         canvasObj.off("selection:updated", updateActiveProps);
         canvasObj.off("selection:created", updateActiveProps);
         canvasObj.off("selection:cleared", updateActiveProps);

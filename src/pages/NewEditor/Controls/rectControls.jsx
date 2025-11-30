@@ -88,7 +88,7 @@ const RectangleControls = (props) => {
   const activePattern = (
     <>
       <div className="pattern-controls w-[100%] flex flex-wrap gap-2">
-        <div className="w-[48%]">
+        <div className="max-w-[130px]">
           <Label>Image Width:</Label>
           <Input
             type={"number"}
@@ -102,7 +102,7 @@ const RectangleControls = (props) => {
             // }
           />
         </div>
-        <div className="w-[48%]">
+        <div className="max-w-[130px]">
           <Label>Image Height:</Label>
           <Input
             type={"number"}
@@ -116,7 +116,7 @@ const RectangleControls = (props) => {
             // }}
           />
         </div>
-        <div className="w-[48%]">
+        <div className="max-w-[130px]">
           <Label>Image Left:</Label>
           <Input
             type={"number"}
@@ -131,7 +131,7 @@ const RectangleControls = (props) => {
             // }
           />
         </div>
-        <div className="w-[48%]">
+        <div className="max-w-[130px]">
           <Label>Image Top:</Label>
           <Input
             type={"number"}
@@ -196,28 +196,28 @@ const RectangleControls = (props) => {
         },
       ]}
     />
-    // <></>
   );
 
   return (
     <div className="rect-controls flex-wrap flex gap-2">
-      {/* <div className="w-[48%] flex flex-col gap-3">{AlignElement}</div> */}
-      {/* <div className="w-[48%] flex flex-col gap-[14px]">
+      {/* <div className="max-w-[130px] flex flex-col gap-3">{AlignElement}</div> */}
+      {/* <div className="max-w-[130px] flex flex-col gap-[14px]">
         {!selectedElement?.patternActive ? activeElementColor : null}
       </div> */}
 
       {!selectedElement?.patternActive ? (
-        <div className="w-[48%] flex flex-col gap-[14px]">
-          {activeElementColor}{" "}
+        <div className="max-w-[130px] flex flex-col gap-[14px]">
+          {activeElementColor}
         </div>
       ) : null}
-
-      <div className="w-[48%]">{activeBorderThickness}</div>
-      <div className="w-[48%]">{activeBorderColor}</div>
+      <div className="max-w-[130px]">{activeBorderThickness}</div>
+      <div className="max-w-[130px]">{activeBorderColor}</div>
       {!selectedElement?.patternActive ? FlipElement : null}
-      <div className="w-[100%]">{boxShadow}</div>
-      {rectBorderRadius}
-      {patternImgController}
+      <div className="max-w-[200px]">
+        {patternImgController}
+      </div> 
+      <div className="max-w-[200px]">{boxShadow}</div>
+        {rectBorderRadius}
       {activeElementProps?.patternActive ? activePattern : null}
       {activeElementProps?.patternActive ? imageFit : null}
       {selectedElement?.patternActive ? FlipElement : null}

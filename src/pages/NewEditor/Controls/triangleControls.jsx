@@ -66,9 +66,9 @@ const TriangleControls = (props) => {
 
   const patternImgController = (
     <div className="image-url-control w-[100%]">
-      <Label>Fill Image:</Label>
       <FileInput
-        containerClassName="w-full"
+        label="Fill Image:"
+        containerClassName="w-full mt-2"
         value={activeElementProps?.URL}
         mimeTypeExclusions={["image/svg+xml"]}
         onChange={async (url) => {
@@ -89,7 +89,7 @@ const TriangleControls = (props) => {
   const activePattern = (
     <>
       <div className="pattern-controls w-[100%] flex flex-wrap gap-2">
-        <div className="w-[48%]">
+        <div className="max-w-[130px]">
           <Label>Image Width:</Label>
           <Input
             type={"number"}
@@ -103,7 +103,7 @@ const TriangleControls = (props) => {
             // }
           />
         </div>
-        <div className="w-[48%]">
+        <div className="max-w-[130px]">
           <Label>Image Height:</Label>
           <Input
             type={"number"}
@@ -117,7 +117,7 @@ const TriangleControls = (props) => {
             // }}
           />
         </div>
-        <div className="w-[48%]">
+        <div className="max-w-[130px]">
           <Label>Image Left:</Label>
           <Input
             type={"number"}
@@ -132,7 +132,7 @@ const TriangleControls = (props) => {
             // }
           />
         </div>
-        <div className="w-[48%]">
+        <div className="max-w-[130px]">
           <Label>Image Top:</Label>
           <Input
             type={"number"}
@@ -175,16 +175,18 @@ const TriangleControls = (props) => {
 
   return (
     <div className="triangle-controls flex-wrap flex gap-2">
-      {/* <div className="w-[48%] flex flex-col gap-3">{AlignElement}</div> */}
-      <div className="w-[48%] flex flex-col gap-[14px]">
+      {/* <div className=" flex flex-col gap-3">{AlignElement}</div> */}
+      <div className=" flex flex-col gap-[14px] max-w-[130px]">
         {!selectedElement?.patternActive ? activeElementColor : imageFit}
       </div>
-      <div className="w-[48%]">{activeBgColor}</div>
-      <div className="w-[48%]">{activeBorderThickness}</div>
-      <div className="w-[48%]">{activeBorderColor}</div>
-      <div className="w-[70%]">{boxShadow}</div>
+      <div className="max-w-[130px]">{activeBgColor}</div>
+      <div className="max-w-[130px]">{activeBorderThickness}</div>
+      <div className="max-w-[130px]">{activeBorderColor}</div>
+      <div className="max-w-[130px]">{boxShadow}</div>
       {FlipElement}
+      <div className="max-w-[160px]">
       {patternImgController}
+      </div>
       {selectedElement?.patternActive ? activePattern : null}
     </div>
   );
