@@ -35,10 +35,11 @@ import SaveTemplateModal from "./Templates/saveTemplateModal";
 import { createJSON, getNewID } from "./helper";
 import "./googlefonts.css";
 
-const FabricEditor2 = () => {
+const ImageEditor = () => {
   const canvasRef = useRef(null);
   const canvasCoreRef = useRef(null);
-  const [canvasInstance, setCanvasInstance] = useState(null);
+  const canvasInstanceRef = useRef(null);
+
   const [activeElementType, setActiveElementType] = useState("");
   const [activeElementProps, setActiveElementProps] = useState(null);
   const [canvasHeight,setCanvasHeight]=useState(500);
@@ -61,11 +62,11 @@ const FabricEditor2 = () => {
             <SaveModalJsx
               // self={this}
               thumbnailUrl={null}
-              canvas={canvasInstance}
+              canvas={canvasInstanceRef.current}
               defaultFileName={"canvas"}
               defaultFileType={"jpeg"}
-              imageWidth={canvasInstance?.width}
-              ratio={canvasInstance?.width / canvasInstance?.height}
+              imageWidth={canvasInstanceRef.current?.width}
+              ratio={canvasInstanceRef.current?.width / canvasInstanceRef.current?.height}
             />
           }
         />
@@ -93,7 +94,7 @@ const FabricEditor2 = () => {
                 currImgDataUrl={null}
                 onCancel={() => {}}
                 onSave={async (fileName) => {
-                  const temp = createJSON(this, canvasInstance);
+                  const temp = createJSON(this, canvasInstanceRef.current);
                   const hash = await sha256(JSON.stringify(temp));
                   temp.hash = hash;
                   const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
@@ -106,43 +107,44 @@ const FabricEditor2 = () => {
                   link.click();
                 }}
                 onOverWrite={() => {}}
-              />
+                />
             </>
           }
-        />
-      ),
-    },
-  ];
-
-  useEffect(() => {
-    let canvasObj = null;
-    const initCanvas = async () => {
-      canvasCoreRef.current = new CanvasCore();
-      canvasObj = await canvasCoreRef.current._init({
-        canvasId: "main",
-        width: canvasWidth,
-        height: canvasHeight,
-        selection: true,
-      });
-
-      setCanvasInstance(canvasObj);
-      // Enable drag & drop
-      enableDragDrop(canvasObj);
-
-      // Listen for selection changes
-      canvasObj.on("selection:updated", updateActiveProps);
-      canvasObj.on("selection:created", updateActiveProps);
-      canvasObj.on("selection:cleared", () => setActiveElementProps(null));
+          />
+        ),
+      },
+    ];
+    
+    useEffect(() => {
+      const initCanvas = async () => {
+        canvasCoreRef.current = new CanvasCore();
+        canvasInstanceRef.current = await canvasCoreRef.current._init({
+          canvasId: "main",
+          width: canvasWidth,
+          height: canvasHeight,
+          selection: true,
+        });
+        
+        // Enable drag & drop
+        enableDragDrop(canvasInstanceRef.current);
+        
+        // Listen for selection changes
+      canvasInstanceRef.current.on("selection:updated", updateActiveProps);
+      canvasInstanceRef.current.on("selection:created", updateActiveProps);
+      canvasInstanceRef.current.on("selection:cleared", () => setActiveElementProps(null));
     };
-
+    
     initCanvas();
+    const canvasElem = document.getElementById("canvas-wrapper");
 
     return () => {
       // Cleanup must be synchronous
-      if (canvasCoreRef.current && canvasObj) {
-        canvasObj.off("selection:updated", updateActiveProps);
-        canvasObj.off("selection:created", updateActiveProps);
-        canvasObj.off("selection:cleared", updateActiveProps);
+      if (canvasCoreRef.current?.canvas) {
+        canvasInstanceRef.current.off("selection:updated", updateActiveProps);
+        canvasInstanceRef.current.off("selection:created", updateActiveProps);
+        canvasInstanceRef.current.off("selection:cleared", updateActiveProps);
+        // canvasElem.removeEventListener("dragover", fn);
+        // canvasElem.removeEventListener("drop", fn);
         canvasCoreRef.current.canvas.dispose();
       }
     };
@@ -255,7 +257,7 @@ const FabricEditor2 = () => {
       top: 100,
       selectable: true,
     });
-    canvasInstance.renderAll();
+    canvasInstanceRef.current.renderAll();
   };
 
   const addText = useCallback(async () => {
@@ -275,9 +277,8 @@ const FabricEditor2 = () => {
       stroke: "#000",
       strokeWidth: 0,
     });
-    canvasInstance.add(textObj);
-    // canvasInstance.renderAll();
-  }, [canvasInstance]);
+    canvasInstanceRef.current.add(textObj);
+  }, [canvasInstanceRef.current]);
 
   const addRect = useCallback(() => {
     const rect = canvasCoreRef.current.getRect({
@@ -292,8 +293,8 @@ const FabricEditor2 = () => {
       left: 200,
       top: 200,
     });
-    canvasInstance.add(rect);
-  }, [canvasInstance]);
+    canvasInstanceRef.current.add(rect);
+  }, [canvasInstanceRef.current]);
 
   const addCircle = useCallback(() => {
     const circ = canvasCoreRef.current.getCircle({
@@ -307,8 +308,8 @@ const FabricEditor2 = () => {
       left: 200,
       top: 200,
     });
-    canvasInstance.add(circ);
-  }, [canvasInstance]);
+    canvasInstanceRef.current.add(circ);
+  }, [canvasInstanceRef.current]);
 
   const addTriangle = useCallback(() => {
     const circ = canvasCoreRef.current.getTriangle({
@@ -321,16 +322,16 @@ const FabricEditor2 = () => {
       left: 200,
       top: 200,
       });
-    canvasInstance.add(circ);
-  }, [canvasInstance]);
+    canvasInstanceRef.current.add(circ);
+  }, [canvasInstanceRef.current]);
 
   const deleteElement = useCallback(() => {
-    const activeObj = canvasInstance.getActiveObject();
+    const activeObj = canvasInstanceRef.current.getActiveObject();
     if (activeObj) {
-      canvasInstance.remove(activeObj);
-      canvasInstance.renderAll();
+      canvasInstanceRef.current.remove(activeObj);
+      canvasInstanceRef.current.renderAll();
     }
-  }, [canvasInstance]);
+  }, [canvasInstanceRef.current]);
 
   const controlMap = {
     rect: RectangleControls,
@@ -350,6 +351,7 @@ const FabricEditor2 = () => {
             title="Add shapes"
             options={ADD_SHAPE_OPTIONS}
             onSelect={(option) => {
+              if (!canvasCoreRef.current?.canvas) return;
               switch(option.value){
                 case "add-text": 
                 addText();
@@ -379,6 +381,7 @@ const FabricEditor2 = () => {
             title="Add Image"
             options={OPEN_OPTIONS}
             onSelect={(option) => {
+              if (!canvasCoreRef.current?.canvas) return;
               if(option.name==="Add Image From URL"){
                 addImage()
               }
@@ -422,7 +425,7 @@ const FabricEditor2 = () => {
             <Button
               className="cursor-pointer"
               size="icon-xs"
-              disabled={!canvasCoreRef.current?.canvas?.historyUndo.length}
+              disabled={!canvasCoreRef.current?.canvas?.historyRedo.length}
               onClick={() => redo()}
             >
               <Redo />
@@ -456,10 +459,10 @@ const FabricEditor2 = () => {
       </div>
 
         {activeElementProps && <div className="border border-amber-500 p-2">
-          {ActiveControl && <ActiveControl canvas={canvasInstance} activeElementProps={activeElementProps} setActiveElementProps={updateActiveProps} />}
+          {ActiveControl && <ActiveControl canvas={canvasInstanceRef.current} activeElementProps={activeElementProps} setActiveElementProps={updateActiveProps} />}
         </div>}
     </div>
   );
 };
 
-export default FabricEditor2;
+export default ImageEditor;
