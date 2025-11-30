@@ -111,8 +111,8 @@ const SaveTemplateModal = ({
       </div>
       <Button
         // className="mr-2"
-        variant="outline"
-        className="w-[100px]"
+        // variant="outline"
+        className="hover:bg-green-400 hover:text-white transition cursor-pointer"
         onClick={() => {
           // if (checkReplace) {
           // onOverWrite(imageNode, JsonNode, fileName);
@@ -120,7 +120,7 @@ const SaveTemplateModal = ({
           onSave(fileName);
           // }
         }}
-        disabled={!checkReplace && nameExists}
+        disabled={fileName===""}
         size="sm"
       >
         {!checkReplace ? "Save" : "Overwrite"}

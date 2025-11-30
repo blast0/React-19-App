@@ -17,35 +17,50 @@ export function DialogBox({
   open = false,
 }) {
   const [isOpen, setIsopen] = useState(open);
+
   return (
-    <Dialog open={isOpen} onOpenChange={setIsopen} close={true}>
+    <Dialog open={isOpen} onOpenChange={setIsopen}>
       <DialogTrigger
-        className={
-          "flex text-xs items-center cursor-pointer hover:bg-[#f9f3f4] "
-        }
-        onClick={() => {
-          setIsopen((isOpen) => !isOpen);
-        }}
+        className="flex text-xs items-center cursor-pointer hover:bg-[#f9f3f4]"
+        onClick={() => setIsopen((prev) => !prev)}
         asChild
       >
         {trigger}
       </DialogTrigger>
+
       <DialogContent
-        className={`sm:max-w-[425px] p-[10px] flex flex-wrap justify-center py-5`}
+        className="
+          max-w-[95vw] sm:max-w-[450px] 
+          w-full
+          p-4 sm:p-6 
+          flex flex-col 
+          gap-4 
+          rounded-xl
+        "
       >
-        <DialogHeader>
-          <DialogTitle className={`flex justify-center`}>{title}</DialogTitle>
-          {desc ? <DialogDescription>{desc}</DialogDescription> : null}
+        <DialogHeader className="text-center space-y-2">
+          <DialogTitle className="text-lg sm:text-xl font-semibold">
+            {title}
+          </DialogTitle>
+          {desc ? (
+            <DialogDescription className="text-sm sm:text-base">
+              {desc}
+            </DialogDescription>
+          ) : null}
         </DialogHeader>
-        {modalJsx}
-        <Button
-          className="w-[100px] cursor-pointer h-[32px] hover:bg-red-400 hover:text-white  "
-          onClick={() => {
-            setIsopen(false);
-          }}
-        >
-          Cancel
-        </Button>
+
+        <div className="w-full flex flex-col items-center gap-3 py-2">
+          {modalJsx}
+        </div>
+
+        <div className="flex justify-center">
+          <Button
+            className="hover:bg-red-400 hover:text-white transition"
+            onClick={() => setIsopen(false)}
+          >
+            Cancel
+          </Button>
+        </div>
       </DialogContent>
     </Dialog>
   );
