@@ -24,7 +24,7 @@ import { enableZoomAndPan } from "./utils/zoomPan";
 import { enableDragDrop } from "./utils/dragDrop";
 import { drawRulers } from "./utils/rulers";
 import { controlMap } from "./controlMap";
-
+import { Input } from "@/components/ui/input";
 import "./googlefonts.css";
 import { enableExtraListeners } from "./utils/enableExtraListeners";
 
@@ -39,6 +39,37 @@ const ImageEditor = () => {
   const [canvasHeight,setCanvasHeight]=useState(480);
   const [canvasWidth,setCanvasWidth]=useState(480);
   const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0 });
+  const jsonInputRef = useRef(null);
+
+  const loadCanvasFromJSON = (json) => {
+    const canvas = canvasInstanceRef.current;
+
+    // Resize canvas based on JSON
+    if (json.width && json.height) {
+      canvas.setWidth(json.width);
+      canvas.setHeight(json.height);
+      // update React state if you track it
+      setCanvasWidth(json.width);
+      setCanvasHeight(json.height);
+    }
+
+    // Load objects from JSON
+    canvas.loadFromJSON(json, () => {
+      canvas.renderAll();
+    });
+  };
+
+  const handleJSONUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    console.log("sda")
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const json = JSON.parse(event.target.result);
+      loadCanvasFromJSON(json);
+    };
+    reader.readAsText(file);
+  };
 
   const bringToFront = () => {
     const obj = canvasInstanceRef.current.getActiveObject();
@@ -285,18 +316,18 @@ const ImageEditor = () => {
     initCanvas();
 
 
-    return () => {
-      canvas.upperCanvasEl.removeEventListener("contextmenu", handleRightClick);
-      window.removeEventListener("click", hideMenu);
-    };
+    // return () => {
+    //   canvas.upperCanvasEl.removeEventListener("contextmenu", handleRightClick);
+    //   window.removeEventListener("click", hideMenu);
+    // };
   }, []);
 
   /** ----- Draw rulers on zoom change ----- */
   useEffect(() => drawRulers(zoom, canvasWidth, canvasHeight), [zoom]);
 
   const undo = async () => {
-  await canvasCoreRef.current.canvas.undo();
-  canvasCoreRef.current.canvas.renderAll();
+    await canvasCoreRef.current.canvas.undo();
+    canvasCoreRef.current.canvas.renderAll();
   };
 
   const redo = async () => {
@@ -436,6 +467,7 @@ const ImageEditor = () => {
               if (!canvasCoreRef.current?.canvas) return;
               if (option.name === "Add Image From URL") addImage();
               if (option.name === "Upload from Device") fileInputRef.current.click();
+              else jsonInputRef.current.click()
             }}
           >
             <Button
@@ -486,7 +518,13 @@ const ImageEditor = () => {
           <MenuButton
             title="Reset page"
             options={DELETE_OPTIONS}
-            onSelect={(option) => deleteElement()}
+            onSelect={(option) => {
+              if(option.name==="Clear Page"){
+                 canvasCoreRef.current.canvas.clear()
+              } else{
+                deleteElement()
+              }
+            }}
           >
             <Button
               size="icon-xs"
@@ -498,8 +536,8 @@ const ImageEditor = () => {
           </MenuButton>
         </div>
         <div className="relative">
-          <canvas id="ruler-top" style={{ height: "10px", width: canvasWidth, background:"#fafafa" }} className="absolute ml-[10px]"></canvas>
-          <canvas id="ruler-left" style={{ width: "10px", height: canvasHeight, background:"#fafafa" }} className="absolute mt-[10px]"></canvas>
+          <canvas id="ruler-top" style={{ height: "10px", width: canvasWidth }} className="absolute ml-[10px]"></canvas>
+          <canvas id="ruler-left" style={{ width: "10px", height: canvasHeight }} className="absolute mt-[10px]"></canvas>
           <div
             id="canvas-wrapper"
             className="border border-gray-300 shadow-lg ml-[10px] mt-[10px]"
@@ -526,7 +564,7 @@ const ImageEditor = () => {
           )}
         </div>
         <div className="flex flex-col items-center gap-2 my-2">
-          <p className="text-sm text-gray-600">Drag & Drop image or SVG onto canvas</p>
+          <p className="text-sm">Drag & Drop image or SVG onto canvas</p>
           <div className="flex gap-2">
 
           <Button onClick={resetZoom}>Reset Zoom</Button>
@@ -552,9 +590,43 @@ const ImageEditor = () => {
         style={{ display: "none" }}
         onChange={addImageFromDevice}
       />
-        {activeElementProps && <div className="border border-amber-500 p-2">
+      <input
+        type="file"
+        accept=".json"
+        style={{ display: "none" }}
+        ref={jsonInputRef}
+        onChange={handleJSONUpload}
+      />
+
+        <div className="border border-amber-500 p-2 flex gap-2">
+          <div className="max-w-[85px]">
+          <Input
+            label="Canvas Witdh:"
+            type={"number"}
+            value={canvasWidth}
+            onChange={(e) => {
+              if (e.target.value >= 0) {
+                setCanvasWidth(Number(e.target.value))
+                canvasCoreRef.current.canvas.setWidth(Number(e.target.value));
+              }
+            }}
+            />
+            </div>
+          <div className="max-w-[85px]">
+            <Input
+              label="Canvas Height:"
+              type={"number"}
+              value={canvasHeight}
+              onChange={(e) => {
+                if (e.target.value >= 0) {
+                  setCanvasHeight(Number(e.target.value))
+                  canvasCoreRef.current.canvas.setHeight(Number(e.target.value));
+                }
+              }}
+            />
+            </div>
           {ActiveControl && <ActiveControl canvas={canvasInstanceRef.current} activeElementProps={activeElementProps} setActiveElementProps={updateActiveProps} />}
-        </div>}
+        </div>
     </div>
   );
 };

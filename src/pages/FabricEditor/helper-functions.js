@@ -1414,7 +1414,10 @@ export const createJSON = (self, _canvas) => {
     toast.error("Error", `Group object is not allowed to export`);
     return;
   }
-  const temp = _canvas.toJSON(EXTRA_ELEMENT_PROPS);
+  let temp = _canvas.toJSON(EXTRA_ELEMENT_PROPS);
+  temp.width=_canvas.width;
+  temp.height=_canvas.height;
+  console.log(temp)
   return temp;
 };
 
