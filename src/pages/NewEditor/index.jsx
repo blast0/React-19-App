@@ -383,6 +383,7 @@ const ImageEditor = () => {
       strokeWidth: 0,
     });
     canvasInstanceRef.current.add(textObj);
+    canvasInstanceRef.current.setActiveObject(textObj);
   }, [canvasInstanceRef.current]);
 
   const addRect = useCallback(() => {
@@ -399,6 +400,7 @@ const ImageEditor = () => {
       top: 200,
     });
     canvasInstanceRef.current.add(rect);
+    canvasInstanceRef.current.setActiveObject(rect);
   }, [canvasInstanceRef.current]);
 
   const addCircle = useCallback(() => {
@@ -414,10 +416,11 @@ const ImageEditor = () => {
       top: 200,
     });
     canvasInstanceRef.current.add(circ);
+    canvasInstanceRef.current.setActiveObject(circ);
   }, [canvasInstanceRef.current]);
 
   const addTriangle = useCallback(() => {
-    const circ = canvasCoreRef.current.getTriangle({
+    const tri = canvasCoreRef.current.getTriangle({
       id: getNewID(),
       type: "triangle",
       fill: "rgba(196, 232, 188, 0.44)",
@@ -427,7 +430,9 @@ const ImageEditor = () => {
       left: 200,
       top: 200,
       });
-    canvasInstanceRef.current.add(circ);
+    canvasInstanceRef.current.add(tri);
+    canvasInstanceRef.current.setActiveObject(tri);
+
   }, [canvasInstanceRef.current]);
 
   const deleteElement = useCallback(() => {
@@ -567,7 +572,7 @@ const ImageEditor = () => {
           <div className="flex gap-2">
 
           <Button onClick={resetZoom}>Reset Zoom</Button>
-
+          
           <input
             type="range"
             min="0.2"

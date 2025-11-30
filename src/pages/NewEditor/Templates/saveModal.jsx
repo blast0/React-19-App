@@ -172,7 +172,7 @@ const SaveModalJsx = ({
         </div>
       </div>
       <Button
-        className="hover:bg-green-400 hover:text-white transition cursor-pointer"
+        className="w-[100px] cursor-pointer"
         onClick={() => {
           // onSave();
           if (selection === "page") {
