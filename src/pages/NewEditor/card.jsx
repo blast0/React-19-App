@@ -24,7 +24,7 @@ export default function   CardGallery({ onSelect }) {
       {cards.map((card) => (
         <div key={card.id} className="border rounded-xl shadow p-4">
           {card.image && (
-            <img src={card.image} alt={card.title} className="w-full h-40 object-cover rounded" />
+            <img src={card.image} alt={card.title} className="w-full h-40 min-w-[300px] object-cover rounded" />
           )}
 
           <h2 className="text-lg font-semibold mt-2">{card.title}</h2>

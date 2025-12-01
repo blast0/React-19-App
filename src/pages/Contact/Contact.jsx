@@ -1,95 +1,102 @@
+import { useState } from "react";
+import emailjs from "emailjs-com";
 import { motion } from "framer-motion";
+const SERVICE_ID= import.meta.env.VITE_APP_EMAIL_SERVICE_ID
+const TEMPLATE_ID= import.meta.env.VITE_APP_EMAIL_TEMPLATE_ID
+const PUBLIC_KEY= import.meta.env.VITE_APP_EMAIL_PUBLIC_KEY
 
 const Contact = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-6 py-10">
-      <div className="max-w-3xl w-full bg-white rounded-2xl shadow-xl p-8 md:p-10">
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
 
-        {/* Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl font-bold text-gray-800 text-center"
-        >
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    console.log(emailjs)
+    emailjs
+      .send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        formData,
+        PUBLIC_KEY
+      )
+      .then(
+        () => {
+          alert("Message sent successfully! Rest assured i will get back to soon");
+          setFormData({ name: "", email: "", message: "" });
+        },
+        (err) => {
+          alert("Failed to send message!");
+        }
+      );
+  };
+
+  return (
+    <div className="flex items-center justify-center px-6 mt-10">
+      <div className="max-w-3xl w-full rounded-2xl shadow-xl border border-white p-8 md:p-10">
+        <motion.h2 className="text-3xl font-bold text-center">
           Contact Me
         </motion.h2>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="mt-2 text-center text-gray-600"
-        >
-          Got a question, proposal or want to work together? Send a message!
-        </motion.p>
-
-        {/* Form */}
         <motion.form
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
+          onSubmit={sendEmail}
           className="mt-8 space-y-5"
         >
           <div>
-            <label htmlFor="name" className="text-gray-700 font-medium">
-              Full Name
-            </label>
+            <label htmlFor="name">Full Name</label>
             <input
               type="text"
-              id="name"
-              className="w-full mt-1 p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full mt-1 p-3 border rounded-lg"
               required
             />
           </div>
 
           <div>
-            <label htmlFor="email" className="text-gray-700 font-medium">
-              Email Address
-            </label>
+            <label htmlFor="email">Email Address</label>
             <input
               type="email"
-              id="email"
-              className="w-full mt-1 p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="you@example.com"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full mt-1 p-3 border rounded-lg"
               required
             />
           </div>
 
           <div>
-            <label htmlFor="message" className="text-gray-700 font-medium">
-              Message
-            </label>
+            <label htmlFor="message">Message</label>
             <textarea
-              id="message"
+              name="message"
               rows={5}
-              className="w-full mt-1 p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Write your message..."
+              value={formData.message}
+              onChange={handleChange}
+              className="w-full mt-1 p-3 border rounded-lg"
               required
-            ></textarea>
+            />
           </div>
 
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            transition={{ duration: 0.2 }}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold shadow-md hover:bg-blue-700"
+            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold"
           >
             Send Message
           </motion.button>
         </motion.form>
 
-        {/* Contact Info */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="mt-8 text-center text-gray-600"
-        >
+        <div className="mt-8 text-center">
           <p>Or reach me via</p>
-          <p className="font-medium text-gray-800">bishalkumar.sde@gmail.com</p>
-        </motion.div>
+          <p className="font-medium">bishalkumar.sde@gmail.com</p>
+        </div>
       </div>
     </div>
   );
