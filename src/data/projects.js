@@ -50,7 +50,7 @@
     description:
       "Backend REST API with JWT authentication, OTP verification, Google login, pagination, filtering, and Swagger documentation with real-time Try It Out testing. Supports CRUD operations for employees and departments.",
     tech: ["Node.js", "Express", "MongoDB", "JWT", "Swagger-UI"],
-    demo: "https://backendserverwithswagger.onrender.com/api-docs",
+    demo: "https://backendserverwithswagger.onrender.com/api/docs",
     preview: swaggerDocs,
     github: "https://github.com/blast0/employee-department-crud-backend"
   }
