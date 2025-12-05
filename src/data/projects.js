@@ -3,6 +3,7 @@
   import imageeditor from "../assets/imageeditor.gif"
   import bhabeshtatto from "../assets/bhabeshtatto.gif"
   import swaggerDocs from "../assets/swaggerDocs.png"
+  import threedportfolio from "../assets/threedportfolio.gif"
 
   export const projects = [
   {
@@ -12,14 +13,6 @@
   demo: "https://mapup-fleet-dashboard-by-bishalkr.netlify.app/",
   preview: fleetDashboard,
   github: "https://github.com/blast0/mapup-dashboard"
-  },
-  {
-    title: "React Image Maker Tool",
-    description: "Web-based image editor SVG support, undo/redo history, QR generator, gradient maker, cropper, and multi-format export (PNG, JPG, WEBP, SVG)",
-    tech: ["Fabric.js", "React", "Node.js", "MongoDB", "Jest"],
-    demo: "https://myimagemaker.netlify.app/",
-    preview: imageeditor,
-    github: "https://github.com/blast0/React-Image-Maker-Tool"
   },
   {
     title: "Personal Portfolio Website",
@@ -41,9 +34,25 @@
       "React-Swipeable",
       "PWA"
     ],
-    demo: "https://frost-tattoo.hu",
+    demo: "https://bhabesh-tattoos.netlify.app/",
     preview: bhabeshtatto,
-    github: "https://github.com/AndrasE/frost-tattoo-and-piercing"
+    github: "https://github.com/blast0/Tattoo-Shop-"
+  },
+  {
+    title: "3D Portfolio Website",
+    description:
+      "Next.js + Three.js animated 3D portfolio with interactive models, real-time lighting, responsive design, email form integration, Framer Motion animations, and reusable scalable architecture using HOCs and best practices.",
+    tech: [
+      "Next.js",
+      "Three.js",
+      "React Three Fiber",
+      "TailwindCSS",
+      "Framer Motion",
+      "React"
+    ],
+    demo: "https://bishalkumar-3d-portfolio.netlify.app/",
+    preview: threedportfolio,
+    github: "https://github.com/blast0/React-Portfolio-3D"
   },
   {
     title: "Nodejs Backend Server API",
@@ -52,7 +61,15 @@
     tech: ["Node.js", "Express", "MongoDB", "JWT", "Swagger-UI"],
     demo: "https://backendserverwithswagger.onrender.com/api/docs",
     preview: swaggerDocs,
-    github: "https://github.com/blast0/employee-department-crud-backend"
+    github: "https://github.com/blast0/BackendServerWithSwagger"
+  },
+  {
+    title: "React Image Maker Tool",
+    description: "Web-based image editor SVG support, undo/redo history, QR generator, gradient maker, cropper, and multi-format export (PNG, JPG, WEBP, SVG)",
+    tech: ["Fabric.js", "React", "Node.js", "MongoDB", "Jest"],
+    demo: "https://myimagemaker.netlify.app/",
+    preview: imageeditor,
+    github: "https://github.com/blast0/React-Image-Maker-Tool"
   }
   // {
   //   title: "Angular Portfolio",
@@ -72,21 +89,5 @@
   //   preview: "./doc/screenshot.png",
   //   github: "https://github.com/blast0/svg-path-editor"
   // },
-  // {
-  //   title: "3D Portfolio Website",
-  //   description:
-  //     "Next.js + Three.js animated 3D portfolio with interactive models, real-time lighting, responsive design, email form integration, Framer Motion animations, and reusable scalable architecture using HOCs and best practices.",
-  //   tech: [
-  //     "Next.js",
-  //     "Three.js",
-  //     "React Three Fiber",
-  //     "TailwindCSS",
-  //     "Framer Motion",
-  //     "React"
-  //   ],
-  //   demo: "https://bishalkumar-3d-portfolio.netlify.app/",
-  //   preview: "./hero.gif",
-  //   github: "https://github.com/blast0/3d-portfolio"
-  // }
   ];
   
