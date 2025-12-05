@@ -59,7 +59,7 @@ function GradientMakerWithPopup({
           }}
         ></div>
       </PopoverTrigger>
-      <PopoverContent className="w-[235px]">
+      <PopoverContent className="max-w-[225px]">
         <GradientMaker
           {...restProps}
           switchToColor={switchToColor}

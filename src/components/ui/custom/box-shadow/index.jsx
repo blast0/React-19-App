@@ -5,7 +5,7 @@ import BoxShadowWithPopUp from "./box-shadow-with-popup";
 import { Input } from "../../input";
 import { Label } from "../../label";
 
-import "./boxshadow.css";
+// import "./boxshadow.css";
 import { useTheme } from "../../../../context/themeProvider";
 
 const BoxShadowWithInput = ({
@@ -13,8 +13,6 @@ const BoxShadowWithInput = ({
   tooltip,
   description,
   containerClass,
-
-  // theme,
   value = "",
   onChange = () => {},
   ...restProps
