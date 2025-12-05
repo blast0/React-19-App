@@ -69,7 +69,7 @@ class Rightpanel extends Component {
           canvas={canvas}
           handleJsonData={this.handleJsonData}
         />
-        <div className="designer-style-container slim-scroll h-[calc(100vh-102px)] pb-[30px] overflow-y-auto p-[10px]">
+        <div className="designer-style-container slim-scroll h-[calc(100vh-161px)] pb-[30px] overflow-y-auto p-[10px]">
           <div className="page-controls">
             <div className="page-dimensions-control gap-2 flex flex-wrap">
               <div className="w-[48%]">

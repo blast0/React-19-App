@@ -46,6 +46,7 @@ class FabricEditorPage extends Component {
       isTemplateLoaded: false,
       isCanvasActive: true,
       modalActive: false,
+      isSidePanelOpen: true,
     };
     this.canvasEditor = React.createRef();
     this.jsonRef = React.createRef();
@@ -89,8 +90,8 @@ class FabricEditorPage extends Component {
     const _canvas = Object.values(this.state.canvases)[0];
     return (
       <div
-        className={`flex relative justify-between w-full h-[calc(100vh-50px)] ${
-          theme === "dark" ? "bg-[#333232]" : "bg-[#e7f5ff]"
+        className={`flex relative top-[15px] px-4 justify-between w-full ${
+          theme === "dark" ? "bg-[#333232]" : ""
         }`}
       >
         <div
@@ -213,11 +214,23 @@ class FabricEditorPage extends Component {
             )}
           </Dropzone>
         </div>
-
-        <div
-          className={`sidepanel border absolute right-0 h-full ${
+        {/* Toggle button */}
+        <button
+          className={`absolute rounded-tl-[5px] rounded-bl-[5px] ${this.state.isSidePanelOpen ? "right-[336px]" : "right-4"}  ${
             theme === "light" ? "bg-white" : "bg-[#181717]"
-          } border-[#989898]`}
+          } border border-[#989898] transition-all top-[25px] -translate-y-1/2 z-50  px-2 py-2 cursor-pointer`}
+          onClick={() => this.setState({ isSidePanelOpen: !this.state.isSidePanelOpen })}
+        >
+          {this.state.isSidePanelOpen ? ">" : "<"}
+        </button>
+
+        {/* Side panel */}
+        <div
+          className={`sidepanel border absolute right-4 transition-all duration-300 ${
+            theme === "light" ? "bg-white" : "bg-[#181717]"
+          } border-[#989898] ${
+            this.state.isSidePanelOpen ? "w-[320px] opacity-100" : "w-[0px] opacity-0 overflow-hidden"
+          }`}
         >
           <>
             <input

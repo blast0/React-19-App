@@ -84,7 +84,7 @@ function App() {
             </Route>
           </Routes>
         </main>
-        <footer className="w-full mt-4 absolute bottom-0 border-t py-2 text-center text-xs sm:text-sm text-slate-500">
+        <footer className="w-full absolute bottom-0 border-t py-2 text-center text-xs sm:text-sm text-slate-500">
         © {new Date().getFullYear()} Bishal Kumar — Built with React + Tailwind
         </footer>
     </div>
