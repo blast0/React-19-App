@@ -19,9 +19,9 @@ import { AnimatePresence, motion } from "framer-motion";
 const NAV_LINKS = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
-  { to: "/components", label: "Ui Testing" },
-  { to: "/images", label: "Images" },
-  { to: "/neweditor", label: "newEditor" },
+  { to: "/components", label: "Ui Test" },
+  // { to: "/images", label: "Images" },
+  // { to: "/neweditor", label: "newEditor" },
   { to: "/contact", label: "contact" },
   { to: "/editor", label: "Editor" },
   { to: "/projects", label: "Projects" },

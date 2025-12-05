@@ -57,7 +57,7 @@ const BoxShadow = ({
       <div className="flex gap-2 mb-2">
         <Button
           size="sm"
-          className={activeTab === "preview" ? "bg-amber-500 text-amber-50" : ""}
+          className={activeTab === "preview" ? "bg-emerald-500 text-amber-50" : ""}
           onClick={() => {
             if(activeTab !== "preview") setActiveTab("preview")
              else setActiveTab("")
@@ -67,7 +67,7 @@ const BoxShadow = ({
         </Button>
         <Button
           size="sm"
-          className={activeTab === "code" ? "bg-amber-500 text-amber-50" : ""}
+          className={activeTab === "code" ? "bg-emerald-500 text-amber-50" : ""}
           onClick={() =>{      
             if(activeTab !== "code") setActiveTab("code")
              else setActiveTab("")
@@ -76,7 +76,7 @@ const BoxShadow = ({
           <Code2 /> Code
         </Button>
         <Title title="Edit numeric inputs">
-          <Button size="sm" className={showInput ? "bg-amber-500 text-amber-50" : ""} onClick={() => setShowInput(!showInput)}>
+          <Button size="sm" className={showInput ? "bg-emerald-500 text-amber-50" : ""} onClick={() => setShowInput(!showInput)}>
             <Pencil />
           </Button>
         </Title>
@@ -87,7 +87,7 @@ const BoxShadow = ({
           <div className="w-full flex flex-col items-center">
             <div className="text-xs font-bold">Preview</div>
             <div
-              className="previewBox bg-[#F48C06] my-5 w-16 h-16"
+              className="previewBox bg-emerald-500 my-5 w-16 h-16"
               style={{ boxShadow }}
             />
           </div>
@@ -115,14 +115,16 @@ const BoxShadow = ({
         <div className="Control-items">
         {showTypeButton && (
           <div className="mb-2">
-            <div className="flex items-center gap-1">
+            <div className="flex items-center justify-between gap-1">
             <div className="text-xs font-bold">Type</div>
-              <Button size="sm" className={type===""? "bg-amber-500  text-amber-50": ""} onClick={() => setConfig({ ...config, type: "" })}>
+            <div>
+              <Button size="sm" className={type===""? "bg-emerald-500  text-amber-50": ""} onClick={() => setConfig({ ...config, type: "" })}>
                 Outset
               </Button>
-              <Button size="sm"  className={type==="inset"? "bg-amber-500  text-amber-50": ""} onClick={() => setConfig({ ...config, type: "inset" })}>
+              <Button size="sm"  className={type==="inset"? "bg-emerald-500  text-amber-50": ""} onClick={() => setConfig({ ...config, type: "inset" })}>
                 Inset
               </Button>
+            </div>
             </div>
           </div>
         )}

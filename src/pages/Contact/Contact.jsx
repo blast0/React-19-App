@@ -1,6 +1,7 @@
 import { useState } from "react";
 import emailjs from "emailjs-com";
 import { motion } from "framer-motion";
+import { Spinner } from "@/components/ui/custom/spinner";
 const SERVICE_ID= import.meta.env.VITE_APP_EMAIL_SERVICE_ID
 const TEMPLATE_ID= import.meta.env.VITE_APP_EMAIL_TEMPLATE_ID
 const PUBLIC_KEY= import.meta.env.VITE_APP_EMAIL_PUBLIC_KEY
@@ -18,7 +19,7 @@ const Contact = () => {
 
   const sendEmail = (e) => {
     e.preventDefault();
-    console.log(emailjs)
+    Spinner.showSpinner(`Sending your message`);
     emailjs
       .send(
         SERVICE_ID,
@@ -28,10 +29,12 @@ const Contact = () => {
       )
       .then(
         () => {
+          Spinner.hideSpinner();
           alert("Message sent successfully! Rest assured i will get back to soon");
           setFormData({ name: "", email: "", message: "" });
         },
         (err) => {
+          Spinner.hideSpinner();
           alert("Failed to send message!");
         }
       );
@@ -55,7 +58,7 @@ const Contact = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full mt-1 p-3 border rounded-lg"
+              className="w-full mt-1 p-3 border border-slate-200 rounded-lg"
               required
             />
           </div>
@@ -67,7 +70,7 @@ const Contact = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full mt-1 p-3 border rounded-lg"
+              className="w-full mt-1 p-3 border border-slate-200 rounded-lg"
               required
             />
           </div>
@@ -79,7 +82,7 @@ const Contact = () => {
               rows={5}
               value={formData.message}
               onChange={handleChange}
-              className="w-full mt-1 p-3 border rounded-lg"
+              className="w-full mt-1 p-3 border border-slate-200 rounded-lg"
               required
             />
           </div>
