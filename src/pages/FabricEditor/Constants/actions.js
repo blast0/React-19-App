@@ -26,7 +26,6 @@ export const ACTIONS = {
   CLEAR_SELECTED_ITEM: "selected-item",
   DOWNLOAD_JSON: "download-json",
   DOWNLOAD_PAGE: "download-page",
-  DOWNLOAD_SELECTION: "download-selection",
   DELETE_SELECTION: "delete-selection",
   ELEMENT_NAME: "element_name",
   IMAGE_DATA: "img_data",

@@ -61,8 +61,7 @@ class Rightpanel extends Component {
           }
         }}
       >
-
-        <div className="designer-style-container slim-scroll h-[calc(100vh-108px)] pb-[30px] overflow-y-auto p-[10px]">
+        <div className="designer-style-container slim-scroll h-[calc(100vh-111px)] pb-[30px] overflow-y-auto p-[10px]">
           <div className="page-controls">
             <div className="page-dimensions-control gap-2 flex flex-wrap">
               <div className="w-[48%]">

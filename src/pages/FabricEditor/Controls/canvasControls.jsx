@@ -115,7 +115,6 @@ const CanvasControls = ({
       >
         <Button
           size="icon-xs"
-          // variant="outline"
           className="flex items-center gap-0"
         >
           <Image />
@@ -138,7 +137,6 @@ const CanvasControls = ({
       >
         <Button
           size="icon-xs"
-          // variant="outline"
           className="flex items-center gap-0"
         >
           <Save />
@@ -152,7 +150,6 @@ const CanvasControls = ({
       >
         <Button
           size="icon-xs"
-          // variant="outline"
           className="flex items-center gap-0"
         >
           <Shapes />
@@ -164,7 +161,6 @@ const CanvasControls = ({
         <Button
           className="cursor-pointer"
           size="icon-xs"
-          // variant="outline"
           onClick={() => onChange(ACTIONS.UNDO_ACTION)}
         >
           <Undo />
@@ -175,7 +171,6 @@ const CanvasControls = ({
         <Button
           className="cursor-pointer"
           size="icon-xs"
-          // variant="outline"
           onClick={() => onChange(ACTIONS.REDO_ACTION)}
         >
           <Redo />
@@ -185,11 +180,13 @@ const CanvasControls = ({
       <MenuButton
         title="Reset page"
         options={DELETE_OPTIONS}
-        onSelect={(option) => this.deleteHandler(option.value)}
+        onSelect={(option) => {
+          console.log(option)
+          onChange(option.value)}
+        } 
       >
         <Button
           size="icon-xs"
-          // variant="outline"
           className="flex items-center gap-0"
         >
           <Trash />

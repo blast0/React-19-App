@@ -2,7 +2,8 @@
   import jsportfolio from "../assets/jsportfolio.gif"
   import imageeditor from "../assets/imageeditor.gif"
   import bhabeshtatto from "../assets/bhabeshtatto.gif"
-  
+  import swaggerDocs from "../assets/swaggerDocs.png"
+
   export const projects = [
   {
   title: "Fleet Tracking Dashboard",
@@ -44,14 +45,15 @@
     preview: bhabeshtatto,
     github: "https://github.com/AndrasE/frost-tattoo-and-piercing"
   },
-  // {
-  //   title: "Mini Employee Dashboard",
-  //   description: "Employee management dashboard with CRUD, validation, sorting, filtering, search, dark mode, CSV export, and localStorage persistence.",
-  //   tech: ["Angular", "TypeScript", "Angular Material", "LocalStorage"],
-  //   demo: "https://blast0.github.io/Mini-Employee-Dashboard-Deployment/#/",
-  //   preview: "./Angular-Portfolio-Preview.gif",
-  //   github: "https://github.com/blast0/Mini-Employee-Dashboard"
-  // },
+  {
+    title: "Nodejs Backend Server API",
+    description:
+      "Backend REST API with JWT authentication, OTP verification, Google login, pagination, filtering, and Swagger documentation with real-time Try It Out testing. Supports CRUD operations for employees and departments.",
+    tech: ["Node.js", "Express", "MongoDB", "JWT", "Swagger-UI"],
+    demo: "https://backendserverwithswagger.onrender.com/api-docs",
+    preview: swaggerDocs,
+    github: "https://github.com/blast0/employee-department-crud-backend"
+  }
   // {
   //   title: "Angular Portfolio",
   //   description:

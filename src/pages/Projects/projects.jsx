@@ -3,7 +3,7 @@ import { projects } from "../../data/projects";
 
 const Projects = () => {
   return (
-      <section id="projects" className="py-6 px-4">
+      <section id="projects" className="py-12 px-4 mb-10">
         <h2 className="text-4xl font-bold text-center mb-6">Projects</h2>
         <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-8">
         {projects.map((project, index) => (
