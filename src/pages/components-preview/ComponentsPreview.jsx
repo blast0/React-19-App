@@ -135,8 +135,8 @@ function ComponentsPreview() {
       </div>
 
       {/* Output and Event logs */}
-        <div className="resize overflow-auto slim-scroll min-h-[120px] w-full shadow px-2 py-2">
-          <div className="flex justify-between items-start">
+        <div className="">
+          <div className="flex justify-between items-center">
             <p>Event Log:</p>
             <Button
               className="flex items-center gap-2 my-2 hover:bg-red-500 hover:text-amber-50"
@@ -146,7 +146,7 @@ function ComponentsPreview() {
             </Button>
           </div>
 
-          <ul className="m-0 p-0 list-none text-sm break-all">
+          <ul className="m-0 p-0 list-none text-sm break-all resize overflow-auto slim-scroll max-w-[1000px] min-h-[200px] max-h-[500px] w-full shadow px-2 py-2">
             {logs.map((log, idx) => (
               <li key={idx}>[{log.timestamp}] {log.message}</li>
             ))}

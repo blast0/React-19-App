@@ -38,7 +38,6 @@ class Rightpanel extends Component {
       canvas,
       selectedElementName,
       elementsDropDownData,
-      jsonRef,
       onCanvasActive,
       siteColorsSettings,
       selectedElementId,
@@ -62,14 +61,8 @@ class Rightpanel extends Component {
           }
         }}
       >
-        <CanvasControls
-          theme={theme}
-          onChange={onChange}
-          jsonRef={jsonRef}
-          canvas={canvas}
-          handleJsonData={this.handleJsonData}
-        />
-        <div className="designer-style-container slim-scroll h-[calc(100vh-161px)] pb-[30px] overflow-y-auto p-[10px]">
+
+        <div className="designer-style-container slim-scroll h-[calc(100vh-108px)] pb-[30px] overflow-y-auto p-[10px]">
           <div className="page-controls">
             <div className="page-dimensions-control gap-2 flex flex-wrap">
               <div className="w-[48%]">

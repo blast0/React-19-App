@@ -23,6 +23,7 @@ import Dropzone from "react-dropzone";
 
 // STYLE
 import "./googlefonts.css";
+import CanvasControls from "./Controls/canvasControls";
 
 class FabricEditorPage extends Component {
   constructor(props) {
@@ -90,10 +91,18 @@ class FabricEditorPage extends Component {
     const _canvas = Object.values(this.state.canvases)[0];
     return (
       <div
-        className={`flex relative top-[15px] px-4 justify-between w-full ${
+        className={`flex flex-col relative top-[15px] px-4 justify-between w-full ${
           theme === "dark" ? "bg-[#333232]" : ""
         }`}
-      >
+      >        
+      <CanvasControls
+        theme={theme}
+        onChange={(action, data) => {
+        handleRightPanelUpdates(action, data, this);}}
+        jsonRef={this.jsonRef}
+        canvas={_canvas}
+        handleJsonData={(e) => handleJsonData(e, this)}
+      /> 
         <div
           className={`designer relative flex slim-scroll overflow-auto`}
           ref={this.canvasEditor}
